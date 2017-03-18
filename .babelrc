@@ -1,0 +1,30 @@
+{
+  "presets": [
+    ["env", {
+      "targets": {
+        "chrome": 53,
+        "browsers": ["last 2 versions", "safari 7"]
+      },
+      "modules": false,
+      "loose": true
+    }],
+    "react"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "react-hot-loader/babel"
+      ]
+    },
+    "production": {
+      "presets": [
+        "babili"
+      ]
+    },
+    "test": {
+      // bacause of earlier we disable transformation of es2015 modules (needed for jest)
+      "presets": ["env"],
+      "plugins": ["transform-es2015-modules-commonjs"]
+    }
+  }
+}
