@@ -1,20 +1,32 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import createSagaMiddleware from 'redux-saga';
 import rootReducer from 'reducers';
 
 export default (initialState) => {
-    /* eslint-disable no-underscore-dangle */
+  const saga = createSagaMiddleware();
+  const middleware = [saga];
+
+  /* eslint-disable no-underscore-dangle, no-undef */
+  const composeEnhancers = __DEV__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+  /* eslint-enable no-underscore-dangle, no-undef */
+
+  const enhancer = composeEnhancers(
+      applyMiddleware(...middleware),
+  );
+
   const store = createStore(
         rootReducer,
         initialState,
-        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
+        enhancer,
     );
-    /* eslint-enable */
+
+  // saga.run();
 
   if (module.hot) {
     module.hot.accept('../reducers', () => {
-            /* eslint-disable global-require */
+      /* eslint-disable global-require */
       const nextRootReducer = require('../reducers').default;
-            /* eslint-enable global-require */
+      /* eslint-enable global-require */
       store.replaceReducer(nextRootReducer);
     });
   }
