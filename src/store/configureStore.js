@@ -7,7 +7,8 @@ export default (initialState) => {
   const middleware = [saga];
 
   /* eslint-disable no-underscore-dangle, no-undef */
-  const composeEnhancers = __DEV__ ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : compose;
+  const reduxDevToolsExtensions = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__;
+  const composeEnhancers = __DEV__ && reduxDevToolsExtensions ? reduxDevToolsExtensions : compose;
   /* eslint-enable no-underscore-dangle, no-undef */
 
   const enhancer = composeEnhancers(
