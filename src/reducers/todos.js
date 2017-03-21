@@ -1,19 +1,13 @@
-import { ADD_TODO } from '../constants/ActionTypes';
+import Todos from '../models/todos';
+import { ADD_TODO } from '../action-types/todo';
 
-const initialState = [{
-  id: 0,
-  text: 'Todo#1',
-  marked: false,
-}];
+const initialState = new Todos();
 
 export default function todos(state = initialState, action) {
   switch (action.type) {
     case ADD_TODO:
-      return [{
-        id: (state.length === 0) ? 0 : state[0].id + 1,
-        marked: false,
-        text: action.text,
-      }, ...state];
+      state.addTodo(action.payload.todoId);
+      return Object.create(state);
     default:
       return state;
   }

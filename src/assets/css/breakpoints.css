@@ -1,0 +1,13 @@
+:root {
+  --breakpoint-phone: 320px;
+  --breakpoint-phone-large:480px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 992px;
+  --breakpoint-desktop-large: 1200px;
+}
+
+@custom-media --phone (min-width: var((--breakpoint-phone));
+@custom-media --phone-large (min-width: var(--breakpoint-phone-large)));
+@custom-media --tablet (min-width: var(--breakpoint-tablet));
+@custom-media --desktop (min-width: var(--breakpoint-desktop));
+@custom-media --desktop-large (min-width: var(--breakpoint-desktop-large));
