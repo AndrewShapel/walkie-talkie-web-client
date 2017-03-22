@@ -1,4 +1,4 @@
-@import "../../variables.css";
+@import "../../fonts.css";
 
 .root {
   @apply --font-fira-sans;

@@ -1,5 +1,11 @@
 import React from 'react';
 
+import chatClassNames from '../../assets/css/blocks/chat/chat.css';
+
+import ChatHeader from './chat-header/chat-header';
+
 export default () => (
-  <span>24</span>
+  <div className={chatClassNames.container}>
+    <ChatHeader />
+  </div>
 );

@@ -1,0 +1,5 @@
+@import "../../breakpoints.css";
+
+.container {
+  min-width: var(--breakpoint-desktop);
+}
