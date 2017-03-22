@@ -7,49 +7,51 @@
   justify-content: space-between;
   display: flex;
   box-shadow: 0 4px 6px -6px var(--color-black);
+
+  &__user {
+    margin: 13px 13px 13px 28px;
+    display: flex;
+  }
+
+  &__userInformation {
+    margin-left: 13px;
+    padding: 3px 0;
+    flex-direction: column;
+    display: flex;
+  }
+
+  &__search {
+    margin: 15px 0;
+  }
 }
 
-.chatHeader__user {
-  margin: 13px 13px 13px 28px;
-  display: flex;
-}
+.chatHeader {
+  &__userName {
+    font-size: 15px;
+  }
 
-.chatHeader__userInformation {
-  margin-left: 13px;
-  padding: 3px 0;
-  flex-direction: column;
-  display: flex;
-}
-
-.chatHeader__userName {
-  font-size: 15px;
-}
-
-.chatHeader__userStatus {
-  margin-top: 2px;
-  font-size: 12px;
-  color: var(--color-light-pink);
+  &__userStatus {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--color-light-pink);
+  }
 }
 
 .actions {
   padding: 12px 18px 12px 12px;
   display: flex;
-}
 
-.actions__action {
-  margin-right: 8px;
-  padding: 8px 8px 5px 8px;
-  border-radius: 20px;
-  background-color: var(--color-pink);
-}
+  &__action {
+    margin-right: 8px;
+    padding: 8px 8px 5px 8px;
+    border-radius: 20px;
+    background-color: var(--color-pink);
+  }
 
-.actions__actionIcon {
-  width: 25px;
-  height: 25px;
-}
-
-.chatHeader__search {
-  margin: 15px 0;
+  &__actionIcon {
+    width: 25px;
+    height: 25px;
+  }
 }
 
 .search {
@@ -58,28 +60,28 @@
   border-radius: 18px;
   background-color: var(--color-light-gray);
   display: flex;
-}
 
-.search__searchInput {
-  width: 126px;
-  margin: 6px 0 8px 12px;
-  height: 22px;
-  font-size: 12px;
-  border: 0;
-  background-color: var(--color-light-gray);
-  transition: width 0.1s linear;
-}
+  &__searchInput {
+    width: 126px;
+    margin: 6px 0 8px 12px;
+    height: 22px;
+    font-size: 12px;
+    border: 0;
+    background-color: var(--color-light-gray);
+    transition: width 0.1s linear;
 
-.search__searchInput:focus {
-  width: 240px;
-  transition: width 0.1s linear;
-}
+    &:focus {
+      width: 240px;
+      transition: width 0.1s linear;
+    }
+  }
 
-.search__searchIcon {
-  margin: 0 13px;
-  width: 20px;
-  height: 20px;
-  margin-top: 7px;
+  &__searchIcon {
+    margin: 0 13px;
+    width: 20px;
+    height: 20px;
+    margin-top: 7px;
+  }
 }
 
 .avatar {

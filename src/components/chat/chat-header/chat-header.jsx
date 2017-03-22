@@ -21,8 +21,8 @@ export default () => (
       <div className={chatHeaderClassNames.actions__action}>
         <object className={chatHeaderClassNames.actions__actionIcon} data="assets/icons/svg/video-camera.svg" type="image/svg+xml" />
       </div>
-      <div className={chatHeaderClassNames.action}>
-        <object className={chatHeaderClassNames.actionIcon} data="assets/icons/svg/phone.svg" type="image/svg+xml" />
+      <div className={chatHeaderClassNames.actions__action}>
+        <object className={chatHeaderClassNames.actions__actionIcon} data="assets/icons/svg/phone.svg" type="image/svg+xml" />
       </div>
     </div>
   </div>
