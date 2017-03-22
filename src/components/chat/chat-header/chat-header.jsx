@@ -11,6 +11,18 @@ export default () => (
         <span className={chatHeaderClassNames.userStatus}>Online</span>
       </div>
     </div>
-    <object data="assets/icons/svg/phone.svg" type="image/svg+xml" />
+    <div className={chatHeaderClassNames.searchContainer}>
+      <div className={chatHeaderClassNames.search}>
+        <input className={chatHeaderClassNames.searchInput} type="text" />
+      </div>
+    </div>
+    <div className={chatHeaderClassNames.actionsContainer}>
+      <div className={chatHeaderClassNames.action}>
+        <object className={chatHeaderClassNames.actionIcon} data="assets/icons/svg/video-camera.svg" type="image/svg+xml" />
+      </div>
+      <div className={chatHeaderClassNames.action}>
+        <object className={chatHeaderClassNames.actionIcon} data="assets/icons/svg/phone.svg" type="image/svg+xml" />
+      </div>
+    </div>
   </div>
 );
