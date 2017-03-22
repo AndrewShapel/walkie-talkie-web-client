@@ -29,11 +29,3 @@
     margin-top: 7px;
   }
 }
-
-.avatar {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  border-radius: 20px;
-  background-color: var(--color-black);
-}
