@@ -13,19 +13,6 @@
     display: flex;
   }
 
-  &__userInformation {
-    margin-left: 13px;
-    padding: 3px 0;
-    flex-direction: column;
-    display: flex;
-  }
-
-  &__search {
-    margin: 15px 0;
-  }
-}
-
-.chatHeader {
   &__userName {
     font-size: 15px;
   }
@@ -35,22 +22,16 @@
     font-size: 12px;
     color: var(--color-light-pink);
   }
-}
 
-.actions {
-  padding: 12px 18px 12px 12px;
-  display: flex;
-
-  &__action {
-    margin-right: 8px;
-    padding: 8px 8px 5px 8px;
-    border-radius: 20px;
-    background-color: var(--color-pink);
+  &__userInformation {
+    margin-left: 13px;
+    padding: 3px 0;
+    flex-direction: column;
+    display: flex;
   }
 
-  &__actionIcon {
-    width: 25px;
-    height: 25px;
+  &__search {
+    margin: 15px 0;
   }
 }
 

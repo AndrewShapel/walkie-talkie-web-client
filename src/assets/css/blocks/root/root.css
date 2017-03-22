@@ -2,4 +2,20 @@
 
 .root {
   @apply --font-fira-sans;
+
+  & input:focus {
+    outline: 0;
+  }
+
+  & select:focus {
+    outline: 0;
+  }
+
+  & textarea:focus {
+    outline: 0;
+  }
+
+  & button:focus {
+    outline: 0;
+  }
 }

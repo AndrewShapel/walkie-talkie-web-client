@@ -1,5 +1,7 @@
 import React from 'react';
 
+import CallActions from '../../call-actions/call-actions';
+
 import chatHeaderClassNames from '../../../assets/css/blocks/chat/chat-header/chat-header.css';
 
 export default () => (
@@ -14,16 +16,9 @@ export default () => (
     <div className={chatHeaderClassNames.chatHeader__search}>
       <div className={chatHeaderClassNames.search}>
         <input className={chatHeaderClassNames.search__searchInput} type="text" />
-        <object className={chatHeaderClassNames.search__searchIcon} data="assets/icons/svg/search.svg" type="iamge/svg+xml" />
+        <object className={chatHeaderClassNames.search__searchIcon} data="assets/icons/svg/search.svg" type="image/svg+xml" />
       </div>
     </div>
-    <div className={chatHeaderClassNames.actions}>
-      <div className={chatHeaderClassNames.actions__action}>
-        <object className={chatHeaderClassNames.actions__actionIcon} data="assets/icons/svg/video-camera.svg" type="image/svg+xml" />
-      </div>
-      <div className={chatHeaderClassNames.actions__action}>
-        <object className={chatHeaderClassNames.actions__actionIcon} data="assets/icons/svg/phone.svg" type="image/svg+xml" />
-      </div>
-    </div>
+    <CallActions />
   </div>
 );
