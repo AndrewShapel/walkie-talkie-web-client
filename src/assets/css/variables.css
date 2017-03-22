@@ -1,3 +1,7 @@
 :root {
   --color-white: #777777;
+
+  --font-fira-sans: {
+    font-family: 'Fira Sans', sans-serif;
+  };
 }
