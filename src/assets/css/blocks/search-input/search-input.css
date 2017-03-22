@@ -1,0 +1,39 @@
+@import "../../variables.css";
+
+.searchInput {
+  min-width: 180px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: var(--color-light-gray);
+  display: flex;
+
+  &__input {
+    width: 126px;
+    margin: 6px 0 8px 12px;
+    height: 22px;
+    font-size: 12px;
+    border: 0;
+    background-color: var(--color-light-gray);
+    transition: width 0.1s linear;
+
+    &:focus {
+      width: 240px;
+      transition: width 0.1s linear;
+    }
+  }
+
+  &__icon {
+    margin: 0 13px;
+    width: 20px;
+    height: 20px;
+    margin-top: 7px;
+  }
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: var(--color-black);
+}

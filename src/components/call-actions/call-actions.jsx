@@ -1,4 +1,4 @@
-import React from 'React';
+import React from 'react';
 
 import callActionsClassNames from '../../assets/css/blocks/call-actions/call-actions.css';
 

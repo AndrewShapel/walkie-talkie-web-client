@@ -1,5 +1,6 @@
 import React from 'react';
 
+import SearchInput from '../../search-input/search-input';
 import CallActions from '../../call-actions/call-actions';
 
 import chatHeaderClassNames from '../../../assets/css/blocks/chat/chat-header/chat-header.css';
@@ -14,10 +15,7 @@ export default () => (
       </div>
     </div>
     <div className={chatHeaderClassNames.chatHeader__search}>
-      <div className={chatHeaderClassNames.search}>
-        <input className={chatHeaderClassNames.search__searchInput} type="text" />
-        <object className={chatHeaderClassNames.search__searchIcon} data="assets/icons/svg/search.svg" type="image/svg+xml" />
-      </div>
+      <SearchInput />
     </div>
     <CallActions />
   </div>
