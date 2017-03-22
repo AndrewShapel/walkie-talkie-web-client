@@ -14,6 +14,7 @@ export default () => (
     <div className={chatHeaderClassNames.searchContainer}>
       <div className={chatHeaderClassNames.search}>
         <input className={chatHeaderClassNames.searchInput} type="text" />
+        <object className={chatHeaderClassNames.searchIcon} data="assets/icons/svg/search.svg" type="iamge/svg+xml" />
       </div>
     </div>
     <div className={chatHeaderClassNames.actionsContainer}>
