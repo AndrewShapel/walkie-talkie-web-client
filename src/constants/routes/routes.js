@@ -1,4 +1,8 @@
-const routes = {
+/**
+ * @const
+ * @type {Object}
+ */
+export default {
   home: {
     url: '/',
   },
@@ -7,4 +11,3 @@ const routes = {
   },
 };
 
-export default routes;

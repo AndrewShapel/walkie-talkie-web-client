@@ -1,0 +1,6 @@
+:root {
+  --mixin-text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

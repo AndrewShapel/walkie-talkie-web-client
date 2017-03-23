@@ -1,0 +1,5 @@
+@import "../../../breakpoints.css";
+
+.chat-content {
+  max-width: var(--breakpoint-tablet);
+}

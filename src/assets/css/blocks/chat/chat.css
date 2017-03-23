@@ -2,4 +2,9 @@
 
 .chat {
   min-width: var(--breakpoint-desktop);
+
+  &__content {
+    display: flex;
+    justify-content: center;
+  }
 }
