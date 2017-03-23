@@ -2,4 +2,5 @@
 
 .chat-content {
   max-width: var(--breakpoint-tablet);
+  padding: 28px 28px 38px 28px;
 }
