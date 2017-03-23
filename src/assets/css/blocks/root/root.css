@@ -3,15 +3,23 @@
 .root {
   @apply --font-fira-sans;
 
-  & input:focus {
-    outline: 0;
+  & input {
+    @apply --font-fira-sans;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  & textarea {
+    @apply --font-fira-sans;
+
+    &:focus {
+      outline: 0;
+    }
   }
 
   & select:focus {
-    outline: 0;
-  }
-
-  & textarea:focus {
     outline: 0;
   }
 
