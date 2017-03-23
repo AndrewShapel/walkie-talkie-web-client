@@ -12,6 +12,9 @@ const ChatMessage = ({ className, time, message, isFrom }) => {
   const containerClassName = classnames(chatMessageClassNames['chat-message__container'], {
     [chatMessageClassNames['chat-message__container_right-direction']]: !isFrom,
   });
+  const timeClassName = classnames(chatMessageClassNames['chat-message__time'], {
+    [chatMessageClassNames['chat-message__time_right-direction']]: !isFrom,
+  });
   const contentClassName = classnames(chatMessageClassNames['chat-message__content'], {
     [chatMessageClassNames['chat-message__content_right-direction']]: !isFrom,
   });
@@ -20,7 +23,7 @@ const ChatMessage = ({ className, time, message, isFrom }) => {
     <div className={messageClassName}>
       <UserAvatar />
       <div className={containerClassName}>
-        <span className={chatMessageClassNames['chat-message__time']}>{time}</span>
+        <span className={timeClassName}>{time}</span>
         <div className={contentClassName}>{message}</div>
       </div>
     </div>
