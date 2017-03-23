@@ -1,18 +1,18 @@
 @import "../../variables.css";
 
-.callActions {
+.call-actions {
   padding: 12px 18px 12px 12px;
   display: flex;
 
   &__action {
     margin-right: 8px;
-    padding: 8px 8px 5px 8px;
+    padding: 10px 11px 5px 11px;
     border-radius: 20px;
     background-color: var(--color-pink);
   }
 
-  &__actionIcon {
-    width: 25px;
-    height: 25px;
+  &__icon {
+    width: 20px;
+    height: 20px;
   }
 }

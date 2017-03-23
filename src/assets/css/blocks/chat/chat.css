@@ -1,5 +1,5 @@
 @import "../../breakpoints.css";
 
-.container {
+.chat {
   min-width: var(--breakpoint-desktop);
 }

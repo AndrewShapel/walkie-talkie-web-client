@@ -1,6 +1,6 @@
 @import "../../variables.css";
 
-.searchInput {
+.search-input {
   min-width: 180px;
   height: 36px;
   border-radius: 18px;
