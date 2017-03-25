@@ -1,0 +1,29 @@
+@import "../../fonts.css";
+
+.root {
+  @apply --font-fira-sans;
+
+  & input {
+    @apply --font-fira-sans;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  & textarea {
+    @apply --font-fira-sans;
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  & select:focus {
+    outline: 0;
+  }
+
+  & button:focus {
+    outline: 0;
+  }
+}

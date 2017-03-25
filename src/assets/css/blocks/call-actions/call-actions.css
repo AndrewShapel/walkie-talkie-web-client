@@ -1,0 +1,24 @@
+@import "../../variables.css";
+
+.call-actions {
+  padding: 12px 18px 12px 12px;
+  display: flex;
+
+  &__action {
+    margin-right: 8px;
+    padding: 10px 11px 5px 11px;
+    cursor: pointer;
+    border-radius: 20px;
+    background-color: var(--color-pink);
+
+    &:hover {
+      background-color: var(--color-dark-pink);
+      transition: background-color 0.1s linear;
+    }
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+  }
+}

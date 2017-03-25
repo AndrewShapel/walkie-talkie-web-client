@@ -1,5 +1,9 @@
 import React from 'react';
+import Chat from '../components/chat/chat';
 
 export default () => (
-  <span>Home</span>
+  <div>
+    <span>Home</span>
+    <Chat />
+  </div>
 );
