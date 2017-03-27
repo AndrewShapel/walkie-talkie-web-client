@@ -1,0 +1,17 @@
+@import "../../../variables.css";
+@import "../../../mixins.css";
+
+.user-information {
+  &__user-name {
+    @apply --mixin-text-ellipsis;
+
+    max-width: 160px;
+    font-size: 15px;
+  }
+
+  &__user-status {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--color-light-pink);
+  }
+}

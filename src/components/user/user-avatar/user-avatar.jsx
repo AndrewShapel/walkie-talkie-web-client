@@ -1,9 +1,9 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { USER_STATUS } from '../../constants/common';
+import { USER_STATUS } from '../../../constants/common';
 
-import userAvatarClassNames from '../../assets/css/blocks/user-avatar/user-avatar.css';
+import userAvatarClassNames from '../../../assets/css/blocks/user-avatar/user-avatar.css';
 
 export default class UserAvatar extends React.PureComponent {
   /**
@@ -36,7 +36,7 @@ export default class UserAvatar extends React.PureComponent {
 }
 
 UserAvatar.defaultProps = {
-  userStatus: null,
+  userStatus: '',
 };
 
 UserAvatar.propTypes = {
