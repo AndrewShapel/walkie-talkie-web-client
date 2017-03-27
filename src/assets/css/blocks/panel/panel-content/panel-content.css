@@ -1,8 +1,13 @@
 .panel-content {
+  flex-direction: column;
   display: flex;
 
   &__tabs {
     margin: 0 auto;
+    padding: 0;
+  }
+
+  &__friends {
     padding: 0;
   }
 }

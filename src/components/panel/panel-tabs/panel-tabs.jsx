@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import PanelTabsItem from './panel-tabs-item/panel-tabs-item';
+
 import panelTabsClassNames from '../../../assets/css/blocks/panel/panel-tabs/panel-tabs.css';
 
 const PanelTabs = ({ className }) => {
@@ -8,8 +10,8 @@ const PanelTabs = ({ className }) => {
 
   return (
     <ul className={tabsClassName}>
-      <li className={`${panelTabsClassNames['panel-tabs__tab']} ${panelTabsClassNames['panel-tabs__tab_active']}`}>Friends</li>
-      <li className={panelTabsClassNames['panel-tabs__tab']}>Requests</li>
+      <PanelTabsItem title="Friends" isActive />
+      <PanelTabsItem title="Requests" />
     </ul>
   );
 };

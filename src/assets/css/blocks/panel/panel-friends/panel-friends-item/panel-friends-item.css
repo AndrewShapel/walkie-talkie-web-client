@@ -1,0 +1,22 @@
+@import "../../../../variables.css";
+
+.panel-friends-item {
+  padding: 15px;
+  cursor: pointer;
+  justify-content: space-between;
+  display: flex;
+
+  &_active {
+    background-color: var(--color-dark-pink);
+  }
+
+  &__user {
+    &-name {
+      color: var(--color-white);
+    }
+
+    &-status {
+      background-color: var(--color-pink);
+    }
+  }
+}
