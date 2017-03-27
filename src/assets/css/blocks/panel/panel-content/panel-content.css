@@ -1,0 +1,8 @@
+.panel-content {
+  display: flex;
+
+  &__tabs {
+    margin: 0 auto;
+    padding: 0;
+  }
+}
