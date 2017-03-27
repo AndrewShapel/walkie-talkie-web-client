@@ -1,0 +1,11 @@
+.home {
+  display: flex;
+
+  &__panel {
+    flex-grow: 1;
+  }
+
+  &__chat {
+    flex-grow: 1;
+  }
+}
