@@ -10,7 +10,6 @@
 
   &__user {
     margin: 13px 13px 13px 28px;
-    display: flex;
   }
 
   &__user-information {

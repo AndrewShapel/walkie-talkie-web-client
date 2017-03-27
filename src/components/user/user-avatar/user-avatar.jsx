@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { USER_STATUS } from '../../../constants/common';
 
-import userAvatarClassNames from '../../../assets/css/blocks/user-avatar/user-avatar.css';
+import userAvatarClassNames from '../../../assets/css/blocks/user/user-avatar/user-avatar.css';
 
 export default class UserAvatar extends React.PureComponent {
   /**
