@@ -6,9 +6,9 @@
   font-size: 14px;
   color: var(--color-white);
   border-radius: 12px;
-  background-color: var(--color-pink);
+  background-color: var(--color-purple);
 
   &_invert {
-    background-color: var(--color-dark-pink);
+    background-color: var(--color-dark-purple);
   }
 }

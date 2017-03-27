@@ -8,7 +8,9 @@ const PanelTabsItem = ({ title, isActive }) => {
     [panelTabsItemClassNames['panel-tabs-item_active']]: isActive,
   });
 
-  return <li className={tabsItemClassName}>{title}</li>;
+  return (
+    <li className={tabsItemClassName}>{title}</li>
+  );
 };
 
 PanelTabsItem.defaultProps = {

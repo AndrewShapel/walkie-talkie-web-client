@@ -7,7 +7,7 @@
   display: flex;
 
   &_active {
-    background-color: var(--color-dark-pink);
+    background-color: var(--color-dark-purple);
   }
 
   &__user {
@@ -16,7 +16,7 @@
     }
 
     &-status {
-      background-color: var(--color-pink);
+      background-color: var(--color-purple);
     }
   }
 }

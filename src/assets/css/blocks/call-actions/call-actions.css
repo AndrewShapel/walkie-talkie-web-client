@@ -9,10 +9,10 @@
     padding: 10px 11px 5px 11px;
     cursor: pointer;
     border-radius: 20px;
-    background-color: var(--color-pink);
+    background-color: var(--color-purple);
 
     &:hover {
-      background-color: var(--color-dark-pink);
+      background-color: var(--color-dark-purple);
       transition: background-color 0.1s linear;
     }
   }

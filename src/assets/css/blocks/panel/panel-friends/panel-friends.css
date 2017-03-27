@@ -1,4 +1,9 @@
 .panel-friends {
   list-style-type: none;
   overflow: scroll;
+
+  &__search-input {
+    margin: 0 auto 15px auto;
+    display: block;
+  }
 }

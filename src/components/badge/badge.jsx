@@ -19,7 +19,7 @@ Badge.defaultProps = {
 Badge.propTypes = {
   className: React.PropTypes.string,
   count: React.PropTypes.number.isRequired,
-  isInvert: React.PropTypes.string,
+  isInvert: React.PropTypes.bool,
 };
 
 export default Badge;
