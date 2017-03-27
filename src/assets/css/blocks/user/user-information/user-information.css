@@ -2,11 +2,14 @@
 @import "../../../mixins.css";
 
 .user-information {
+  flex-direction: column;
+  display: flex;
+
   &__user-name {
     @apply --mixin-text-ellipsis;
 
     max-width: 160px;
-    font-size: 15px;
+    font-size: 14px;
   }
 
   &__user-status {

@@ -6,14 +6,18 @@ import UserInformation from './user-information/user-information';
 
 import userClassNames from '../../assets/css/blocks/user/user.css';
 
-const User = ({ className, userInformationClassName, userStatus, userName, userStatusName }) => {
+const User = ({ className, userNameClassName, userStatusClassName, userStatus, userName, userStatusName }) => {
   const userClassName = classnames(userClassNames.user, className);
 
   return (
     <div className={userClassName}>
-      <UserAvatar userStatus={userStatus} />
+      <UserAvatar
+        userStatusClassName={userStatusClassName}
+        userStatus={userStatus}
+      />
       <UserInformation
-        className={userInformationClassName}
+        className={userClassNames['user__user-information']}
+        userNameClassName={userNameClassName}
         userName={userName}
         userStatus={userStatusName}
       />

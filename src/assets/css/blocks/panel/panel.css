@@ -3,6 +3,5 @@
 
 .panel {
   max-width: var(--breakpoint-phone);
-  padding: 20px;
-  background-color: var(--color-middle-pink);
+  background-color: var(--color-pink);
 }

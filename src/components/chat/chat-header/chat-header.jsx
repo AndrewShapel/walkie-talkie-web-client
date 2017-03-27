@@ -12,7 +12,6 @@ export default () => (
   <div className={chatHeaderClassNames['chat-header']}>
     <User
       className={chatHeaderClassNames['chat-header__user']}
-      userInformationClassName={chatHeaderClassNames['chat-header__user-information']}
       userStatus={USER_STATUS.ONLINE}
       userName="Beerfest"
       userStatusName="Online"

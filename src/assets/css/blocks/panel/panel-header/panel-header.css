@@ -1,0 +1,23 @@
+@import "../../../variables.css";
+
+.panel-header {
+  justify-content: space-between;
+  display: flex;
+
+  &__user {
+    padding: 15px;
+
+    &-name {
+      color: var(--color-white);
+    }
+
+    &-status {
+      background-color: var(--color-pink);
+    }
+  }
+
+  &__settings {
+    width: 20px;
+    margin-right: 15px;
+  }
+}

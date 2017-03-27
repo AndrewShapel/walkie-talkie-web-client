@@ -12,13 +12,6 @@
     margin: 13px 13px 13px 28px;
   }
 
-  &__user-information {
-    margin-left: 13px;
-    padding: 3px 0;
-    flex-direction: column;
-    display: flex;
-  }
-
   &__search {
     margin: 15px 0;
   }
