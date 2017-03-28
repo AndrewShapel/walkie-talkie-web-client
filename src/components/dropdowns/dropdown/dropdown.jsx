@@ -8,7 +8,7 @@ class Dropdown extends React.PureComponent {
     super(props);
 
     this.state = {
-      isOpen: false,
+      isOpen: true,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -35,14 +35,16 @@ class Dropdown extends React.PureComponent {
   }
 
   render() {
-    const { className, children } = this.props;
+    const { className, children, renderItems } = this.props;
 
     const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
 
     return (
       <div className={dropdownClassName}>
         {React.Children.map(children, this.renderChildren)}
-        <div className={dropdownClassNames.dropdown__items} />
+        <div className={dropdownClassNames.dropdown__items}>
+          {renderItems && renderItems()}
+        </div>
       </div>
     );
   }
@@ -51,11 +53,13 @@ class Dropdown extends React.PureComponent {
 Dropdown.defaultProps = {
   className: '',
   children: null,
+  renderItems: null,
 };
 
 Dropdown.propTypes = {
   className: React.PropTypes.string,
   children: React.PropTypes.object,
+  renderItems: React.PropTypes.func,
 };
 
 export default Dropdown;

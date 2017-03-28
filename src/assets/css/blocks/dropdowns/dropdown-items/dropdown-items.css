@@ -1,0 +1,19 @@
+@import "../../../variables.css";
+
+.dropdown-items {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  list-style-type: none;
+
+  &__item {
+    padding: 12px 13px;
+    cursor: pointer;
+    display: block;
+
+    &:hover {
+      border-radius: 2px;
+      background-color: var(--color-gray);
+    }
+  }
+}

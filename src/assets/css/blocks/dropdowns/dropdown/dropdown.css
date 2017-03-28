@@ -1,8 +1,23 @@
+@import "../../../variables.css";
+@import "../../../mixins.css";
+
 .dropdown {
   position: relative;
 
   &__items {
-    bottom: 0;
+    top: 100%;
+    right: 50%;
+    border-radius: 2px;
+    background-color: var(--color-white);
+    box-shadow: 0 0 2px var(--color-gray);
     position: absolute;
+    transform: translate(50%, 0);
+
+    &:after {
+      @apply --mixin-triangle-top;
+
+      border-bottom: 5px solid var(--color-white);
+      content: "";
+    }
   }
 }

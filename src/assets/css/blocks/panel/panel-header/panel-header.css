@@ -22,6 +22,10 @@
 
   &__dropdown {
     display: flex;
+
+    &-items {
+      min-width: 120px;
+    }
   }
 
   &__add-friend {
