@@ -2,7 +2,7 @@
 
 .panel-friends {
   list-style-type: none;
-  overflow: scroll;
+  overflow-y: auto;
 
   &__search-input {
     width: 286px;

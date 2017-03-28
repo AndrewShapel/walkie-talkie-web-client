@@ -25,7 +25,9 @@ class DropdownAddToFriends extends React.PureComponent {
 
   static renderSearchInput() {
     return (
-      <SearchInput className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']} />
+      <div className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input-container']}>
+        <SearchInput className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']} />
+      </div>
     );
   }
 

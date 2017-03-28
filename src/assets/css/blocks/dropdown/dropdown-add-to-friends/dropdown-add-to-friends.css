@@ -8,7 +8,11 @@
   }
 
   &__search-input {
-    margin: 20px 15px;
+    width: 100%;
     color: var(--color-light-pink);
+
+    &-container {
+      margin: 20px 15px;
+    }
   }
 }
