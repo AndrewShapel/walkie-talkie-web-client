@@ -1,3 +1,5 @@
+@import "../../../variables.css";
+
 .panel-friends {
   list-style-type: none;
   overflow: scroll;

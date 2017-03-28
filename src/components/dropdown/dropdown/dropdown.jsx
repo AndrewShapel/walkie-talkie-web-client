@@ -1,9 +1,12 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import Dom from '../../../utils/dom';
+
 import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
 
 class Dropdown extends React.PureComponent {
+
   constructor(props) {
     super(props);
 
@@ -11,8 +14,32 @@ class Dropdown extends React.PureComponent {
       isOpen: true,
     };
 
+    this.eventListener = null;
+
     this.toggle = this.toggle.bind(this);
     this.renderChildren = this.renderChildren.bind(this);
+    this.renderItems = this.renderItems.bind(this);
+  }
+
+  componentWillMount() {
+    if (!this.eventListener) {
+      this.eventListener = (event) => {
+        const dropdown = this.dropdown;
+        if (dropdown && !Dom.isDescendant(dropdown, event.target)) {
+          this.setState({
+            isOpen: false,
+          });
+        }
+      };
+
+      document.addEventListener('click', this.eventListener);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.eventListener) {
+      document.removeEventListener('click', this.eventListener);
+    }
   }
 
   toggle() {
@@ -26,12 +53,33 @@ class Dropdown extends React.PureComponent {
   /**
    * @param {Object} children
    * @param {Number} index
+   * @return {Object|Null}
    */
   renderChildren(children, index) {
-    return React.cloneElement(children, {
-      onClick: this.toggle,
-      key: index,
-    });
+    if (children) {
+      return React.cloneElement(children, {
+        onClick: this.toggle,
+        key: index,
+      });
+    }
+
+    return null;
+  }
+
+  /**
+   * @param {Object} items
+   * @return {Object|Null}
+   */
+  renderItems(items) {
+    if (items) {
+      return React.cloneElement(items, {
+        ref: (node) => {
+          this.dropdown = node;
+        },
+      });
+    }
+
+    return null;
   }
 
   render() {
@@ -39,6 +87,7 @@ class Dropdown extends React.PureComponent {
     const { className, itemsClassName, children, renderContent } = this.props;
 
     const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, itemsClassName);
+    const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
 
     const items = (isOpen)
       ? (
@@ -48,12 +97,10 @@ class Dropdown extends React.PureComponent {
       )
       : null;
 
-    const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
-
     return (
       <div className={dropdownClassName}>
         {React.Children.map(children, this.renderChildren)}
-        {items}
+        {this.renderItems(items)}
       </div>
     );
   }
