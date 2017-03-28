@@ -10,8 +10,9 @@ import panelHeaderClassNames from '../../../assets/css/blocks/panel/panel-header
 
 export default () => {
   const dropdownItems = [{
+    className: 'qweqweqwe',
     id: 0,
-    title: 'Option 1',
+    content: <span>245</span>,
   }, {
     id: 1,
     title: 'Option 2',

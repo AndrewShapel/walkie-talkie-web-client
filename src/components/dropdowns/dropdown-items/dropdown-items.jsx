@@ -13,7 +13,19 @@ class DropdownItems extends React.PureComponent {
       activeItemId: null,
     };
 
+    this.onActiveItemIdSelect = this.onActiveItemIdSelect.bind(this);
     this.renderItems = this.renderItems.bind(this);
+  }
+
+  /**
+   * @param {Number} id
+   */
+  onActiveItemIdSelect(id) {
+    if (id !== this.state.activeItemId) {
+      this.setState({
+        activeItemId: id,
+      });
+    }
   }
 
   /**
@@ -21,11 +33,18 @@ class DropdownItems extends React.PureComponent {
    */
   renderItems() {
     const items = this.props.items.map((item) => {
-      const id = item.id;
-      const title = item.title;
+      const { className, id, title, content } = item;
 
       return (
-        <DropdownItem id={id} title={title} key={id} />
+        <DropdownItem
+          className={className}
+          id={id}
+          title={title}
+          key={id}
+          onClick={this.onActiveItemIdSelect}
+        >
+          {content}
+        </DropdownItem>
       );
     });
 
@@ -40,7 +59,7 @@ class DropdownItems extends React.PureComponent {
     const { className, itemsClassName, children } = this.props;
 
     return (
-      <Dropdown className={className} itemsClassName={itemsClassName} renderItems={this.renderItems}>
+      <Dropdown className={className} itemsClassName={itemsClassName} renderContent={this.renderItems}>
         {children}
       </Dropdown>
     );
