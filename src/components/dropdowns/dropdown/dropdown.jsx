@@ -3,16 +3,50 @@ import classnames from 'classnames';
 
 import dropdownClassNames from '../../../assets/css/blocks/dropdowns/dropdown/dropdown.css';
 
-const Dropdown = ({ className, children }) => {
-  const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
+class Dropdown extends React.PureComponent {
+  constructor(props) {
+    super(props);
 
-  return (
-    <div className={dropdownClassName}>
-      {children}
-      <div className={dropdownClassNames.dropdown__items} />
-    </div>
-  );
-};
+    this.state = {
+      isOpen: false,
+    };
+
+    this.toggle = this.toggle.bind(this);
+    this.renderChildren = this.renderChildren.bind(this);
+  }
+
+  toggle() {
+    const isOpen = !this.state.isOpen;
+
+    this.setState({
+      isOpen,
+    });
+  }
+
+  /**
+   * @param {Object} children
+   * @param {Number} index
+   */
+  renderChildren(children, index) {
+    return React.cloneElement(children, {
+      onClick: this.toggle,
+      key: index,
+    });
+  }
+
+  render() {
+    const { className, children } = this.props;
+
+    const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
+
+    return (
+      <div className={dropdownClassName}>
+        {React.Children.map(children, this.renderChildren)}
+        <div className={dropdownClassNames.dropdown__items} />
+      </div>
+    );
+  }
+}
 
 Dropdown.defaultProps = {
   className: '',
