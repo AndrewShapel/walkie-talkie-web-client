@@ -1,7 +1,7 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import Dropdown from '../dropdown/dropdown';
+import DropdownItem from './dropdown-item/dropdown-item';
 
 import dropdownItemsClassNames from '../../../assets/css/blocks/dropdowns/dropdown-items/dropdown-items.css';
 
@@ -20,27 +20,27 @@ class DropdownItems extends React.PureComponent {
    * @returns {Object}
    */
   renderItems() {
-    const { itemsClassName } = this.props;
+    const items = this.props.items.map((item) => {
+      const id = item.id;
+      const title = item.title;
 
-    const dropdownItemsClassName = classnames(dropdownItemsClassNames['dropdown-items'], itemsClassName);
+      return (
+        <DropdownItem id={id} title={title} key={id} />
+      );
+    });
 
     return (
-      <ul className={dropdownItemsClassName}>
-        <li className={dropdownItemsClassNames['dropdown-items__item']}>
-          Option 1
-        </li>
-        <li className={dropdownItemsClassNames['dropdown-items__item']}>
-          Option 2
-        </li>
+      <ul className={dropdownItemsClassNames['dropdown-items']}>
+        {items}
       </ul>
     );
   }
 
   render() {
-    const { className, children } = this.props;
+    const { className, itemsClassName, children } = this.props;
 
     return (
-      <Dropdown className={className} renderItems={this.renderItems}>
+      <Dropdown className={className} itemsClassName={itemsClassName} renderItems={this.renderItems}>
         {children}
       </Dropdown>
     );
@@ -48,11 +48,11 @@ class DropdownItems extends React.PureComponent {
 }
 
 DropdownItems.defaultProps = Object.assign(Dropdown.defaultProps, {
-  itemsClassName: '',
+  items: [],
 });
 
 DropdownItems.propTypes = Object.assign(Dropdown.propTypes, {
-  itemsClassName: React.PropTypes.string,
+  items: React.PropTypes.array,
 });
 
 export default DropdownItems;

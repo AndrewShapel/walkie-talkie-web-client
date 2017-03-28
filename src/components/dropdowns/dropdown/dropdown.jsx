@@ -36,11 +36,13 @@ class Dropdown extends React.PureComponent {
 
   render() {
     const { isOpen } = this.state;
-    const { className, children, renderItems } = this.props;
+    const { className, itemsClassName, children, renderItems } = this.props;
+
+    const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, itemsClassName);
 
     const items = (isOpen)
       ? (
-        <div className={dropdownClassNames.dropdown__items}>
+        <div className={dropdownItemsClassName}>
           {renderItems && renderItems()}
         </div>
       )
@@ -59,12 +61,14 @@ class Dropdown extends React.PureComponent {
 
 Dropdown.defaultProps = {
   className: '',
+  itemsClassName: '',
   children: null,
   renderItems: null,
 };
 
 Dropdown.propTypes = {
   className: React.PropTypes.string,
+  itemsClassName: React.PropTypes.string,
   children: React.PropTypes.object,
   renderItems: React.PropTypes.func,
 };
