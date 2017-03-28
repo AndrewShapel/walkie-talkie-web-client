@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import dropdownItemClassNames from '../../../../assets/css/blocks/dropdowns/dropdown-items/dropdown-item/dropdown-item.css';
+import dropdownItemClassNames from '../../../../assets/css/blocks/dropdown/dropdown-items/dropdown-item/dropdown-item.css';
 
 class DropdownItem extends React.PureComponent {
   constructor(props) {
@@ -34,13 +34,13 @@ class DropdownItem extends React.PureComponent {
 }
 
 DropdownItem.defaultProps = {
-  children: [],
+  children: null,
   title: '',
   onClick: null,
 };
 
 DropdownItem.propTypes = {
-  children: React.PropTypes.array,
+  children: React.PropTypes.object,
   id: React.PropTypes.number.isRequired,
   title: React.PropTypes.string,
   onClick: React.PropTypes.func,

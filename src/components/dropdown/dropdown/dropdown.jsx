@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import dropdownClassNames from '../../../assets/css/blocks/dropdowns/dropdown/dropdown.css';
+import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
 
 class Dropdown extends React.PureComponent {
   constructor(props) {

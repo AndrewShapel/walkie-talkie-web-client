@@ -3,7 +3,7 @@ import React from 'react';
 import Dropdown from '../dropdown/dropdown';
 import DropdownItem from './dropdown-item/dropdown-item';
 
-import dropdownItemsClassNames from '../../../assets/css/blocks/dropdowns/dropdown-items/dropdown-items.css';
+import dropdownItemsClassNames from '../../../assets/css/blocks/dropdown/dropdown-items/dropdown-items.css';
 
 class DropdownItems extends React.PureComponent {
   constructor(props) {

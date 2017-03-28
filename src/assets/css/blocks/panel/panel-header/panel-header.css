@@ -20,13 +20,9 @@
     display: flex;
   }
 
-  &__dropdown {
-    display: flex;
-
-    &-items {
-      min-width: 120px;
-      right: 27px;
-    }
+  &__dropdown-items {
+     min-width: 120px;
+     right: 27px;
   }
 
   &__add-friend {
