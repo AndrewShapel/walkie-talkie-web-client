@@ -4,6 +4,7 @@ import { USER_STATUS } from '../../../constants/common';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';
+import Dropdown from '../../dropdowns/dropdown/dropdown';
 
 import panelHeaderClassNames from '../../../assets/css/blocks/panel/panel-header/panel-header.css';
 
@@ -18,7 +19,9 @@ export default () => (
       userStatusName="Online"
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
-      <Svg className={panelHeaderClassNames['panel-header__add-friend']} path="assets/icons/svg/user-plus.svg" />
+      <Dropdown className={panelHeaderClassNames['panel-header__dropdown']}>
+        <Svg className={panelHeaderClassNames['panel-header__add-friend']} path="assets/icons/svg/user-plus.svg" />
+      </Dropdown>
       <Svg className={panelHeaderClassNames['panel-header__settings']} path="assets/icons/svg/cog.svg" />
     </div>
   </div>

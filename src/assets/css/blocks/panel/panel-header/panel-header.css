@@ -20,6 +20,10 @@
     display: flex;
   }
 
+  &__dropdown {
+    display: flex;
+  }
+
   &__add-friend {
     width: 20px;
     margin-right: 15px;
