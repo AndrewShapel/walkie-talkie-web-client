@@ -8,7 +8,7 @@ class Dropdown extends React.PureComponent {
     super(props);
 
     this.state = {
-      isOpen: true,
+      isOpen: false,
     };
 
     this.toggle = this.toggle.bind(this);
@@ -35,16 +35,23 @@ class Dropdown extends React.PureComponent {
   }
 
   render() {
+    const { isOpen } = this.state;
     const { className, children, renderItems } = this.props;
+
+    const items = (isOpen)
+      ? (
+        <div className={dropdownClassNames.dropdown__items}>
+          {renderItems && renderItems()}
+        </div>
+      )
+      : null;
 
     const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
 
     return (
       <div className={dropdownClassName}>
         {React.Children.map(children, this.renderChildren)}
-        <div className={dropdownClassNames.dropdown__items}>
-          {renderItems && renderItems()}
-        </div>
+        {items}
       </div>
     );
   }
