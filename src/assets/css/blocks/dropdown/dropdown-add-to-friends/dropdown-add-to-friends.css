@@ -1,3 +1,14 @@
+@import "../../../variables.css";
+
 .dropdown-add-to-friends {
   display: flex;
+
+  &__item {
+    padding: 10px 14px;
+  }
+
+  &__search-input {
+    margin: 20px 15px;
+    color: var(--color-light-pink);
+  }
 }

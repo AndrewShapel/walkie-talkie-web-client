@@ -21,8 +21,8 @@
   }
 
   &__dropdown-items {
-     min-width: 120px;
-     right: 27px;
+    max-width: 241px;
+    right: 27px;
   }
 
   &__add-friend {

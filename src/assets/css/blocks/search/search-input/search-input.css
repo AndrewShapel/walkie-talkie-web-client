@@ -1,10 +1,8 @@
 @import "../../../variables.css";
 
 .search-input {
-  width: 286px;
   font-size: 13px;
   color: var(--color-white);
   border: 0;
   border-bottom: 1px solid var(--color-light-pink);
-  background-color: var(--color-purple);
 }

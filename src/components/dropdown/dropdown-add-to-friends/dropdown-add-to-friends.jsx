@@ -1,32 +1,51 @@
 import React from 'react';
-import classnames from 'classnames';
 
+import SearchInput from '../../search/search-input/search-input';
+import User from '../../user/user';
 import DropdownItems from '../dropdown-items/dropdown-items';
 
 import dropdownAddToFriendsClassNames from '../../../assets/css/blocks/dropdown/dropdown-add-to-friends/dropdown-add-to-friends.css';
 
-const DropdownAddToFriends = ({ itemsClassName, children }) => {
-  const items = [{
-    className: '',
-    id: 0,
-    content: <span>245</span>,
-  }, {
-    id: 1,
-    title: 'Option 2',
-  }];
+class DropdownAddToFriends extends React.PureComponent {
+  /**
+   * @param {String} className
+   * @returns {Array}
+   */
+  static getItems(className) {
+    return [{
+      className,
+      id: 0,
+      content: (
+        <User
+          userName="Friend to Add"
+        />
+      ),
+    }];
+  }
 
-  const dropdownItemsClassName = classnames(dropdownAddToFriendsClassNames['dropdown-add-to-friends__items'], itemsClassName);
+  static renderSearchInput() {
+    return (
+      <SearchInput className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']} />
+    );
+  }
 
-  return (
-    <DropdownItems
-      className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']}
-      itemsClassName={dropdownItemsClassName}
-      items={items}
-    >
-      {children}
-    </DropdownItems>
-  );
-};
+  render() {
+    const { itemsClassName, children } = this.props;
+
+    const itemClassName = dropdownAddToFriendsClassNames['dropdown-add-to-friends__item'];
+
+    return (
+      <DropdownItems
+        className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']}
+        itemsClassName={itemsClassName}
+        items={DropdownAddToFriends.getItems(itemClassName)}
+        renderContent={DropdownAddToFriends.renderSearchInput}
+      >
+        {children}
+      </DropdownItems>
+    );
+  }
+}
 
 DropdownAddToFriends.defaultProps = Object.assign(DropdownItems.defaultProps, {
   itemsClassName: '',

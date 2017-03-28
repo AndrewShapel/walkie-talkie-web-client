@@ -3,7 +3,9 @@
   overflow: scroll;
 
   &__search-input {
+    width: 286px;
     margin: 0 auto 15px auto;
+    background-color: var(--color-purple);
     display: block;
   }
 }

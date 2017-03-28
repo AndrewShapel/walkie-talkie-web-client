@@ -32,7 +32,9 @@ class DropdownItems extends React.PureComponent {
    * @returns {Object}
    */
   renderItems() {
-    const items = this.props.items.map((item) => {
+    const { items, renderContentAfter, renderContent } = this.props;
+
+    const dropdownItems = items.map((item) => {
       const { className, id, title, content } = item;
 
       return (
@@ -50,7 +52,9 @@ class DropdownItems extends React.PureComponent {
 
     return (
       <ul className={dropdownItemsClassNames['dropdown-items']}>
-        {items}
+        {!renderContentAfter && renderContent && renderContent()}
+        {dropdownItems}
+        {renderContentAfter && renderContent && renderContent()}
       </ul>
     );
   }
@@ -68,10 +72,14 @@ class DropdownItems extends React.PureComponent {
 
 DropdownItems.defaultProps = Object.assign(Dropdown.defaultProps, {
   items: [],
+  renderContentAfter: false,
+  renderContent: null,
 });
 
 DropdownItems.propTypes = Object.assign(Dropdown.propTypes, {
   items: React.PropTypes.array,
+  renderContentAfter: React.PropTypes.bool,
+  renderContent: React.PropTypes.func,
 });
 
 export default DropdownItems;
