@@ -17,6 +17,9 @@ export default () => (
       userName="Andrew Shapel"
       userStatusName="Online"
     />
-    <Svg className={panelHeaderClassNames['panel-header__settings']} path="assets/icons/svg/cog.svg" />
+    <div className={panelHeaderClassNames['panel-header__icons']}>
+      <Svg className={panelHeaderClassNames['panel-header__add-friend']} path="assets/icons/svg/user-plus.svg" />
+      <Svg className={panelHeaderClassNames['panel-header__settings']} path="assets/icons/svg/cog.svg" />
+    </div>
   </div>
 );

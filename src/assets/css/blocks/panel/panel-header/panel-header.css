@@ -16,6 +16,15 @@
     }
   }
 
+  &__icons {
+    display: flex;
+  }
+
+  &__add-friend {
+    width: 20px;
+    margin-right: 15px;
+  }
+
   &__settings {
     width: 20px;
     margin-right: 15px;
