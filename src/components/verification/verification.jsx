@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { VERIFICATION_TYPES, VERIFICATION_ITEMS } from '../../constants/common';
 
 import VerificationHeader from './verification-header/verification-header';
+import VerificationContent from './verification-content/verification-content';
 
 import verificationClassNames from '../../assets/css/blocks/verification/verification.css';
 
@@ -42,6 +43,7 @@ class Verification extends React.PureComponent {
           activeItemType={selectedType}
           onItemSelect={this.onItemSelect}
         />
+        <VerificationContent activeTypeItem={selectedType} />
       </div>
     );
   }
