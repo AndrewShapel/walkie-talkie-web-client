@@ -1,0 +1,18 @@
+@import "../../../../variables.css";
+
+.verification-header-item {
+  margin-left: 35px;
+  font-size: 15px;
+  color: var(--color-purple);
+  text-transform: uppercase;
+  cursor: pointer;
+  display: inline-block;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &_active {
+    border-bottom: 2px solid var(--color-light-pink);
+  }
+}
