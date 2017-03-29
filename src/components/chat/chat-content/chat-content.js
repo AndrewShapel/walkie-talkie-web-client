@@ -11,7 +11,7 @@ const ChatContent = ({ className }) => {
 
   return (
     <div className={chatContentClassName}>
-      <ChatMessages />
+      <ChatMessages className={chatContentClassNames['chat-content__messages']} />
       <div className={chatContentClassNames['chat-content__send-input']}>
         <ChatSendInput />
       </div>

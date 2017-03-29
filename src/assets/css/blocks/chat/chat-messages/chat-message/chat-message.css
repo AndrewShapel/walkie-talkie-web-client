@@ -30,8 +30,8 @@
   &__content {
     margin-top: 4px;
     padding: 12px;
-    color: var(--color-white);
     font-size: 13px;
+    color: var(--color-white);
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;

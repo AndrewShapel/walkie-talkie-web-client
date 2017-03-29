@@ -1,0 +1,38 @@
+@import "../../../variables.css";
+
+.panel-header {
+  justify-content: space-between;
+  display: flex;
+
+  &__user {
+    padding: 13px 15px 15px 15px;
+
+    &-name {
+      color: var(--color-white);
+    }
+
+    &-status {
+      background-color: var(--color-purple);
+    }
+  }
+
+  &__icons {
+    display: flex;
+  }
+
+  &__dropdown-items {
+    max-width: 241px;
+    top: 85%;
+    right: 27px;
+  }
+
+  &__add-friend {
+    width: 20px;
+    margin-right: 15px;
+  }
+
+  &__settings {
+    width: 20px;
+    margin-right: 15px;
+  }
+}

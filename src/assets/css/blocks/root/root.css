@@ -3,6 +3,8 @@
 .root {
   @apply --font-fira-sans;
 
+  height: 100vh;
+
   & input {
     @apply --font-fira-sans;
 

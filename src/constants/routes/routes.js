@@ -9,5 +9,7 @@ export default {
   about: {
     url: '/about',
   },
+  userVerification: {
+    url: '/verification',
+  },
 };
-

@@ -12,4 +12,20 @@ export const USER_STATUS = {
  * @const
  * @type {Object}
  */
-export const STATUS = {};
+export const VERIFICATION_TYPES = {
+  SIGN_IN: 'verification-header:SIGN_IN',
+  SIGN_UP: 'verification-header:SIGN_UP',
+};
+
+/**
+ * @const
+ * @type {Array}
+ */
+export const VERIFICATION_ITEMS = [{
+  type: VERIFICATION_TYPES.SIGN_IN,
+  title: 'Sign in',
+}, {
+  type: VERIFICATION_TYPES.SIGN_UP,
+  title: 'Sign up',
+}];
+

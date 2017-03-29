@@ -1,0 +1,16 @@
+@import "../../../../variables.css";
+
+.dropdown-item {
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 2px;
+    background-color: var(--color-gray);
+  }
+
+  &_only-text {
+    padding: 12px 13px;
+    cursor: pointer;
+    display: block;
+  }
+}
