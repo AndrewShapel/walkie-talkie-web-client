@@ -1,8 +1,16 @@
 @import "../../../breakpoints.css";
 
 .chat-content {
+  width: 100%;
   max-width: var(--breakpoint-tablet);
+  height: 100%;
   padding: 28px 28px 38px 28px;
+  flex-direction: column;
+  display: flex;
+
+  &__messages {
+    height: 100%;
+  }
 
   &__send-input {
     margin-top: 42px;
