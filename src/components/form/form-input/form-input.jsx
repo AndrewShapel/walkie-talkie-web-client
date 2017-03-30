@@ -10,6 +10,7 @@ class FormInput extends React.Component {
 
     this.state = {
       errorMessages: [],
+      isShowRequired: false,
     };
 
     this.onChange = this.onChange.bind(this);
@@ -44,15 +45,16 @@ class FormInput extends React.Component {
   }
 
   validate() {
-    const { getErrorMessages } = this.props;
+    const { isRequired, showRequired, getErrorMessages } = this.props;
 
     this.setState({
       errorMessages: getErrorMessages(),
+      isShowRequired: isRequired() && showRequired(),
     });
   }
 
   render() {
-    const { errorMessages } = this.state;
+    const { errorMessages, isShowRequired } = this.state;
     const { className, inputClassName, name, defaultValue, placeholder, type } = this.props;
 
     return (
@@ -64,6 +66,8 @@ class FormInput extends React.Component {
         placeholder={placeholder}
         type={type}
         errorMessages={errorMessages}
+        isInvalid={isShowRequired}
+        isShowRequired={isShowRequired}
         onChange={this.onChange}
       />
     );
@@ -71,10 +75,14 @@ class FormInput extends React.Component {
 }
 
 FormInput.defaultProps = Object.assign(Input.defaultProps, {
+  validations: {},
+  validationErrors: {},
   onMount: null,
 });
 
 FormInput.propTypes = Object.assign(Input.propTypes, {
+  validations: React.PropTypes.object,
+  validationErrors: React.PropTypes.object,
   onMount: React.PropTypes.func,
 });
 

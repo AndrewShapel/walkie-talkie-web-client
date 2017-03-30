@@ -14,4 +14,12 @@
     background-color: var(--color-dark-purple);
     transition: background-color 0.1s linear;
   }
+
+  &_disabled {
+    background-color: var(--color-light-pink);
+
+    &:hover {
+      background-color: var(--color-light-pink);
+    }
+  }
 }

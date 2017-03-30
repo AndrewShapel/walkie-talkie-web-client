@@ -39,6 +39,7 @@ export default class VerificationSignIn extends React.PureComponent {
           placeholder="Email"
           validations={this.inputValidators}
           validationErrors={this.inputValidatorsErrors}
+          required
         />
         <FormInput
           className={verificationSignInClassNames['verification-sign-in__form-input']}

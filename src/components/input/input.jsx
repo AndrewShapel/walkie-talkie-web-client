@@ -38,7 +38,7 @@ class Input extends React.PureComponent {
   render() {
     const { className, inputClassName, name, defaultValue, placeholder, type, errorMessages, isInvalid, isShowRequired } = this.props;
 
-    const requireStar = (isShowRequired) ? <span className={inputClassNames.input__required}>*</span> : null;
+    const requireIndicator = (isShowRequired) ? <span className={inputClassNames.input__required}>*</span> : null;
 
     const containerClassName = classnames(inputClassNames.input, className);
     const inputContainerClassName = classnames(inputClassNames['input__input-container'], {
@@ -57,7 +57,7 @@ class Input extends React.PureComponent {
             type={type}
             onChange={this.onChange}
           />
-          {requireStar}
+          {requireIndicator}
         </div>
         {Input.renderErrorMessages(errorMessages)}
       </div>
