@@ -16,7 +16,7 @@
     }
   }
 
-  &__error {
+  &__error-message {
     margin: 2px 4px;
     font-size: 13px;
     color: var(--color-red);
