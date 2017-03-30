@@ -15,8 +15,26 @@ class Input extends React.PureComponent {
     ));
   }
 
+  constructor(props) {
+    super(props);
+
+    this.onChange = this.onChange.bind(this);
+  }
+
+  /**
+   * @param {Object} event
+   */
+  onChange(event) {
+    const { onChange } = this.props;
+
+    const value = event.target.value;
+    if (onChange) {
+      onChange(value);
+    }
+  }
+
   render() {
-    const { className, inputClassName, name, value, placeholder, errorMessages, isInvalid } = this.props;
+    const { className, inputClassName, name, defaultValue, placeholder, errorMessages, isInvalid } = this.props;
 
     const containerClassName = classnames(inputClassNames.input, className);
     const containerInputClassName = classnames(inputClassNames.input__input, {
@@ -28,9 +46,10 @@ class Input extends React.PureComponent {
         <input
           className={containerInputClassName}
           name={name}
-          value={value}
+          defaultValue={defaultValue}
           placeholder={placeholder}
           type="text"
+          onChange={this.onChange}
         />
         {Input.renderErrorMessages(errorMessages)}
       </div>
@@ -42,20 +61,22 @@ Input.defaultProps = {
   className: '',
   inputClassName: '',
   name: '',
-  value: '',
+  defaultValue: '',
   placeholder: '',
   errorMessages: [],
   isInvalid: false,
+  onChange: null,
 };
 
 Input.propTypes = {
   className: React.PropTypes.string,
   inputClassName: React.PropTypes.string,
   name: React.PropTypes.string,
-  value: React.PropTypes.string,
+  defaultValue: React.PropTypes.string,
   placeholder: React.PropTypes.string,
   errorMessages: React.PropTypes.array,
   isInvalid: React.PropTypes.bool,
+  onChange: React.PropTypes.func,
 };
 
 export default Input;
