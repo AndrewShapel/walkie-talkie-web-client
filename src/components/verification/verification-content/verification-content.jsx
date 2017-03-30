@@ -4,6 +4,8 @@ import { VERIFICATION_TYPES } from '../../../constants/common';
 
 import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 
+import verificationContentClassNames from '../../../assets/css/blocks/verification/verification-content/verification-content.css';
+
 class VerificationContent extends React.PureComponent {
   /**
    * @param {String} type
@@ -23,7 +25,11 @@ class VerificationContent extends React.PureComponent {
   render() {
     const { activeTypeItem } = this.props;
 
-    return VerificationContent.renderContent(activeTypeItem);
+    return (
+      <div className={verificationContentClassNames['verification-content']}>
+        {VerificationContent.renderContent(activeTypeItem)}
+      </div>
+    );
   }
 }
 

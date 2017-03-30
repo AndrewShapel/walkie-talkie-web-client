@@ -1,0 +1,25 @@
+@import "../../variables.css";
+
+.input {
+  flex-direction: column;
+  display: flex;
+
+  &__input {
+    padding: 10px 5px;
+    font-size: 14px;
+    border: 1px solid var(--color-gray);
+    border-radius: 4px;
+    box-sizing: border-box;
+
+    &_invalid {
+      border: 1px solid var(--color-red);
+    }
+  }
+
+  &__error {
+    margin: 2px 4px;
+    font-size: 13px;
+    color: var(--color-red);
+    word-wrap: break-word;
+  }
+}
