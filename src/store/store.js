@@ -53,7 +53,7 @@ class Store {
 
   /**
    * @param {Function} listener
-   * @return {Function|Null}
+   * @returns {Function|Null}
    */
   subscribe(listener) {
     if (this.store) {

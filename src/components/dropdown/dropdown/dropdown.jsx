@@ -53,7 +53,7 @@ class Dropdown extends React.PureComponent {
   /**
    * @param {Object} children
    * @param {Number} index
-   * @return {Object|Null}
+   * @returns {Object|Null}
    */
   renderChildren(children, index) {
     if (children) {
@@ -68,7 +68,7 @@ class Dropdown extends React.PureComponent {
 
   /**
    * @param {Object} items
-   * @return {Object|Null}
+   * @returns {Object|Null}
    */
   renderItems(items) {
     if (items) {

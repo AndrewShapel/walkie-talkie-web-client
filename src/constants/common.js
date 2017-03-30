@@ -13,8 +13,8 @@ export const USER_STATUS = {
  * @type {Object}
  */
 export const VERIFICATION_TYPES = {
-  SIGN_IN: 'verification-header:SIGN_IN',
-  SIGN_UP: 'verification-header:SIGN_UP',
+  SIGN_IN: 'SIGN_IN',
+  SIGN_UP: 'SIGN_UP',
 };
 
 /**

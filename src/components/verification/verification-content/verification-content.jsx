@@ -7,7 +7,7 @@ import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 class VerificationContent extends React.PureComponent {
   /**
    * @param {String} type
-   * @return {Object}
+   * @returns {Object}
    */
   static renderContent(type) {
     switch (type) {
