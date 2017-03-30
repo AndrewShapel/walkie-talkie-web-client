@@ -36,23 +36,29 @@ class Input extends React.PureComponent {
   }
 
   render() {
-    const { className, inputClassName, name, defaultValue, placeholder, type, errorMessages, isInvalid } = this.props;
+    const { className, inputClassName, name, defaultValue, placeholder, type, errorMessages, isInvalid, isShowRequired } = this.props;
+
+    const requireStar = (isShowRequired) ? <span className={inputClassNames.input__required}>*</span> : null;
 
     const containerClassName = classnames(inputClassNames.input, className);
-    const containerInputClassName = classnames(inputClassNames.input__input, {
-      [inputClassNames.input__input_invalid]: isInvalid || errorMessages.length > 0,
-    }, inputClassName);
+    const inputContainerClassName = classnames(inputClassNames['input__input-container'], {
+      [inputClassNames['input__input-container_invalid']]: isInvalid || errorMessages.length > 0,
+    });
+    const containerInputClassName = classnames(inputClassNames.input__input, inputClassName);
 
     return (
       <div className={containerClassName}>
-        <input
-          className={containerInputClassName}
-          name={name}
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-          type={type}
-          onChange={this.onChange}
-        />
+        <div className={inputContainerClassName}>
+          <input
+            className={containerInputClassName}
+            name={name}
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            type={type}
+            onChange={this.onChange}
+          />
+          {requireStar}
+        </div>
         {Input.renderErrorMessages(errorMessages)}
       </div>
     );
@@ -68,6 +74,7 @@ Input.defaultProps = {
   type: INPUT_TYPES.text,
   errorMessages: [],
   isInvalid: false,
+  isShowRequired: false,
   onChange: null,
 };
 
@@ -80,6 +87,7 @@ Input.propTypes = {
   type: React.PropTypes.string,
   errorMessages: React.PropTypes.array,
   isInvalid: React.PropTypes.bool,
+  isShowRequired: React.PropTypes.bool,
   onChange: React.PropTypes.func,
 };
 
