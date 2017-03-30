@@ -38,3 +38,14 @@ export const BUTTON_TYPES = {
   submit: 'submit',
   reset: 'reset',
 };
+
+/**
+ * @const
+ * @type {Object}
+ */
+export const FORM_VALIDATIONS = {
+  isEmail: {
+    type: 'isEmail',
+    errorMessage: 'Email is invalid',
+  },
+};

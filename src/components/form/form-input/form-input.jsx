@@ -4,17 +4,30 @@ import { Decorator as FormsyElement } from 'formsy-react';
 import Input from '../../input/input';
 
 @FormsyElement()
-class FormInput extends React.PureComponent {
+class FormInput extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      errorMessages: [],
+    };
 
     this.onChange = this.onChange.bind(this);
   }
 
   componentWillMount() {
     const { defaultValue, setValue } = this.props;
+
     if (defaultValue) {
       setValue(defaultValue);
+    }
+  }
+
+  componentDidMount() {
+    const { onMount } = this.props;
+
+    if (onMount) {
+      onMount(this);
     }
   }
 
@@ -30,7 +43,16 @@ class FormInput extends React.PureComponent {
     }
   }
 
+  validate() {
+    const { getErrorMessages } = this.props;
+
+    this.setState({
+      errorMessages: getErrorMessages(),
+    });
+  }
+
   render() {
+    const { errorMessages } = this.state;
     const { className, inputClassName, name, defaultValue, placeholder } = this.props;
 
     return (
@@ -40,15 +62,19 @@ class FormInput extends React.PureComponent {
         name={name}
         defaultValue={defaultValue}
         placeholder={placeholder}
-        errorMessages={['Error1', 'Error2']}
+        errorMessages={errorMessages}
         onChange={this.onChange}
       />
     );
   }
 }
 
-FormInput.defaultProps = Object.assign(Input.defaultProps);
+FormInput.defaultProps = Object.assign(Input.defaultProps, {
+  onMount: null,
+});
 
-FormInput.propTypes = Object.assign(Input.propTypes);
+FormInput.propTypes = Object.assign(Input.propTypes, {
+  onMount: React.PropTypes.func,
+});
 
 export default FormInput;
