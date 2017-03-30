@@ -9,8 +9,8 @@ import Button from '../../button/button';
 import verificationSignInClassNames from '../../../assets/css/blocks/verification/verification-sign-in/verification-sign-in.css';
 
 export default class VerificationSignIn extends React.PureComponent {
-  static onValidSubmit(model) {
-    console.log(model);
+  static onValidSubmit() {
+    // Submit
   }
 
   constructor(props) {

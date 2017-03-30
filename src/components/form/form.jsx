@@ -1,7 +1,20 @@
 import React from 'react';
 import { Form as FormsyForm } from 'formsy-react';
 
+import formClassNames from '../../assets/css/blocks/form/form.css';
+
 class Form extends React.PureComponent {
+  /**
+   * @param {Array} errorMessages
+   */
+  static renderErrorMessages(errorMessages) {
+    return errorMessages.map(errorMessage => (
+      <span className={formClassNames['form__error-message']}>
+        {errorMessage}
+      </span>
+    ));
+  }
+
   /**
    * @param {Array} children
    */
@@ -73,10 +86,11 @@ class Form extends React.PureComponent {
   }
 
   render() {
-    const { children, mapping } = this.props;
+    const { children, mapping, errorMessages } = this.props;
 
     return (
       <FormsyForm mapping={mapping} onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
+        {Form.renderErrorMessages(errorMessages)}
         {React.Children.map(children, this.renderChildren)}
       </FormsyForm>
     );
@@ -86,6 +100,7 @@ class Form extends React.PureComponent {
 Form.defaultProps = {
   children: null,
   mapping: null,
+  errorMessages: [],
   onValidSubmit: null,
 };
 
@@ -95,6 +110,7 @@ Form.propTypes = {
     React.PropTypes.array,
   ]),
   mapping: React.PropTypes.func,
+  errorMessages: React.PropTypes.array,
   onValidSubmit: React.PropTypes.func,
 };
 
