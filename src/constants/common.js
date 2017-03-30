@@ -29,3 +29,12 @@ export const VERIFICATION_ITEMS = [{
   title: 'Sign up',
 }];
 
+/**
+ * @const
+ * @type {Object}
+ */
+export const BUTTON_TYPES = {
+  button: 'button',
+  submit: 'submit',
+  reset: 'reset',
+};

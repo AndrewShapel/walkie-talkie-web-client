@@ -2,12 +2,14 @@ import React from 'react';
 
 import Input from '../../input/input';
 
-const FormInput = ({ className, inputClassName, placeholder }) => (
+const FormInput = ({ className, inputClassName, name, value, placeholder }) => (
   <Input
     className={className}
     inputClassName={inputClassName}
-    errorMessages={['Error1', 'Error2']}
+    name={name}
+    value={value}
     placeholder={placeholder}
+    errorMessages={['Error1', 'Error2']}
   />
 );
 

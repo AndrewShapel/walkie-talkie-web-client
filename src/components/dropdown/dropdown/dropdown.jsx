@@ -116,7 +116,10 @@ Dropdown.defaultProps = {
 Dropdown.propTypes = {
   className: React.PropTypes.string,
   itemsClassName: React.PropTypes.string,
-  children: React.PropTypes.object,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.array,
+  ]),
   renderContent: React.PropTypes.func,
 };
 

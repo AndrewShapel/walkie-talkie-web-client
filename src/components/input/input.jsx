@@ -16,17 +16,19 @@ class Input extends React.PureComponent {
   }
 
   render() {
-    const { className, inputClassName, errorMessages, placeholder, isInvalid } = this.props;
+    const { className, inputClassName, name, value, placeholder, errorMessages, isInvalid } = this.props;
 
     const containerClassName = classnames(inputClassNames.input, className);
     const containerInputClassName = classnames(inputClassNames.input__input, {
-      [inputClassNames.input__input_invalid]: isInvalid,
+      [inputClassNames.input__input_invalid]: isInvalid || errorMessages.length > 0,
     }, inputClassName);
 
     return (
       <div className={containerClassName}>
         <input
           className={containerInputClassName}
+          name={name}
+          value={value}
           placeholder={placeholder}
           type="text"
         />
@@ -39,16 +41,20 @@ class Input extends React.PureComponent {
 Input.defaultProps = {
   className: '',
   inputClassName: '',
-  errorMessages: [],
+  name: '',
+  value: '',
   placeholder: '',
+  errorMessages: [],
   isInvalid: false,
 };
 
 Input.propTypes = {
   className: React.PropTypes.string,
   inputClassName: React.PropTypes.string,
-  errorMessages: React.PropTypes.array,
+  name: React.PropTypes.string,
+  value: React.PropTypes.string,
   placeholder: React.PropTypes.string,
+  errorMessages: React.PropTypes.array,
   isInvalid: React.PropTypes.bool,
 };
 
