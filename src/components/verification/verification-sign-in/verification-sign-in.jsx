@@ -24,9 +24,12 @@ export default class VerificationSignIn extends React.PureComponent {
       [FORM_VALIDATIONS.isEmail.type]: FORM_VALIDATIONS.isEmail.errorMessage,
     };
 
-    this.formModel = inputs => ({
-      email: inputs.email,
-      password: inputs.password,
+    /**
+     * @param {Object} model
+     */
+    this.formModel = model => ({
+      email: model.email,
+      password: model.password,
     });
   }
 
@@ -46,6 +49,7 @@ export default class VerificationSignIn extends React.PureComponent {
           name="password"
           placeholder="Password"
           type={INPUT_TYPES.password}
+          required
         />
         <Button
           className={verificationSignInClassNames['verification-sign-in__button']}

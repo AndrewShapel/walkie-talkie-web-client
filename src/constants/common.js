@@ -57,4 +57,7 @@ export const FORM_VALIDATIONS = {
     type: 'isEmail',
     errorMessage: 'Email is invalid',
   },
+  isEqualsField: {
+    type: 'equalsField',
+  },
 };
