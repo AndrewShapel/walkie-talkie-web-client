@@ -53,7 +53,7 @@ class FormInput extends React.Component {
 
   render() {
     const { errorMessages } = this.state;
-    const { className, inputClassName, name, defaultValue, placeholder } = this.props;
+    const { className, inputClassName, name, defaultValue, placeholder, type } = this.props;
 
     return (
       <Input
@@ -62,6 +62,7 @@ class FormInput extends React.Component {
         name={name}
         defaultValue={defaultValue}
         placeholder={placeholder}
+        type={type}
         errorMessages={errorMessages}
         onChange={this.onChange}
       />

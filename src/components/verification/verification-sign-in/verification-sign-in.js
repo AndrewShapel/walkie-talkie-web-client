@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { FORM_VALIDATIONS, BUTTON_TYPES } from '../../../constants/common';
+import { INPUT_TYPES, BUTTON_TYPES, FORM_VALIDATIONS } from '../../../constants/common';
 
 import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';
@@ -44,6 +44,7 @@ export default class VerificationSignIn extends React.PureComponent {
           className={verificationSignInClassNames['verification-sign-in__form-input']}
           name="password"
           placeholder="Password"
+          type={INPUT_TYPES.password}
         />
         <Button
           className={verificationSignInClassNames['verification-sign-in__button']}

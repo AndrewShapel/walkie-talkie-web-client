@@ -33,6 +33,15 @@ export const VERIFICATION_ITEMS = [{
  * @const
  * @type {Object}
  */
+export const INPUT_TYPES = {
+  text: 'text',
+  password: 'password',
+};
+
+/**
+ * @const
+ * @type {Object}
+ */
 export const BUTTON_TYPES = {
   button: 'button',
   submit: 'submit',

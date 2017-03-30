@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import { INPUT_TYPES } from '../../constants/common';
+
 import inputClassNames from '../../assets/css/blocks/input/input.css';
 
 class Input extends React.PureComponent {
@@ -34,7 +36,7 @@ class Input extends React.PureComponent {
   }
 
   render() {
-    const { className, inputClassName, name, defaultValue, placeholder, errorMessages, isInvalid } = this.props;
+    const { className, inputClassName, name, defaultValue, placeholder, type, errorMessages, isInvalid } = this.props;
 
     const containerClassName = classnames(inputClassNames.input, className);
     const containerInputClassName = classnames(inputClassNames.input__input, {
@@ -48,7 +50,7 @@ class Input extends React.PureComponent {
           name={name}
           defaultValue={defaultValue}
           placeholder={placeholder}
-          type="text"
+          type={type}
           onChange={this.onChange}
         />
         {Input.renderErrorMessages(errorMessages)}
@@ -63,6 +65,7 @@ Input.defaultProps = {
   name: '',
   defaultValue: '',
   placeholder: '',
+  type: INPUT_TYPES.text,
   errorMessages: [],
   isInvalid: false,
   onChange: null,
@@ -74,6 +77,7 @@ Input.propTypes = {
   name: React.PropTypes.string,
   defaultValue: React.PropTypes.string,
   placeholder: React.PropTypes.string,
+  type: React.PropTypes.string,
   errorMessages: React.PropTypes.array,
   isInvalid: React.PropTypes.bool,
   onChange: React.PropTypes.func,
