@@ -57,6 +57,10 @@ export const FORM_VALIDATIONS = {
     type: 'isEmail',
     errorMessage: 'Email is invalid',
   },
+  isAlpha: {
+    type: 'isAlpha',
+    errorMessage: 'Only letters without tabs allowed',
+  },
   isEqualsField: {
     type: 'equalsField',
   },

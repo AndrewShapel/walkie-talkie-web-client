@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { INPUT_TYPES, BUTTON_TYPES, FORM_VALIDATIONS } from '../../../constants/common';
+import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/common';
 
 import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';
@@ -8,21 +8,13 @@ import Button from '../../button/button';
 
 import verificationSignInClassNames from '../../../assets/css/blocks/verification/verification-sign-in/verification-sign-in.css';
 
-export default class VerificationSignIn extends React.PureComponent {
+class VerificationSignIn extends React.PureComponent {
   static onValidSubmit() {
     // Submit
   }
 
   constructor(props) {
     super(props);
-
-    this.inputValidators = {
-      [FORM_VALIDATIONS.isEmail.type]: true,
-    };
-
-    this.inputValidatorsErrors = {
-      [FORM_VALIDATIONS.isEmail.type]: FORM_VALIDATIONS.isEmail.errorMessage,
-    };
 
     /**
      * @param {Object} model
@@ -34,14 +26,16 @@ export default class VerificationSignIn extends React.PureComponent {
   }
 
   render() {
+    const { validations } = this.props;
+
     return (
       <Form mapping={this.formModel} onValidSubmit={VerificationSignIn.onValidSubmit}>
         <FormInput
           className={verificationSignInClassNames['verification-sign-in__form-input']}
           name="email"
           placeholder="Email"
-          validations={this.inputValidators}
-          validationErrors={this.inputValidatorsErrors}
+          validations={validations.email.types}
+          validationErrors={validations.email.errors}
           required
         />
         <FormInput
@@ -60,3 +54,9 @@ export default class VerificationSignIn extends React.PureComponent {
     );
   }
 }
+
+VerificationSignIn.propTypes = {
+  validations: React.PropTypes.object.isRequired,
+};
+
+export default VerificationSignIn;
