@@ -9,10 +9,6 @@ class Dropdown extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isOpen: true,
-    };
-
     this.eventListener = null;
 
     this.toggle = this.toggle.bind(this);
@@ -21,13 +17,15 @@ class Dropdown extends React.Component {
   }
 
   componentWillMount() {
+    const { onToggle } = this.props;
+
     if (!this.eventListener) {
       this.eventListener = (event) => {
         const dropdown = this.dropdown;
-        if (dropdown && !Dom.isDescendant(dropdown, event.target)) {
-          this.setState({
-            isOpen: false,
-          });
+        if (dropdown && !Dom.isDescendant(dropdown, event.target) && onToggle) {
+          if (onToggle) {
+            onToggle(false);
+          }
         }
       };
 
@@ -42,11 +40,11 @@ class Dropdown extends React.Component {
   }
 
   toggle() {
-    const isOpen = !this.state.isOpen;
+    const { isOpen, onToggle } = this.state;
 
-    this.setState({
-      isOpen,
-    });
+    if (onToggle) {
+      onToggle(!isOpen);
+    }
   }
 
   /**
@@ -82,8 +80,7 @@ class Dropdown extends React.Component {
   }
 
   render() {
-    const { isOpen } = this.state;
-    const { className, itemsClassName, children, renderContent } = this.props;
+    const { className, itemsClassName, children, renderContent, isOpen } = this.props;
 
     const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, itemsClassName);
     const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
@@ -110,6 +107,8 @@ Dropdown.defaultProps = {
   itemsClassName: '',
   children: null,
   renderContent: null,
+  isOpen: false,
+  onToggle: null,
 };
 
 Dropdown.propTypes = {
@@ -120,6 +119,8 @@ Dropdown.propTypes = {
     React.PropTypes.array,
   ]),
   renderContent: React.PropTypes.func,
+  isOpen: React.PropTypes.bool,
+  onToggle: React.PropTypes.func,
 };
 
 export default Dropdown;

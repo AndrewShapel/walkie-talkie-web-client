@@ -52,10 +52,12 @@ class DropdownAddToFriends extends React.Component {
     super(props);
 
     this.state = {
+      isOpen: true,
       activeItemId: null,
       isSearchInputInFocus: false,
     };
 
+    this.onToggle = this.onToggle.bind(this);
     this.onKeyUp = this.onKeyUp.bind(this);
     this.onItemSelect = this.onItemSelect.bind(this);
     this.onSearchInputFocus = this.onSearchInputFocus.bind(this);
@@ -67,7 +69,7 @@ class DropdownAddToFriends extends React.Component {
    * @param {Object} event
    */
   onKeyUp(event) {
-    const { activeItemId, isSearchInputInFocus } = this.state;
+    const { isOpen, activeItemId, isSearchInputInFocus } = this.state;
 
     if (isSearchInputInFocus) {
       const nextState = Object.assign(this.state);
@@ -85,11 +87,25 @@ class DropdownAddToFriends extends React.Component {
         if (nextItem) {
           nextState.activeItemId = nextItem.id;
         }
+      } else if (pressedKeyName === KEYBOARD_KEYS.ENTER) {
+        nextState.isOpen = false;
       }
 
-      if (nextState.activeItemId !== activeItemId) {
+      if (nextState.activeItemId !== activeItemId || nextState.isOpen !== isOpen) {
         this.setState(nextState);
       }
+    }
+  }
+
+  /**
+   * @param {Boolean} isDropdownOpen
+   */
+  onToggle(isDropdownOpen) {
+    const { isOpen } = this.state;
+    if (isDropdownOpen !== isOpen) {
+      this.setState({
+        isOpen: isDropdownOpen,
+      });
     }
   }
 
@@ -98,6 +114,7 @@ class DropdownAddToFriends extends React.Component {
    */
   onItemSelect(itemId) {
     this.setState({
+      isOpen: false,
       activeItemId: itemId,
     });
   }
@@ -136,7 +153,7 @@ class DropdownAddToFriends extends React.Component {
   }
 
   render() {
-    const { activeItemId } = this.state;
+    const { isOpen, activeItemId } = this.state;
     const { itemsClassName, children } = this.props;
 
     const itemClassName = dropdownAddToFriendsClassNames['dropdown-add-to-friends__item'];
@@ -149,7 +166,9 @@ class DropdownAddToFriends extends React.Component {
           items={DropdownAddToFriends.getItems(itemClassName)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
+          isOpen={isOpen}
           onItemSelect={this.onItemSelect}
+          onToggle={this.onToggle}
         >
           {children}
         </DropdownItems>

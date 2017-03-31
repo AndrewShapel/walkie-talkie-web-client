@@ -38,8 +38,8 @@ class DropdownItems extends React.PureComponent {
           id={id}
           title={title}
           isActive={id === activeItemId}
-          key={id}
           onClick={this.onActiveItemIdSelect}
+          key={id}
         >
           {content}
         </DropdownItem>
@@ -56,10 +56,16 @@ class DropdownItems extends React.PureComponent {
   }
 
   render() {
-    const { className, itemsClassName, children } = this.props;
+    const { className, itemsClassName, children, isOpen, onToggle } = this.props;
 
     return (
-      <Dropdown className={className} itemsClassName={itemsClassName} renderContent={this.renderItems}>
+      <Dropdown
+        className={className}
+        itemsClassName={itemsClassName}
+        renderContent={this.renderItems}
+        isOpen={isOpen}
+        onToggle={onToggle}
+      >
         {children}
       </Dropdown>
     );
