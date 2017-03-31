@@ -21,7 +21,9 @@ export default () => (
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
       <DropdownAddToFriends itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
-        <Svg className={panelHeaderClassNames['panel-header__add-friend']} icon={ICONS.USER_PLUS} />
+        <div className={panelHeaderClassNames['panel-header__add-friend']}>
+          <Svg icon={ICONS.USER_PLUS} />
+        </div>
       </DropdownAddToFriends>
       <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
     </div>

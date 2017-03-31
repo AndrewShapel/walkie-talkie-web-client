@@ -17,22 +17,29 @@
   }
 
   &__icons {
+    align-items: center;
     display: flex;
   }
 
   &__dropdown-items {
     max-width: 241px;
-    top: 85%;
+    margin-top: 15px;
     right: 27px;
   }
 
   &__add-friend {
     width: 20px;
+    height: 20px;
     margin-right: 15px;
+    fill: var(--color-white);
+    cursor: pointer;
   }
 
   &__settings {
     width: 20px;
+    height: 20px;
     margin-right: 15px;
+    cursor: pointer;
+    fill: var(--color-white);
   }
 }

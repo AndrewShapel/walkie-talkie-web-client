@@ -40,7 +40,7 @@ class Dropdown extends React.Component {
   }
 
   toggle() {
-    const { isOpen, onToggle } = this.state;
+    const { isOpen, onToggle } = this.props;
 
     if (onToggle) {
       onToggle(!isOpen);

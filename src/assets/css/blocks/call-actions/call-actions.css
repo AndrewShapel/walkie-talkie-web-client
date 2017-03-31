@@ -19,7 +19,7 @@
   &__icon {
     width: 18px;
     height: 18px;
-    margin: 11px 12px;
+    margin: 11px;
     fill: var(--color-white);
   }
 }
