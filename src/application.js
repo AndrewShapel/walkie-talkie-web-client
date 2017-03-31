@@ -20,7 +20,7 @@ class Application {
   }
 
   /**
-   * @return {Object}
+   * @returns {Object}
    */
   getProvider() {
     const Component = this.component;

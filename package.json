@@ -16,7 +16,9 @@
   "author": "Anton Yaskevich & AndrewShapel",
   "license": "",
   "dependencies": {
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "classnames": "^2.2.5",
+    "formsy-react": "^0.19.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.3",

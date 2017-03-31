@@ -9,7 +9,7 @@ class VerificationHeader extends React.PureComponent {
    * @param {Array} items
    * @param {String} activeItemType
    * @param {Function} onItemSelect
-   * @return {Object}
+   * @returns {Object}
    */
   static renderItems(items, activeItemType, onItemSelect) {
     return items.map((item) => {

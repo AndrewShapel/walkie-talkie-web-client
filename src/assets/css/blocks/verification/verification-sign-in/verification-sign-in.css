@@ -1,0 +1,9 @@
+.verification-sign-in {
+  &__form-input {
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
