@@ -9,6 +9,14 @@ import VerificationContent from './verification-content/verification-content';
 import verificationClassNames from '../../assets/css/blocks/verification/verification.css';
 
 class Verification extends React.PureComponent {
+  static propTypes = {
+    className: React.PropTypes.string,
+  }
+
+  static defaultProps = {
+    className: '',
+  }
+
   constructor(props) {
     super(props);
 
@@ -48,13 +56,5 @@ class Verification extends React.PureComponent {
     );
   }
 }
-
-Verification.defaultProps = {
-  className: '',
-};
-
-Verification.propTypes = {
-  className: React.PropTypes.string,
-};
 
 export default Verification;

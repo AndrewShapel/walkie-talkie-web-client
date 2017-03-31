@@ -6,6 +6,19 @@ import Svg from '../../svg/svg';
 import chatSendInputClassNames from '../../../assets/css/blocks/chat/chat-send-input/chat-send-input.css';
 
 class ChatSendInput extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    rows: React.PropTypes.number,
+    minRows: React.PropTypes.number,
+  };
+
+  static defaultProps = {
+    className: '',
+    rows: 1,
+    minRows: 1,
+  };
+
   constructor(props) {
     super(props);
 
@@ -76,17 +89,5 @@ class ChatSendInput extends React.PureComponent {
     );
   }
 }
-
-ChatSendInput.defaultProps = {
-  className: '',
-  rows: 1,
-  minRows: 1,
-};
-
-ChatSendInput.propTypes = {
-  className: React.PropTypes.string,
-  rows: React.PropTypes.number,
-  minRows: React.PropTypes.number,
-};
 
 export default ChatSendInput;

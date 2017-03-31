@@ -5,6 +5,17 @@ import VertificationHeaderItem from './verification-header-item/verification-hea
 import verificationHeaderClassNames from '../../../assets/css/blocks/verification/verification-header/verification-header.css';
 
 class VerificationHeader extends React.PureComponent {
+  static propTypes = {
+    items: React.PropTypes.array,
+    activeItemType: React.PropTypes.string,
+    onItemSelect: React.PropTypes.func,
+  }
+
+  static defaultProps = {
+    items: [],
+    activeItemType: '',
+    onItemSelect: null,
+  }
   /**
    * @param {Array} items
    * @param {String} activeItemType
@@ -39,17 +50,5 @@ class VerificationHeader extends React.PureComponent {
     );
   }
 }
-
-VerificationHeader.defaultProps = {
-  items: [],
-  activeItemType: '',
-  onItemSelect: null,
-};
-
-VerificationHeader.propTypes = {
-  items: React.PropTypes.array,
-  activeItemType: React.PropTypes.string,
-  onItemSelect: React.PropTypes.func,
-};
 
 export default VerificationHeader;
