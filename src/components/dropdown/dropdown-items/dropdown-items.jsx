@@ -32,6 +32,7 @@ class DropdownItems extends React.PureComponent {
    * @returns {Object}
    */
   renderItems() {
+    const { activeItemId } = this.state;
     const { items, renderContentAfter, renderContent } = this.props;
 
     const dropdownItems = items.map((item) => {
@@ -42,6 +43,7 @@ class DropdownItems extends React.PureComponent {
           className={className}
           id={id}
           title={title}
+          isActive={id === activeItemId}
           key={id}
           onClick={this.onActiveItemIdSelect}
         >

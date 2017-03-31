@@ -35,10 +35,18 @@ class DropdownAddToFriends extends React.PureComponent {
     this.renderSearchInput = this.renderSearchInput.bind(this);
   }
 
+  onSearchInputFocus() {
+    this.changeSearchInputFocusBlur(true);
+  }
+
+  onSearchInputBlur() {
+    this.changeSearchInputFocusBlur(false);
+  }
+
   /**
    * @param {Boolean} isInFocus
    */
-  onSearchInputFocusBlur(isInFocus) {
+  changeSearchInputFocusBlur(isInFocus) {
     const { isSearchInputInFocus } = this.state;
 
     if (isSearchInputInFocus !== isInFocus) {
@@ -46,14 +54,6 @@ class DropdownAddToFriends extends React.PureComponent {
         isSearchInputInFocus: isInFocus,
       });
     }
-  }
-
-  onSearchInputFocus() {
-    this.onSearchInputFocusBlur(true);
-  }
-
-  onSearchInputBlur() {
-    this.onSearchInputFocusBlur(false);
   }
 
   renderSearchInput() {
