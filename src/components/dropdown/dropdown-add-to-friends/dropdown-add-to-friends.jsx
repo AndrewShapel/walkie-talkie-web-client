@@ -52,7 +52,7 @@ class DropdownAddToFriends extends React.Component {
     super(props);
 
     this.state = {
-      isOpen: true,
+      isOpen: false,
       activeItemId: null,
       isSearchInputInFocus: false,
     };
