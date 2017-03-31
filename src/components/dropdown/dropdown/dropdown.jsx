@@ -6,7 +6,6 @@ import Dom from '../../../utils/dom';
 import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
 
 class Dropdown extends React.Component {
-
   constructor(props) {
     super(props);
 

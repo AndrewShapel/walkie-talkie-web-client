@@ -1,12 +1,16 @@
 import React from 'react';
 
+import Keyboard from '../../../utils/keyboard';
+
+import { KEYBOARD_KEYS } from '../../../constants/common';
+
 import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';
 import DropdownItems from '../dropdown-items/dropdown-items';
 
 import dropdownAddToFriendsClassNames from '../../../assets/css/blocks/dropdown/dropdown-add-to-friends/dropdown-add-to-friends.css';
 
-class DropdownAddToFriends extends React.PureComponent {
+class DropdownAddToFriends extends React.Component {
   /**
    * @param {String} className
    * @returns {Array}
@@ -20,17 +24,39 @@ class DropdownAddToFriends extends React.PureComponent {
           userName="Friend to Add"
         />
       ),
+    }, {
+      className,
+      id: 1,
+      content: (
+        <User
+          userName="Another friend to add"
+        />
+      ),
     }];
+  }
+
+  /**
+   * @param {Array} items
+   * @param {Number} activeItemId
+   * @param {Boolean} isNext
+   * @return {Object|Undefined}
+   */
+  static getAdjacentItem(items, activeItemId, isNext = true) {
+    const currentItemIndex = items.findIndex(item => item.id === activeItemId);
+    const adjacentItemIndex = (isNext) ? currentItemIndex + 1 : currentItemIndex - 1;
+
+    return items[adjacentItemIndex];
   }
 
   constructor(props) {
     super(props);
 
     this.state = {
-      selectedItemId: null,
+      activeItemId: null,
       isSearchInputInFocus: false,
     };
 
+    this.onKeyUp = this.onKeyUp.bind(this);
     this.onItemSelect = this.onItemSelect.bind(this);
     this.onSearchInputFocus = this.onSearchInputFocus.bind(this);
     this.onSearchInputBlur = this.onSearchInputBlur.bind(this);
@@ -38,11 +64,41 @@ class DropdownAddToFriends extends React.PureComponent {
   }
 
   /**
+   * @param {Object} event
+   */
+  onKeyUp(event) {
+    const { activeItemId, isSearchInputInFocus } = this.state;
+
+    if (isSearchInputInFocus) {
+      const nextState = Object.assign(this.state);
+
+      const pressedKeyName = Keyboard.getKeyName(event.keyCode);
+      const items = DropdownAddToFriends.getItems();
+
+      if (pressedKeyName === KEYBOARD_KEYS.ARROW_UP) {
+        const previousItem = DropdownAddToFriends.getAdjacentItem(items, activeItemId, false);
+        if (previousItem) {
+          nextState.activeItemId = previousItem.id;
+        }
+      } else if (pressedKeyName === KEYBOARD_KEYS.ARROW_DOWN) {
+        const nextItem = DropdownAddToFriends.getAdjacentItem(items, activeItemId, true);
+        if (nextItem) {
+          nextState.activeItemId = nextItem.id;
+        }
+      }
+
+      if (nextState.activeItemId !== activeItemId) {
+        this.setState(nextState);
+      }
+    }
+  }
+
+  /**
    * @param {Number} itemId
    */
   onItemSelect(itemId) {
     this.setState({
-      selectedItemId: itemId,
+      activeItemId: itemId,
     });
   }
 
@@ -80,22 +136,24 @@ class DropdownAddToFriends extends React.PureComponent {
   }
 
   render() {
-    const { selectedItemId } = this.state;
+    const { activeItemId } = this.state;
     const { itemsClassName, children } = this.props;
 
     const itemClassName = dropdownAddToFriendsClassNames['dropdown-add-to-friends__item'];
 
     return (
-      <DropdownItems
-        className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']}
-        itemsClassName={itemsClassName}
-        items={DropdownAddToFriends.getItems(itemClassName)}
-        activeItemId={selectedItemId}
-        renderContent={this.renderSearchInput}
-        onItemSelect={this.onItemSelect}
-      >
-        {children}
-      </DropdownItems>
+      <div className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']} onKeyUp={this.onKeyUp}>
+        <DropdownItems
+          className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__items']}
+          itemsClassName={itemsClassName}
+          items={DropdownAddToFriends.getItems(itemClassName)}
+          activeItemId={activeItemId}
+          renderContent={this.renderSearchInput}
+          onItemSelect={this.onItemSelect}
+        >
+          {children}
+        </DropdownItems>
+      </div>
     );
   }
 }
