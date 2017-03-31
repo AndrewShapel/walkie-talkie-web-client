@@ -23,10 +23,47 @@ class DropdownAddToFriends extends React.PureComponent {
     }];
   }
 
-  static renderSearchInput() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isSearchInputInFocus: false,
+    };
+
+    this.onSearchInputFocus = this.onSearchInputFocus.bind(this);
+    this.onSearchInputBlur = this.onSearchInputBlur.bind(this);
+    this.renderSearchInput = this.renderSearchInput.bind(this);
+  }
+
+  /**
+   * @param {Boolean} isInFocus
+   */
+  onSearchInputFocusBlur(isInFocus) {
+    const { isSearchInputInFocus } = this.state;
+
+    if (isSearchInputInFocus !== isInFocus) {
+      this.setState({
+        isSearchInputInFocus: isInFocus,
+      });
+    }
+  }
+
+  onSearchInputFocus() {
+    this.onSearchInputFocusBlur(true);
+  }
+
+  onSearchInputBlur() {
+    this.onSearchInputFocusBlur(false);
+  }
+
+  renderSearchInput() {
     return (
       <div className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input-container']}>
-        <SearchInput className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']} />
+        <SearchInput
+          className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']}
+          onFocus={this.onSearchInputFocus}
+          onBlur={this.onSearchInputBlur}
+        />
       </div>
     );
   }
@@ -41,7 +78,7 @@ class DropdownAddToFriends extends React.PureComponent {
         className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']}
         itemsClassName={itemsClassName}
         items={DropdownAddToFriends.getItems(itemClassName)}
-        renderContent={DropdownAddToFriends.renderSearchInput}
+        renderContent={this.renderSearchInput}
       >
         {children}
       </DropdownItems>
