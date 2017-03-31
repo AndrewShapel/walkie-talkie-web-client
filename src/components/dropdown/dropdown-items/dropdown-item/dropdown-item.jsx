@@ -19,10 +19,11 @@ class DropdownItem extends React.PureComponent {
   }
 
   render() {
-    const { className, children, title } = this.props;
+    const { className, children, title, isActive } = this.props;
 
     const dropdownItemClassName = classnames(dropdownItemClassNames['dropdown-item'], {
       [dropdownItemClassNames['dropdown-item_only-text']]: title,
+      [dropdownItemClassNames['dropdown-item_active']]: isActive,
     }, className);
 
     return (
@@ -37,6 +38,7 @@ DropdownItem.defaultProps = {
   className: '',
   children: null,
   title: '',
+  isActive: false,
   onClick: null,
 };
 
@@ -48,6 +50,7 @@ DropdownItem.propTypes = {
   ]),
   id: React.PropTypes.number.isRequired,
   title: React.PropTypes.string,
+  isActive: React.PropTypes.bool,
   onClick: React.PropTypes.func,
 };
 

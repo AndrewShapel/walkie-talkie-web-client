@@ -5,14 +5,9 @@ import Dom from '../../../utils/dom';
 
 import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
 
-class Dropdown extends React.PureComponent {
-
+class Dropdown extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      isOpen: true,
-    };
 
     this.eventListener = null;
 
@@ -22,13 +17,15 @@ class Dropdown extends React.PureComponent {
   }
 
   componentWillMount() {
+    const { onToggle } = this.props;
+
     if (!this.eventListener) {
       this.eventListener = (event) => {
         const dropdown = this.dropdown;
-        if (dropdown && !Dom.isDescendant(dropdown, event.target)) {
-          this.setState({
-            isOpen: false,
-          });
+        if (dropdown && !Dom.isDescendant(dropdown, event.target) && onToggle) {
+          if (onToggle) {
+            onToggle(false);
+          }
         }
       };
 
@@ -43,11 +40,11 @@ class Dropdown extends React.PureComponent {
   }
 
   toggle() {
-    const isOpen = !this.state.isOpen;
+    const { isOpen, onToggle } = this.props;
 
-    this.setState({
-      isOpen,
-    });
+    if (onToggle) {
+      onToggle(!isOpen);
+    }
   }
 
   /**
@@ -83,8 +80,7 @@ class Dropdown extends React.PureComponent {
   }
 
   render() {
-    const { isOpen } = this.state;
-    const { className, itemsClassName, children, renderContent } = this.props;
+    const { className, itemsClassName, children, isOpen, renderContent } = this.props;
 
     const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, itemsClassName);
     const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
@@ -110,7 +106,9 @@ Dropdown.defaultProps = {
   className: '',
   itemsClassName: '',
   children: null,
+  isOpen: false,
   renderContent: null,
+  onToggle: null,
 };
 
 Dropdown.propTypes = {
@@ -120,7 +118,9 @@ Dropdown.propTypes = {
     React.PropTypes.element,
     React.PropTypes.array,
   ]),
+  isOpen: React.PropTypes.bool,
   renderContent: React.PropTypes.func,
+  onToggle: React.PropTypes.func,
 };
 
 export default Dropdown;

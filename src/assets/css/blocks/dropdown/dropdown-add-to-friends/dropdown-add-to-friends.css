@@ -3,6 +3,11 @@
 .dropdown-add-to-friends {
   display: flex;
 
+  &__items {
+    align-items: center;
+    display: flex;
+  }
+
   &__item {
     padding: 10px 14px;
   }

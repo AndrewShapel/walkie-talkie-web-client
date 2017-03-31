@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { USER_STATUS } from '../../../constants/common';
+import { ICONS } from '../../../constants/icons';
+import { USER_STATUS } from '../../../constants/user';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';
@@ -20,9 +21,11 @@ export default () => (
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
       <DropdownAddToFriends itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
-        <Svg className={panelHeaderClassNames['panel-header__add-friend']} path="assets/icons/svg/user-plus.svg" />
+        <div className={panelHeaderClassNames['panel-header__add-friend']}>
+          <Svg icon={ICONS.USER_PLUS} />
+        </div>
       </DropdownAddToFriends>
-      <Svg className={panelHeaderClassNames['panel-header__settings']} path="assets/icons/svg/cog.svg" />
+      <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
     </div>
   </div>
 );

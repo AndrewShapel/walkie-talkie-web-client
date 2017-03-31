@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/common';
+import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/form';
 
 import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';

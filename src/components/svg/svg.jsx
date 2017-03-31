@@ -1,17 +1,34 @@
 import React from 'react';
 
-const Svg = ({ className, path }) => (
-  <object className={className} data={path} type="image/svg+xml" />
-);
+class Svg extends React.PureComponent {
+  componentDidMount() {
+    const { icon } = this.props;
+
+    const svg = this.svg;
+    if (svg && icon) {
+      svg.innerHTML = icon;
+
+      this.forceUpdate();
+    }
+  }
+
+  render() {
+    const { className } = this.props;
+
+    return (
+      <div className={className} ref={(node) => { this.svg = node; }} />
+    );
+  }
+}
 
 Svg.defaultProps = {
   className: '',
-  path: '',
+  icon: '',
 };
 
 Svg.propTypes = {
   className: React.PropTypes.string,
-  path: React.PropTypes.string,
+  icon: React.PropTypes.string,
 };
 
 export default Svg;

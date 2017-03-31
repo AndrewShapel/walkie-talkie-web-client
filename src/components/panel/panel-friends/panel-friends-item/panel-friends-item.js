@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { USER_STATUS } from '../../../../constants/common';
+import { USER_STATUS } from '../../../../constants/user';
 
 import User from '../../../user/user';
 import Badge from '../../../badge/badge';
