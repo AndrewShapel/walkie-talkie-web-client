@@ -53,7 +53,7 @@ class Dropdown extends React.PureComponent {
   /**
    * @param {Object} children
    * @param {Number} index
-   * @return {Object|Null}
+   * @returns {Object|Null}
    */
   renderChildren(children, index) {
     if (children) {
@@ -68,7 +68,7 @@ class Dropdown extends React.PureComponent {
 
   /**
    * @param {Object} items
-   * @return {Object|Null}
+   * @returns {Object|Null}
    */
   renderItems(items) {
     if (items) {
@@ -116,7 +116,10 @@ Dropdown.defaultProps = {
 Dropdown.propTypes = {
   className: React.PropTypes.string,
   itemsClassName: React.PropTypes.string,
-  children: React.PropTypes.object,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.array,
+  ]),
   renderContent: React.PropTypes.func,
 };
 

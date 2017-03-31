@@ -42,7 +42,10 @@ DropdownItem.defaultProps = {
 
 DropdownItem.propTypes = {
   className: React.PropTypes.string,
-  children: React.PropTypes.object,
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.element,
+    React.PropTypes.array,
+  ]),
   id: React.PropTypes.number.isRequired,
   title: React.PropTypes.string,
   onClick: React.PropTypes.func,
