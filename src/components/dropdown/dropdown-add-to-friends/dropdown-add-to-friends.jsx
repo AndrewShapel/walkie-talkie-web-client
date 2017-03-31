@@ -2,7 +2,7 @@ import React from 'react';
 
 import Keyboard from '../../../utils/keyboard';
 
-import { KEYBOARD_KEYS } from '../../../constants/common';
+import { KEYBOARD_KEYS } from '../../../constants/keyboard';
 
 import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';

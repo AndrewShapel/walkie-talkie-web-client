@@ -1,6 +1,7 @@
 import React from 'react';
 
-import { FORM_VALIDATIONS, VERIFICATION_TYPES } from '../../../constants/common';
+import { FORM_VALIDATIONS } from '../../../constants/form';
+import { VERIFICATION_TYPES } from '../../../constants/verification';
 
 import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 import VerificationSignUp from '../verification-sign-up/verification-sign-up';

@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { INPUT_TYPES } from '../../constants/common';
+import { INPUT_TYPES } from '../../constants/form';
 
 import inputClassNames from '../../assets/css/blocks/input/input.css';
 

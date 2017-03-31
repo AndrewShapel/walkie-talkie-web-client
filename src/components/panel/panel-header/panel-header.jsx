@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { USER_STATUS } from '../../../constants/common';
+import { USER_STATUS } from '../../../constants/user';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';

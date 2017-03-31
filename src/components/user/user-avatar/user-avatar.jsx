@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { USER_STATUS } from '../../../constants/common';
+import { USER_STATUS } from '../../../constants/user';
 
 import userAvatarClassNames from '../../../assets/css/blocks/user/user-avatar/user-avatar.css';
 

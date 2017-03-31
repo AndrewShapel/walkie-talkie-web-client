@@ -1,4 +1,4 @@
-import { KEYBOARD_KEYS } from '../constants/common';
+import { KEYBOARD_KEYS } from '../constants/keyboard';
 
 export default class Keyboard {
   /**
