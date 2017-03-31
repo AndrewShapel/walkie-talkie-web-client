@@ -6,7 +6,6 @@
 
   &__action {
     margin-right: 8px;
-    padding: 10px 11px 5px 11px;
     cursor: pointer;
     border-radius: 20px;
     background-color: var(--color-purple);
@@ -18,7 +17,9 @@
   }
 
   &__icon {
-    width: 20px;
-    height: 20px;
+    width: 18px;
+    height: 18px;
+    margin: 11px 12px;
+    fill: var(--color-white);
   }
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import { ICONS } from '../../../constants/icons';
+
 import Svg from '../../svg/svg';
 
 import chatSendInputClassNames from '../../../assets/css/blocks/chat/chat-send-input/chat-send-input.css';
@@ -71,7 +73,7 @@ class ChatSendInput extends React.PureComponent {
           onChange={this.onChange}
           ref={(node) => { this.textArea = node; }}
         />
-        <Svg className={chatSendInputClassNames['chat-send-input__icon']} path="assets/icons/svg/quill.svg" />
+        <Svg className={chatSendInputClassNames['chat-send-input__icon']} icon={ICONS.QUILL} />
       </div>
     );
   }

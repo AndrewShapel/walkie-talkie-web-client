@@ -23,9 +23,9 @@
   }
 
   &__icon {
-    margin: 0 13px;
+    margin: 7px 13px 0 13px;
     width: 20px;
     height: 20px;
-    margin-top: 7px;
+    fill: var(--color-white);
   }
 }

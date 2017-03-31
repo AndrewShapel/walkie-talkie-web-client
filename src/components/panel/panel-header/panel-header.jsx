@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { ICONS } from '../../../constants/icons';
 import { USER_STATUS } from '../../../constants/user';
 
 import User from '../../user/user';
@@ -20,9 +21,9 @@ export default () => (
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
       <DropdownAddToFriends itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
-        <Svg className={panelHeaderClassNames['panel-header__add-friend']} path="assets/icons/svg/user-plus.svg" />
+        <Svg className={panelHeaderClassNames['panel-header__add-friend']} icon={ICONS.USER_PLUS} />
       </DropdownAddToFriends>
-      <Svg className={panelHeaderClassNames['panel-header__settings']} path="assets/icons/svg/cog.svg" />
+      <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
     </div>
   </div>
 );
