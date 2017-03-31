@@ -9,10 +9,6 @@ class DropdownItems extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeItemId: null,
-    };
-
     this.onActiveItemIdSelect = this.onActiveItemIdSelect.bind(this);
     this.renderItems = this.renderItems.bind(this);
   }
@@ -21,10 +17,9 @@ class DropdownItems extends React.PureComponent {
    * @param {Number} id
    */
   onActiveItemIdSelect(id) {
-    if (id !== this.state.activeItemId) {
-      this.setState({
-        activeItemId: id,
-      });
+    const { activeItemId, onItemSelect } = this.props;
+    if (id !== activeItemId && onItemSelect) {
+      onItemSelect(id);
     }
   }
 
@@ -32,8 +27,7 @@ class DropdownItems extends React.PureComponent {
    * @returns {Object}
    */
   renderItems() {
-    const { activeItemId } = this.state;
-    const { items, renderContentAfter, renderContent } = this.props;
+    const { items, activeItemId, renderContentAfter, renderContent } = this.props;
 
     const dropdownItems = items.map((item) => {
       const { className, id, title, content } = item;
@@ -74,14 +68,18 @@ class DropdownItems extends React.PureComponent {
 
 DropdownItems.defaultProps = Object.assign(Dropdown.defaultProps, {
   items: [],
+  activeItemId: null,
   renderContentAfter: false,
   renderContent: null,
+  onItemSelect: null,
 });
 
 DropdownItems.propTypes = Object.assign(Dropdown.propTypes, {
   items: React.PropTypes.array,
+  activeItemId: React.PropTypes.number,
   renderContentAfter: React.PropTypes.bool,
   renderContent: React.PropTypes.func,
+  onItemSelect: React.PropTypes.func,
 });
 
 export default DropdownItems;
