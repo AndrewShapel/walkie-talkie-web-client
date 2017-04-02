@@ -13,4 +13,9 @@
     cursor: pointer;
     display: block;
   }
+
+  &_active {
+    border-radius: 2px;
+    background-color: var(--color-gray);
+  }
 }

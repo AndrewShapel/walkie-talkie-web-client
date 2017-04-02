@@ -2,9 +2,8 @@ import React from 'react';
 
 import { Route } from 'react-router-dom';
 
-import { FORM_VALIDATIONS } from '../../../constants/common';
-
 import routes from '../../../constants/routes/routes';
+import { FORM_VALIDATIONS } from '../../../constants/form';
 
 import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 import VerificationSignUp from '../verification-sign-up/verification-sign-up';

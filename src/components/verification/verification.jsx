@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { VERIFICATION_TYPES, VERIFICATION_ITEMS } from '../../constants/common';
+import { VERIFICATION_TYPES, VERIFICATION_ITEMS } from '../../constants/verification';
 
 import VerificationHeader from './verification-header/verification-header';
 import VerificationContent from './verification-content/verification-content';

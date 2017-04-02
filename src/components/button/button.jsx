@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { BUTTON_TYPES } from '../../constants/common';
+import { BUTTON_TYPES } from '../../constants/form';
 
 import buttonClassNames from '../../assets/css/blocks/button/button.css';
 
