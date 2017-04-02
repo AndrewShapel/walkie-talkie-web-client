@@ -7,14 +7,12 @@ import verificationHeaderClassNames from '../../../assets/css/blocks/verificatio
 class VerificationHeader extends React.PureComponent {
   static propTypes = {
     items: React.PropTypes.array,
-    activeItemType: React.PropTypes.string,
-    onItemSelect: React.PropTypes.func,
+    match: React.PropTypes.object,
   }
 
   static defaultProps = {
     items: [],
-    activeItemType: '',
-    onItemSelect: null,
+    match: {},
   }
   /**
    * @param {Array} items
@@ -22,29 +20,28 @@ class VerificationHeader extends React.PureComponent {
    * @param {Function} onItemSelect
    * @returns {Object}
    */
-  static renderItems(items, activeItemType, onItemSelect) {
+  static renderItems(items, match) {
     return items.map((item) => {
-      const { title, type } = item;
+      const { title, path } = item;
 
       return (
         <VertificationHeaderItem
           title={title}
-          type={type}
-          onClick={onItemSelect}
-          isActive={type === activeItemType}
           key={title}
+          match={match}
+          path={path}
         />
       );
     });
   }
 
   render() {
-    const { items, activeItemType, onItemSelect } = this.props;
+    const { items, match } = this.props;
 
     return (
       <div className={verificationHeaderClassNames['verification-header']}>
         <ul className={verificationHeaderClassNames['verification-header__titles']}>
-          { VerificationHeader.renderItems(items, activeItemType, onItemSelect) }
+          { VerificationHeader.renderItems(items, match) }
         </ul>
       </div>
     );

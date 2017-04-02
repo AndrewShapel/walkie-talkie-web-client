@@ -11,10 +11,12 @@ import verificationClassNames from '../../assets/css/blocks/verification/verific
 class Verification extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
+    match: React.PropTypes.object,
   }
 
   static defaultProps = {
     className: '',
+    match: {},
   }
 
   constructor(props) {
@@ -23,24 +25,10 @@ class Verification extends React.PureComponent {
     this.state = {
       selectedType: VERIFICATION_TYPES.SIGN_IN,
     };
-
-    this.onItemSelect = this.onItemSelect.bind(this);
-  }
-
-  /**
-   * @param {String} type
-   */
-  onItemSelect(type) {
-    if (type !== this.state.selectedType) {
-      this.setState({
-        selectedType: type,
-      });
-    }
   }
 
   render() {
-    const { selectedType } = this.state;
-    const { className } = this.props;
+    const { className, match } = this.props;
 
     const verificationClassName = classnames(verificationClassNames.verification, className);
 
@@ -48,10 +36,9 @@ class Verification extends React.PureComponent {
       <div className={verificationClassName}>
         <VerificationHeader
           items={VERIFICATION_ITEMS}
-          activeItemType={selectedType}
-          onItemSelect={this.onItemSelect}
+          match={match}
         />
-        <VerificationContent activeTypeItem={selectedType} />
+        <VerificationContent match={match} />
       </div>
     );
   }

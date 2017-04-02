@@ -58,8 +58,8 @@ class VerificationContent extends React.PureComponent {
     const { match } = this.props;
     return (
       <div className={verificationContentClassNames['verification-content']}>
-        <Route path={`${match.path}${routes.userVerification.url.signin}`} render={() => <VerificationSignIn validations={this.validations} />} />
-        <Route path={`${match.path}${routes.userVerification.url.signup}`} render={() => <VerificationSignUp validations={this.validations} />} />
+        <Route exact path={`${match.path}${routes.userVerification.url.signin}`} render={() => <VerificationSignIn validations={this.validations} />} />
+        <Route exact path={`${match.path}${routes.userVerification.url.signup}`} render={() => <VerificationSignUp validations={this.validations} />} />
       </div>
     );
   }

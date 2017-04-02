@@ -24,9 +24,11 @@ export const VERIFICATION_TYPES = {
 export const VERIFICATION_ITEMS = [{
   type: VERIFICATION_TYPES.SIGN_IN,
   title: 'Sign in',
+  path: '/signin',
 }, {
   type: VERIFICATION_TYPES.SIGN_UP,
   title: 'Sign up',
+  path: '/signup',
 }];
 
 /**
