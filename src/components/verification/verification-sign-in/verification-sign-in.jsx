@@ -8,7 +8,12 @@ import Button from '../../button/button';
 
 import verificationSignInClassNames from '../../../assets/css/blocks/verification/verification-sign-in/verification-sign-in.css';
 
-class VerificationSignIn extends React.PureComponent {
+export default class VerificationSignIn extends React.PureComponent {
+
+  static propTypes = {
+    validations: React.PropTypes.object.isRequired,
+  }
+
   static onValidSubmit() {
     // Submit
   }
@@ -54,9 +59,3 @@ class VerificationSignIn extends React.PureComponent {
     );
   }
 }
-
-VerificationSignIn.propTypes = {
-  validations: React.PropTypes.object.isRequired,
-};
-
-export default VerificationSignIn;

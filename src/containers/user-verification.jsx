@@ -4,18 +4,22 @@ import Verification from '../components/verification/verification';
 
 import verificationClassNames from '../assets/css/containers/user-verification/user-verification.css';
 
-const VerificationContainer = ({ match }) => (
-  <div className={verificationClassNames['user-verification']}>
-    <Verification match={match} className={verificationClassNames['user-verification__content']} />
-  </div>
-);
+export default class VerificationContainer extends React.Component {
 
-VerificationContainer.propTypes = {
-  match: React.PropTypes.object,
-};
+  static propTypes = {
+    match: React.PropTypes.object,
+  }
 
-VerificationContainer.defaultProps = {
-  match: {},
-};
+  static defaultProps = {
+    match: {},
+  }
 
-export default VerificationContainer;
+  render() {
+    const { match } = this.props;
+    return (
+      <div className={verificationClassNames['user-verification']}>
+        <Verification match={match} className={verificationClassNames['user-verification__content']} />
+      </div>
+    );
+  }
+}

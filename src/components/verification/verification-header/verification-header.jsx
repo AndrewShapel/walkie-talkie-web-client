@@ -4,7 +4,8 @@ import VertificationHeaderItem from './verification-header-item/verification-hea
 
 import verificationHeaderClassNames from '../../../assets/css/blocks/verification/verification-header/verification-header.css';
 
-class VerificationHeader extends React.PureComponent {
+export default class VerificationHeader extends React.PureComponent {
+
   static propTypes = {
     items: React.PropTypes.array,
     match: React.PropTypes.object,
@@ -16,9 +17,7 @@ class VerificationHeader extends React.PureComponent {
   }
   /**
    * @param {Array} items
-   * @param {String} activeItemType
-   * @param {Function} onItemSelect
-   * @returns {Object}
+   * @param {Object} match
    */
   static renderItems(items, match) {
     return items.map((item) => {
@@ -47,5 +46,3 @@ class VerificationHeader extends React.PureComponent {
     );
   }
 }
-
-export default VerificationHeader;

@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 
 import verificationHeaderItemClassNames from '../../../../assets/css/blocks/verification/verification-header/verification-header-item/verification-header-item.css';
 
-class VerificationHeaderItem extends React.PureComponent {
+export default class VerificationHeaderItem extends React.PureComponent {
 
   static propTypes = {
     title: React.PropTypes.string,
@@ -16,11 +16,6 @@ class VerificationHeaderItem extends React.PureComponent {
     match: {},
     path: '',
     title: '',
-  }
-
-  constructor(props) {
-    super(props);
-    this.state = { sample: 'sample' };
   }
 
   render() {
@@ -37,5 +32,3 @@ class VerificationHeaderItem extends React.PureComponent {
     );
   }
 }
-
-export default VerificationHeaderItem;

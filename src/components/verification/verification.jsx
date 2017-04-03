@@ -8,7 +8,7 @@ import VerificationContent from './verification-content/verification-content';
 
 import verificationClassNames from '../../assets/css/blocks/verification/verification.css';
 
-class Verification extends React.PureComponent {
+export default class Verification extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     match: React.PropTypes.object,
@@ -43,5 +43,3 @@ class Verification extends React.PureComponent {
     );
   }
 }
-
-export default Verification;
