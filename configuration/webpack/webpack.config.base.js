@@ -12,6 +12,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: buildPath,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -32,7 +33,7 @@ module.exports = {
                 'transform-decorators-legacy',
               ],
             },
-          }
+          },
         ],
       },
       {
@@ -47,14 +48,12 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => {
-                return [
-                  require('postcss-import')(),
-                  require('postcss-url')(),
-                  require('postcss-cssnext')(),
-                  require('postcss-reporter')(),
-                ];
-              },
+              plugins: () => [
+                require('postcss-import')(),
+                require('postcss-url')(),
+                require('postcss-cssnext')(),
+                require('postcss-reporter')(),
+              ],
             },
           }],
       },

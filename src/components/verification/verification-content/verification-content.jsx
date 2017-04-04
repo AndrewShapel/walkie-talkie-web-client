@@ -1,28 +1,22 @@
 import React from 'react';
 
+import { Route } from 'react-router-dom';
+
+import routes from '../../../constants/routes/routes';
 import { FORM_VALIDATIONS } from '../../../constants/form';
-import { VERIFICATION_TYPES } from '../../../constants/verification';
 
 import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 import VerificationSignUp from '../verification-sign-up/verification-sign-up';
 
 import verificationContentClassNames from '../../../assets/css/blocks/verification/verification-content/verification-content.css';
 
-class VerificationContent extends React.PureComponent {
-  /**
-   * @param {String} type
-   * @param {Object} validations
-   * @returns {Object}
-   */
-  static renderContent(type, validations) {
-    switch (type) {
-      case VERIFICATION_TYPES.SIGN_IN:
-        return <VerificationSignIn validations={validations} />;
-      case VERIFICATION_TYPES.SIGN_UP:
-        return <VerificationSignUp validations={validations} />;
-      default:
-        return null;
-    }
+export default class VerificationContent extends React.PureComponent {
+  static propTypes = {
+    match: React.PropTypes.object,
+  }
+
+  static defaultProps = {
+    match: {},
   }
 
   constructor(props) {
@@ -60,22 +54,12 @@ class VerificationContent extends React.PureComponent {
   }
 
   render() {
-    const { activeTypeItem } = this.props;
-
+    const { match } = this.props;
     return (
       <div className={verificationContentClassNames['verification-content']}>
-        {VerificationContent.renderContent(activeTypeItem, this.validations)}
+        <Route exact path={`${match.path}${routes.userVerification.url.signin}`} render={() => <VerificationSignIn validations={this.validations} />} />
+        <Route exact path={`${match.path}${routes.userVerification.url.signup}`} render={() => <VerificationSignUp validations={this.validations} />} />
       </div>
     );
   }
 }
-
-VerificationContent.defaultProps = {
-  activeTypeItem: '',
-};
-
-VerificationContent.propTypes = {
-  activeTypeItem: React.PropTypes.string,
-};
-
-export default VerificationContent;

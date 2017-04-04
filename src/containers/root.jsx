@@ -16,7 +16,7 @@ const Root = () => (
       <Switch>
         <Route exact path={routes.home.url} component={Home} />
         <Route path={routes.about.url} component={About} />
-        <Route path={routes.userVerification.url} component={UserVerification} />
+        <Route path={routes.userVerification.url.base} component={UserVerification} />
         <Route component={NotFound} />
       </Switch>
     </BrowserRouter>
