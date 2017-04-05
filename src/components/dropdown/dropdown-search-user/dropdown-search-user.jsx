@@ -172,7 +172,7 @@ class DropdownSearchUser extends React.Component {
 
   render() {
     const { isOpen, activeItemId } = this.state;
-    const { itemsClassName, children } = this.props;
+    const { itemsClassName, children, isStickToBottom } = this.props;
 
     const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
 
@@ -184,6 +184,7 @@ class DropdownSearchUser extends React.Component {
           items={DropdownSearchUser.getItems(itemClassName)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
+          isStickToBottom={isStickToBottom}
           isOpen={isOpen}
           onItemSelect={this.onItemSelect}
           onToggle={this.onToggle}

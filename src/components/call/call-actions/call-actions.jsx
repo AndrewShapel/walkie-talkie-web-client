@@ -4,6 +4,7 @@ import classnames from 'classnames';
 import { ICONS } from '../../../constants/icons';
 
 import Svg from '../../svg/svg';
+import DropdownSearchUser from '../../../components/dropdown/dropdown-search-user/dropdown-search-user';
 
 import callActionsClassNames from './call-actions.css';
 
@@ -48,7 +49,11 @@ export default class CallActions extends React.PureComponent {
           {phoneIcon}
         </div>
         <div className={callActionClassName}>
-          <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.PLUS} />
+          <DropdownSearchUser itemsClassName={callActionsClassNames['call-actions__dropdown-items']} isStickToBottom>
+            <div>
+              <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.PLUS} />
+            </div>
+          </DropdownSearchUser>
         </div>
       </div>
     );

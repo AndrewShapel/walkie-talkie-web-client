@@ -4,7 +4,7 @@ import autobind from 'autobind-decorator';
 import Dropdown from '../dropdown/dropdown';
 import Profile from '../../profile/profile';
 
-import dropdownSettingsClassNames from './dropdown-settins.css';
+import dropdownSettingsClassNames from './dropdown-settings.css';
 
 export default class DropdownSettings extends React.Component {
 
@@ -38,13 +38,14 @@ export default class DropdownSettings extends React.Component {
 
   render() {
     const { isOpen } = this.state;
-    const { children } = this.props;
+    const { children, isStickToBottom } = this.props;
 
     return (
       <div>
         <Dropdown
           itemsClassName={dropdownSettingsClassNames['dropdown-settings']}
           isOpen={isOpen}
+          isStickToBottom={isStickToBottom}
           renderContent={DropdownSettings.renderContent}
           onToggle={this.onToggle}
         >

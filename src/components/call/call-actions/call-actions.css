@@ -4,6 +4,7 @@
   padding: 12px 18px 12px 12px;
   display: flex;
 
+
   &__action {
     margin-right: 8px;
     cursor: pointer;
@@ -21,5 +22,9 @@
     height: 18px;
     margin: 11px;
     fill: var(--color-white);
+  }
+
+  &__dropdown-items {
+    margin-bottom: 15px;
   }
 }

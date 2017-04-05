@@ -56,13 +56,14 @@ class DropdownItems extends React.PureComponent {
   }
 
   render() {
-    const { className, itemsClassName, children, isOpen, onToggle } = this.props;
+    const { className, itemsClassName, children, isStickToBottom, isOpen, onToggle } = this.props;
 
     return (
       <Dropdown
         className={className}
         itemsClassName={itemsClassName}
         renderContent={this.renderItems}
+        isStickToBottom={isStickToBottom}
         isOpen={isOpen}
         onToggle={onToggle}
       >

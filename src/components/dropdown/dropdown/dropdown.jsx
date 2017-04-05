@@ -63,9 +63,11 @@ class Dropdown extends React.Component {
   }
 
   render() {
-    const { className, itemsClassName, children, isOpen, renderContent } = this.props;
+    const { className, itemsClassName, children, isStickToBottom, isOpen, renderContent } = this.props;
 
-    const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, itemsClassName);
+    const dropdownItemsClassName = classnames(dropdownClassNames.dropdown__items, {
+      [dropdownClassNames['dropdown__items_stick-to-bottom']]: isStickToBottom,
+    }, itemsClassName);
     const dropdownClassName = classnames(dropdownClassNames.dropdown, className);
 
     const items = (isOpen)
@@ -90,6 +92,7 @@ Dropdown.defaultProps = {
   itemsClassName: '',
   children: null,
   isOpen: false,
+  isStickToBottom: false,
   renderContent: null,
   onToggle: null,
 };
@@ -101,6 +104,7 @@ Dropdown.propTypes = {
     React.PropTypes.element,
     React.PropTypes.array,
   ]),
+  isStickToBottom: React.PropTypes.bool,
   isOpen: React.PropTypes.bool,
   renderContent: React.PropTypes.func,
   onToggle: React.PropTypes.func,
