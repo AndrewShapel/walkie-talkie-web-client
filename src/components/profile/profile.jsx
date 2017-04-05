@@ -40,7 +40,7 @@ export default class Profile extends React.PureComponent {
     return (
       <div className={profileClassName}>
         <Avatar className={profileClassNames.profile__avatar} />
-        <Form className={profileClassNames['profile__form']} mapping={this.formModel} onValidSubmit={Profile.onValidSubmit}>
+        <Form className={profileClassNames.profile__form} mapping={this.formModel} onValidSubmit={Profile.onValidSubmit}>
           <FormInput
             className={profileClassNames['profile__form-input']}
             name="email"
