@@ -86,10 +86,10 @@ class Form extends React.PureComponent {
   }
 
   render() {
-    const { children, mapping, errorMessages } = this.props;
+    const { className, children, mapping, errorMessages } = this.props;
 
     return (
-      <FormsyForm mapping={mapping} onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
+      <FormsyForm className={className} mapping={mapping} onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
         {Form.renderErrorMessages(errorMessages)}
         {React.Children.map(children, this.renderChildren)}
       </FormsyForm>
@@ -98,6 +98,7 @@ class Form extends React.PureComponent {
 }
 
 Form.defaultProps = {
+  className: '',
   children: null,
   mapping: null,
   errorMessages: [],
@@ -105,6 +106,7 @@ Form.defaultProps = {
 };
 
 Form.propTypes = {
+  className: React.PropTypes.string,
   children: React.PropTypes.oneOfType([
     React.PropTypes.element,
     React.PropTypes.array,

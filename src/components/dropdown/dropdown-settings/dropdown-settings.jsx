@@ -2,7 +2,7 @@ import React from 'react';
 import autobind from 'autobind-decorator';
 
 import Dropdown from '../dropdown/dropdown';
-import AvatarUpload from '../../avatar-upload/avatar-upload';
+import Profile from '../../profile/profile';
 
 import dropdownSettingsClassNames from './dropdown-settins.css';
 
@@ -15,7 +15,7 @@ export default class DropdownSettings extends React.Component {
   static renderContent() {
     return (
       <div className={dropdownSettingsClassNames['dropdown-settings__content']}>
-        <AvatarUpload />
+        <Profile />
       </div>
     );
   }
@@ -39,13 +39,14 @@ export default class DropdownSettings extends React.Component {
   }
 
   render() {
+    const { isOpen } = this.state;
     const { children } = this.props;
 
     return (
       <div>
         <Dropdown
           itemsClassName={dropdownSettingsClassNames['dropdown-settings']}
-          isOpen
+          isOpen={isOpen}
           renderContent={DropdownSettings.renderContent}
           onToggle={this.onToggle}
         >
