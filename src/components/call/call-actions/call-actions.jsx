@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ICONS } from '../../constants/icons';
+import { ICONS } from '../../../constants/icons';
 
-import Svg from '../svg/svg';
+import Svg from '../../svg/svg';
 
-import callActionsClassNames from '../../assets/css/blocks/call-actions/call-actions.css';
+import callActionsClassNames from './call-actions.css';
 
 export default () => (
   <div className={callActionsClassNames['call-actions']}>

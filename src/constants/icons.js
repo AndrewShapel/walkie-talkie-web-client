@@ -5,6 +5,7 @@ import quill from '../assets/icons/svg/quill.svg';
 import search from '../assets/icons/svg/search.svg';
 import userPlus from '../assets/icons/svg/user-plus.svg';
 import videoCamera from '../assets/icons/svg/video-camera.svg';
+import powerOff from '../assets/icons/svg/power-off.svg';
 
 /**
  * @const
@@ -18,6 +19,7 @@ export const ICONS = {
   SEARCH: search,
   USER_PLUS: userPlus,
   VIDEO_CAMERA: videoCamera,
+  POWER_OFF: powerOff,
 };
 
 export const ICO = {};

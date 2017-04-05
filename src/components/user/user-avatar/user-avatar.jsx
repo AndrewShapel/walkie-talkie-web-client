@@ -1,4 +1,5 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
 import { USER_STATUS } from '../../../constants/user';
@@ -26,11 +27,32 @@ export default class UserAvatar extends React.PureComponent {
     );
   }
 
+  @autobind
+  onMouseOver() {
+    const { onMouseOver } = this.props;
+
+    if (onMouseOver) {
+      onMouseOver();
+    }
+  }
+
+  @autobind
+  onMouseLeave() {
+    const { onMouseLeave } = this.props;
+
+    if (onMouseLeave) {
+      onMouseLeave();
+    }
+  }
+
   render() {
-    const { userStatus, userStatusClassName } = this.props;
+    const { className, userStatusClassName, children, userStatus } = this.props;
+
+    const avatarClassName = classnames(userAvatarClassNames['user-avatar'], className);
 
     return (
-      <div className={userAvatarClassNames['user-avatar']}>
+      <div className={avatarClassName} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
+        { children }
         { userStatus && UserAvatar.renderStatus(userStatus, userStatusClassName) }
       </div>
     );
@@ -38,12 +60,23 @@ export default class UserAvatar extends React.PureComponent {
 }
 
 UserAvatar.defaultProps = {
-  userStatus: '',
+  className: '',
   userStatusClassName: '',
+  children: null,
+  userStatus: '',
+  onMouseOver: null,
+  onMouseLeave: null,
 };
 
 UserAvatar.propTypes = {
-  userStatus: React.PropTypes.string,
+  className: React.PropTypes.string,
   userStatusClassName: React.PropTypes.string,
+  children: React.PropTypes.oneOfType(([
+    React.PropTypes.element,
+    React.PropTypes.array,
+  ])),
+  userStatus: React.PropTypes.string,
+  onMouseOver: React.PropTypes.func,
+  onMouseLeave: React.PropTypes.func,
 };
 

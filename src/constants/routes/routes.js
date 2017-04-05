@@ -9,6 +9,9 @@ export default {
   about: {
     url: '/about',
   },
+  call: {
+    url: '/call',
+  },
   userVerification: {
     url: {
       base: '/verification',
