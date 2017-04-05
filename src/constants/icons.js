@@ -6,6 +6,9 @@ import search from '../assets/icons/svg/search.svg';
 import userPlus from '../assets/icons/svg/user-plus.svg';
 import videoCamera from '../assets/icons/svg/video-camera.svg';
 import powerOff from '../assets/icons/svg/power-off.svg';
+import volumeHigh from '../assets/icons/svg/volume-high.svg';
+import volumeMute from '../assets/icons/svg/volume-mute2.svg';
+import plus from '../assets/icons/svg/plus.svg';
 
 /**
  * @const
@@ -20,6 +23,9 @@ export const ICONS = {
   USER_PLUS: userPlus,
   VIDEO_CAMERA: videoCamera,
   POWER_OFF: powerOff,
+  VOLUME_HIGH: volumeHigh,
+  VOLUME_MUTE: volumeMute,
+  PLUS: plus,
 };
 
 export const ICO = {};

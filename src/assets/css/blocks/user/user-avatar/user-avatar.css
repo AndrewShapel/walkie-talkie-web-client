@@ -10,6 +10,10 @@
   display: flex;
   background-color: var(--color-black);
 
+  &_active {
+    border: 2px solid var(--color-light-blue);
+  }
+
   &__status {
     width: 12px;
     height: 12px;

@@ -46,9 +46,11 @@ export default class UserAvatar extends React.PureComponent {
   }
 
   render() {
-    const { className, userStatusClassName, children, userStatus } = this.props;
+    const { className, userStatusClassName, children, userStatus, isActive } = this.props;
 
-    const avatarClassName = classnames(userAvatarClassNames['user-avatar'], className);
+    const avatarClassName = classnames(userAvatarClassNames['user-avatar'], {
+      [userAvatarClassNames['user-avatar_active']]: isActive,
+    }, className);
 
     return (
       <div className={avatarClassName} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
@@ -64,6 +66,7 @@ UserAvatar.defaultProps = {
   userStatusClassName: '',
   children: null,
   userStatus: '',
+  isActive: false,
   onMouseOver: null,
   onMouseLeave: null,
 };
@@ -76,6 +79,7 @@ UserAvatar.propTypes = {
     React.PropTypes.array,
   ])),
   userStatus: React.PropTypes.string,
+  isActive: React.PropTypes.string,
   onMouseOver: React.PropTypes.func,
   onMouseLeave: React.PropTypes.func,
 };

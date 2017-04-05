@@ -1,0 +1,14 @@
+@import "../../../assets/css/variables.css";
+
+.call-footer {
+  justify-content: center;
+  display: flex;
+
+  &__action {
+    background-color: var(--color-dark-purple);
+
+    &:hover {
+      background-color: var(--color-purple);
+    }
+  }
+}
