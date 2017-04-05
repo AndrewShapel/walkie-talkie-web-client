@@ -8,5 +8,6 @@ export default () => (
   <CallActions
     className={callFooterClassNames['call-footer']}
     actionClassName={callFooterClassNames['call-footer__action']}
+    isMute
   />
 );

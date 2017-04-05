@@ -79,7 +79,7 @@ UserAvatar.propTypes = {
     React.PropTypes.array,
   ])),
   userStatus: React.PropTypes.string,
-  isActive: React.PropTypes.string,
+  isActive: React.PropTypes.bool,
   onMouseOver: React.PropTypes.func,
   onMouseLeave: React.PropTypes.func,
 };
