@@ -65,6 +65,18 @@ class DropdownAddToFriends extends React.Component {
     this.renderSearchInput = this.renderSearchInput.bind(this);
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { isOpen } = this.state;
+
+    const searchInput = this.searchInput;
+    if (isOpen !== prevState.isOpen && searchInput) {
+      const searchInputRef = searchInput.getRef();
+      if (searchInputRef) {
+        searchInputRef.focus();
+      }
+    }
+  }
+
   /**
    * @param {Object} event
    */
@@ -147,6 +159,7 @@ class DropdownAddToFriends extends React.Component {
           className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']}
           onFocus={this.onSearchInputFocus}
           onBlur={this.onSearchInputBlur}
+          ref={(node) => { this.searchInput = node; }}
         />
       </div>
     );
