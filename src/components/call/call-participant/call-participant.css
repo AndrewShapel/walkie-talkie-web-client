@@ -4,7 +4,6 @@
   width: 18.2%;
   padding: 15px;
   text-align: center;
-  overflow: auto;
   display: inline-block;
 
   &__user-avatar {
@@ -24,8 +23,8 @@
   }
 
   &__kick-icon {
-    width: 115px;
-    height: 115px;
+    width: 33%;
+    height: 33%;
     fill: var(--color-red);
     opacity: 1;
     transition: opacity 0.1s linear;

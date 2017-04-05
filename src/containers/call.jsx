@@ -7,5 +7,11 @@ import callClassNames from '../assets/css/containers/call/call.css';
 export default () => (
   <div className={callClassNames.call}>
     <CallParticipant />
+    <CallParticipant />
+    <CallParticipant />
+    <CallParticipant />
+    <CallParticipant />
+    <CallParticipant />
+    <CallParticipant />
   </div>
 );
