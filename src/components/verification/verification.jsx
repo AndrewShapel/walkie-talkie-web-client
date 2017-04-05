@@ -8,31 +8,27 @@ import VerificationContent from './verification-content/verification-content';
 
 import verificationClassNames from '../../assets/css/blocks/verification/verification.css';
 
-class Verification extends React.PureComponent {
+export default class Verification extends React.PureComponent {
+  static propTypes = {
+    className: React.PropTypes.string,
+    match: React.PropTypes.object,
+  }
+
+  static defaultProps = {
+    className: '',
+    match: {},
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       selectedType: VERIFICATION_TYPES.SIGN_IN,
     };
-
-    this.onItemSelect = this.onItemSelect.bind(this);
-  }
-
-  /**
-   * @param {String} type
-   */
-  onItemSelect(type) {
-    if (type !== this.state.selectedType) {
-      this.setState({
-        selectedType: type,
-      });
-    }
   }
 
   render() {
-    const { selectedType } = this.state;
-    const { className } = this.props;
+    const { className, match } = this.props;
 
     const verificationClassName = classnames(verificationClassNames.verification, className);
 
@@ -40,21 +36,10 @@ class Verification extends React.PureComponent {
       <div className={verificationClassName}>
         <VerificationHeader
           items={VERIFICATION_ITEMS}
-          activeItemType={selectedType}
-          onItemSelect={this.onItemSelect}
+          match={match}
         />
-        <VerificationContent activeTypeItem={selectedType} />
+        <VerificationContent match={match} />
       </div>
     );
   }
 }
-
-Verification.defaultProps = {
-  className: '',
-};
-
-Verification.propTypes = {
-  className: React.PropTypes.string,
-};
-
-export default Verification;

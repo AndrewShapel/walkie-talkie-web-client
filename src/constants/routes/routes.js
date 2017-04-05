@@ -10,6 +10,10 @@ export default {
     url: '/about',
   },
   userVerification: {
-    url: '/verification',
+    url: {
+      base: '/verification',
+      signin: '/signin',
+      signup: '/signup',
+    },
   },
 };

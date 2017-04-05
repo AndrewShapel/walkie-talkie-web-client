@@ -1,49 +1,34 @@
 import React from 'react';
 import classnames from 'classnames';
+import { NavLink } from 'react-router-dom';
 
 import verificationHeaderItemClassNames from '../../../../assets/css/blocks/verification/verification-header/verification-header-item/verification-header-item.css';
 
-class VerificationHeaderItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default class VerificationHeaderItem extends React.PureComponent {
 
-    this.onClick = this.onClick.bind(this);
+  static propTypes = {
+    title: React.PropTypes.string,
+    match: React.PropTypes.object,
+    path: React.PropTypes.string,
   }
 
-  onClick() {
-    const { type, onClick } = this.props;
-
-    if (onClick) {
-      onClick(type);
-    }
+  static defaultProps = {
+    match: {},
+    path: '',
+    title: '',
   }
 
   render() {
-    const { title, isActive } = this.props;
+    const { title, match, path } = this.props;
 
-    const verificationHeaderItemClassName = classnames(verificationHeaderItemClassNames['verification-header-item'], {
-      [verificationHeaderItemClassNames['verification-header-item_active']]: isActive,
-    });
+    const verificationHeaderItemClassName = classnames(verificationHeaderItemClassNames['verification-header-item']);
 
     return (
-      <li className={verificationHeaderItemClassName} onClick={this.onClick}>
-        { title }
+      <li className={verificationHeaderItemClassName}>
+        <NavLink to={`${match.path}${path}`} style={{ textDecoration: 'none' }} activeClassName={verificationHeaderItemClassNames['verification-header-item_active']} >
+          { title }
+        </NavLink>
       </li>
     );
   }
 }
-
-VerificationHeaderItem.defaultProps = {
-  title: '',
-  isActive: false,
-  onClick: null,
-};
-
-VerificationHeaderItem.propTypes = {
-  title: React.PropTypes.string,
-  type: React.PropTypes.string.isRequired,
-  isActive: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-};
-
-export default VerificationHeaderItem;
