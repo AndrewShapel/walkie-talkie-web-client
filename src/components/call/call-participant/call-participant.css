@@ -1,13 +1,17 @@
 @import "../../../assets/css/variables.css";
 
-.call {
+.call-participant {
+  width: 18.2%;
   padding: 15px;
   text-align: center;
+  overflow: auto;
   display: inline-block;
 
   &__user-avatar {
-    width: 350px;
-    height: 350px;
+    width: 100%;
+    max-width: 350px;
+    height: 18vw;
+    max-height: 350px;
     margin-bottom: 15px;
     border-radius: 175px;
     justify-content: center;

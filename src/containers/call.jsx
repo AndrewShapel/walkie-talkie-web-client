@@ -1,7 +1,11 @@
 import React from 'react';
 
-import Call from '../components/call/call/call';
+import CallParticipant from '../components/call/call-participant/call-participant';
+
+import callClassNames from '../assets/css/containers/call/call.css';
 
 export default () => (
-  <Call />
+  <div className={callClassNames.call}>
+    <CallParticipant />
+  </div>
 );
