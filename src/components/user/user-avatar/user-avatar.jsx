@@ -4,6 +4,8 @@ import classnames from 'classnames';
 
 import { USER_STATUS } from '../../../constants/user';
 
+import Spinner from '../../../components/spinner/spinner';
+
 import userAvatarClassNames from '../../../assets/css/blocks/user/user-avatar/user-avatar.css';
 
 export default class UserAvatar extends React.PureComponent {
@@ -46,14 +48,18 @@ export default class UserAvatar extends React.PureComponent {
   }
 
   render() {
-    const { className, userStatusClassName, children, userStatus, isActive } = this.props;
+    const { className, userStatusClassName, spinnerClassName, children, userStatus, isActive, isLoad } = this.props;
 
+    const avatarSpinnerClassName = classnames(userAvatarClassNames['user-avatar__spinner'], spinnerClassName);
     const avatarClassName = classnames(userAvatarClassNames['user-avatar'], {
       [userAvatarClassNames['user-avatar_active']]: isActive,
     }, className);
 
+    const spinner = (isLoad) ? <Spinner className={avatarSpinnerClassName} /> : null;
+
     return (
       <div className={avatarClassName} onMouseOver={this.onMouseOver} onMouseLeave={this.onMouseLeave}>
+        { spinner }
         { children }
         { userStatus && UserAvatar.renderStatus(userStatus, userStatusClassName) }
       </div>
@@ -64,9 +70,11 @@ export default class UserAvatar extends React.PureComponent {
 UserAvatar.defaultProps = {
   className: '',
   userStatusClassName: '',
+  spinnerClassName: '',
   children: null,
   userStatus: '',
   isActive: false,
+  isLoad: false,
   onMouseOver: null,
   onMouseLeave: null,
 };
@@ -74,12 +82,14 @@ UserAvatar.defaultProps = {
 UserAvatar.propTypes = {
   className: React.PropTypes.string,
   userStatusClassName: React.PropTypes.string,
+  spinnerClassName: React.PropTypes.string,
   children: React.PropTypes.oneOfType(([
     React.PropTypes.element,
     React.PropTypes.array,
   ])),
   userStatus: React.PropTypes.string,
   isActive: React.PropTypes.bool,
+  isLoad: React.PropTypes.bool,
   onMouseOver: React.PropTypes.func,
   onMouseLeave: React.PropTypes.func,
 };

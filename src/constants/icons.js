@@ -7,8 +7,9 @@ import userPlus from '../assets/icons/svg/user-plus.svg';
 import videoCamera from '../assets/icons/svg/video-camera.svg';
 import powerOff from '../assets/icons/svg/power-off.svg';
 import volumeHigh from '../assets/icons/svg/volume-high.svg';
-import volumeMute from '../assets/icons/svg/volume-mute2.svg';
+import volumeMute from '../assets/icons/svg/volume-mute.svg';
 import plus from '../assets/icons/svg/plus.svg';
+import spinner from '../assets/icons/svg/spinner.svg';
 
 /**
  * @const
@@ -26,6 +27,7 @@ export const ICONS = {
   VOLUME_HIGH: volumeHigh,
   VOLUME_MUTE: volumeMute,
   PLUS: plus,
+  SPINNER: spinner,
 };
 
 export const ICO = {};

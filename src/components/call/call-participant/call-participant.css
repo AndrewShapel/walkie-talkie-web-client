@@ -18,6 +18,11 @@
     display: flex;
   }
 
+  &__spinner {
+    width: 66%;
+    height: 66%;
+  }
+
   &__user-name {
     color: var(--color-white);
   }

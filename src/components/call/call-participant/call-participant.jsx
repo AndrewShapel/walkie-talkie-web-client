@@ -47,6 +47,7 @@ export default class CallParticipant extends React.PureComponent {
       <div className={callParticipantClassNames['call-participant']}>
         <UserAvatar
           className={callParticipantClassNames['call-participant__user-avatar']}
+          spinnerClassName={callParticipantClassNames['call-participant__spinner']}
           onMouseOver={this.onMouseOver}
           onMouseLeave={this.onMouseLeave}
         >
