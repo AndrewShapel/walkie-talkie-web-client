@@ -1,4 +1,5 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
 import Dom from '../../../utils/dom';
@@ -6,15 +7,6 @@ import Dom from '../../../utils/dom';
 import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
 
 class Dropdown extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.eventListener = null;
-
-    this.toggle = this.toggle.bind(this);
-    this.renderChildren = this.renderChildren.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-  }
 
   componentWillMount() {
     const { onToggle } = this.props;
@@ -39,6 +31,12 @@ class Dropdown extends React.Component {
     }
   }
 
+  /**
+   * @type {Object|Null}
+   */
+  eventListener = null;
+
+  @autobind
   toggle() {
     const { isOpen, onToggle } = this.props;
 
@@ -52,27 +50,12 @@ class Dropdown extends React.Component {
    * @param {Number} index
    * @returns {Object|Null}
    */
+  @autobind
   renderChildren(children, index) {
     if (children) {
       return React.cloneElement(children, {
         onClick: this.toggle,
         key: index,
-      });
-    }
-
-    return null;
-  }
-
-  /**
-   * @param {Object} items
-   * @returns {Object|Null}
-   */
-  renderItems(items) {
-    if (items) {
-      return React.cloneElement(items, {
-        ref: (node) => {
-          this.dropdown = node;
-        },
       });
     }
 
@@ -94,9 +77,9 @@ class Dropdown extends React.Component {
       : null;
 
     return (
-      <div className={dropdownClassName}>
+      <div className={dropdownClassName} ref={(node) => { this.dropdown = node; }}>
         {React.Children.map(children, this.renderChildren)}
-        {this.renderItems(items)}
+        {items}
       </div>
     );
   }

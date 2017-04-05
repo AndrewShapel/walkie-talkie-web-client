@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 
 import { INPUT_TYPES, BUTTON_TYPES, VALIDATIONS } from '../../constants/form';
 
@@ -10,6 +11,14 @@ import Button from '../button/button';
 import profileClassNames from './profile.css';
 
 export default class Profile extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: '',
+  };
 
   static onValidSubmit() {
     // Submit
@@ -24,10 +33,14 @@ export default class Profile extends React.PureComponent {
   });
 
   render() {
+    const { className } = this.props;
+
+    const profileClassName = classnames(profileClassNames.profile, className);
+
     return (
-      <div className={profileClassNames.profile}>
+      <div className={profileClassName}>
         <Avatar className={profileClassNames.profile__avatar} />
-        <Form mapping={this.formModel} onValidSubmit={Profile.onValidSubmit}>
+        <Form className={profileClassNames['profile__form']} mapping={this.formModel} onValidSubmit={Profile.onValidSubmit}>
           <FormInput
             className={profileClassNames['profile__form-input']}
             name="email"

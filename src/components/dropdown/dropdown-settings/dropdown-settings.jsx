@@ -14,9 +14,7 @@ export default class DropdownSettings extends React.Component {
 
   static renderContent() {
     return (
-      <div className={dropdownSettingsClassNames['dropdown-settings__content']}>
-        <Profile />
-      </div>
+      <Profile className={dropdownSettingsClassNames['dropdown-settings__content']} />
     );
   }
 

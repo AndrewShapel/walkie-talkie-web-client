@@ -9,6 +9,10 @@
     border-radius: 75px;
   }
 
+  &__form {
+    padding-top: 9px;
+  }
+
   &__form-input {
     margin-bottom: 10px;
   }
