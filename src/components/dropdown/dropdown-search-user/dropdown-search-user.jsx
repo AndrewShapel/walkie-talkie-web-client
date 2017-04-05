@@ -1,4 +1,5 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 
 import Keyboard from '../../../utils/keyboard';
 
@@ -8,9 +9,18 @@ import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';
 import DropdownItems from '../dropdown-items/dropdown-items';
 
-import dropdownAddToFriendsClassNames from '../../../assets/css/blocks/dropdown/dropdown-add-to-friends/dropdown-add-to-friends.css';
+import dropdownSearchUserClassNames from '../../../assets/css/blocks/dropdown/dropdown-search-user/dropdown-search-user.css';
 
-class DropdownAddToFriends extends React.Component {
+class DropdownSearchUser extends React.Component {
+
+  static propTypes = Object.assign(DropdownItems.propTypes, {
+    itemsClassName: React.PropTypes.string,
+  });
+
+  static defaultProps = Object.assign(DropdownItems.defaultProps, {
+    itemsClassName: '',
+  });
+
   /**
    * @param {String} className
    * @returns {Array}
@@ -48,26 +58,41 @@ class DropdownAddToFriends extends React.Component {
     return items[adjacentItemIndex];
   }
 
-  constructor(props) {
-    super(props);
+  state = {
+    isOpen: false,
+    activeItemId: null,
+    isSearchInputInFocus: false,
+  };
 
-    this.state = {
-      isOpen: false,
-      activeItemId: null,
-      isSearchInputInFocus: false,
-    };
+  componentDidUpdate(prevProps, prevState) {
+    const { isOpen } = this.state;
 
-    this.onToggle = this.onToggle.bind(this);
-    this.onKeyUp = this.onKeyUp.bind(this);
-    this.onItemSelect = this.onItemSelect.bind(this);
-    this.onSearchInputFocus = this.onSearchInputFocus.bind(this);
-    this.onSearchInputBlur = this.onSearchInputBlur.bind(this);
-    this.renderSearchInput = this.renderSearchInput.bind(this);
+    const searchInput = this.searchInput;
+    if (isOpen !== prevState.isOpen && searchInput) {
+      const searchInputRef = searchInput.getRef();
+      if (searchInputRef) {
+        searchInputRef.focus();
+      }
+    }
+  }
+
+  /**
+   * @param {Boolean} isDropdownOpen
+   */
+  @autobind
+  onToggle(isDropdownOpen) {
+    const { isOpen } = this.state;
+    if (isDropdownOpen !== isOpen) {
+      this.setState({
+        isOpen: isDropdownOpen,
+      });
+    }
   }
 
   /**
    * @param {Object} event
    */
+  @autobind
   onKeyUp(event) {
     const { isOpen, activeItemId, isSearchInputInFocus } = this.state;
 
@@ -75,15 +100,15 @@ class DropdownAddToFriends extends React.Component {
       const nextState = Object.assign(this.state);
 
       const pressedKeyName = Keyboard.getKeyName(event.keyCode);
-      const items = DropdownAddToFriends.getItems();
+      const items = DropdownSearchUser.getItems();
 
       if (pressedKeyName === KEYBOARD_KEYS.ARROW_UP) {
-        const previousItem = DropdownAddToFriends.getAdjacentItem(items, activeItemId, false);
+        const previousItem = DropdownSearchUser.getAdjacentItem(items, activeItemId, false);
         if (previousItem) {
           nextState.activeItemId = previousItem.id;
         }
       } else if (pressedKeyName === KEYBOARD_KEYS.ARROW_DOWN) {
-        const nextItem = DropdownAddToFriends.getAdjacentItem(items, activeItemId, true);
+        const nextItem = DropdownSearchUser.getAdjacentItem(items, activeItemId, true);
         if (nextItem) {
           nextState.activeItemId = nextItem.id;
         }
@@ -98,20 +123,9 @@ class DropdownAddToFriends extends React.Component {
   }
 
   /**
-   * @param {Boolean} isDropdownOpen
-   */
-  onToggle(isDropdownOpen) {
-    const { isOpen } = this.state;
-    if (isDropdownOpen !== isOpen) {
-      this.setState({
-        isOpen: isDropdownOpen,
-      });
-    }
-  }
-
-  /**
    * @param {Number} itemId
    */
+  @autobind
   onItemSelect(itemId) {
     this.setState({
       isOpen: false,
@@ -119,10 +133,12 @@ class DropdownAddToFriends extends React.Component {
     });
   }
 
+  @autobind
   onSearchInputFocus() {
     this.changeSearchInputFocusBlur(true);
   }
 
+  @autobind
   onSearchInputBlur() {
     this.changeSearchInputFocusBlur(false);
   }
@@ -140,13 +156,15 @@ class DropdownAddToFriends extends React.Component {
     }
   }
 
+  @autobind
   renderSearchInput() {
     return (
-      <div className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input-container']}>
+      <div className={dropdownSearchUserClassNames['dropdown-search-user__search-input-container']}>
         <SearchInput
-          className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__search-input']}
+          className={dropdownSearchUserClassNames['dropdown-search-user__search-input']}
           onFocus={this.onSearchInputFocus}
           onBlur={this.onSearchInputBlur}
+          ref={(node) => { this.searchInput = node; }}
         />
       </div>
     );
@@ -156,14 +174,14 @@ class DropdownAddToFriends extends React.Component {
     const { isOpen, activeItemId } = this.state;
     const { itemsClassName, children } = this.props;
 
-    const itemClassName = dropdownAddToFriendsClassNames['dropdown-add-to-friends__item'];
+    const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
 
     return (
-      <div className={dropdownAddToFriendsClassNames['dropdown-add-to-friends']} onKeyUp={this.onKeyUp}>
+      <div className={dropdownSearchUserClassNames['dropdown-search-user']} onKeyUp={this.onKeyUp}>
         <DropdownItems
-          className={dropdownAddToFriendsClassNames['dropdown-add-to-friends__items']}
+          className={dropdownSearchUserClassNames['dropdown-search-user__items']}
           itemsClassName={itemsClassName}
-          items={DropdownAddToFriends.getItems(itemClassName)}
+          items={DropdownSearchUser.getItems(itemClassName)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
           isOpen={isOpen}
@@ -177,12 +195,4 @@ class DropdownAddToFriends extends React.Component {
   }
 }
 
-DropdownAddToFriends.defaultProps = Object.assign(DropdownItems.defaultProps, {
-  itemsClassName: '',
-});
-
-DropdownAddToFriends.propTypes = Object.assign(DropdownItems.propTypes, {
-  itemsClassName: React.PropTypes.string,
-});
-
-export default DropdownAddToFriends;
+export default DropdownSearchUser;

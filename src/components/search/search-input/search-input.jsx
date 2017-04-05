@@ -27,6 +27,13 @@ class SearchInput extends React.PureComponent {
     }
   }
 
+  /**
+   * @returns {Element}
+   */
+  getRef() {
+    return this.searchInput;
+  }
+
   render() {
     const { className } = this.props;
 
@@ -39,6 +46,7 @@ class SearchInput extends React.PureComponent {
         type="text"
         onFocus={this.onFocus}
         onBlur={this.onBlur}
+        ref={(node) => { this.searchInput = node; }}
       />
     );
   }

@@ -1,0 +1,23 @@
+.profile {
+  width: 350px;
+  justify-content: space-between;
+  display: flex;
+
+  &__avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+  }
+
+  &__form {
+    padding-top: 9px;
+  }
+
+  &__form-input {
+    margin-bottom: 10px;
+  }
+
+  &__button {
+    width: 100%;
+  }
+}
