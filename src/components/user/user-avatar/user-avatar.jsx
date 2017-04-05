@@ -27,10 +27,12 @@ export default class UserAvatar extends React.PureComponent {
   }
 
   render() {
-    const { userStatus, userStatusClassName } = this.props;
+    const { className, userStatus, userStatusClassName } = this.props;
+
+    const avatarClassName = classnames(userAvatarClassNames['user-avatar'], className);
 
     return (
-      <div className={userAvatarClassNames['user-avatar']}>
+      <div className={avatarClassName}>
         { userStatus && UserAvatar.renderStatus(userStatus, userStatusClassName) }
       </div>
     );
@@ -38,11 +40,13 @@ export default class UserAvatar extends React.PureComponent {
 }
 
 UserAvatar.defaultProps = {
+  className: '',
   userStatus: '',
   userStatusClassName: '',
 };
 
 UserAvatar.propTypes = {
+  className: React.PropTypes.string,
   userStatus: React.PropTypes.string,
   userStatusClassName: React.PropTypes.string,
 };

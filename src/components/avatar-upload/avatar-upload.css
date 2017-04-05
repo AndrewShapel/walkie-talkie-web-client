@@ -1,0 +1,14 @@
+.avatar-upload {
+  flex-direction: column;
+  display: flex;
+
+  &__avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+  }
+
+  &__button {
+    margin-top: 15px;
+  }
+}

@@ -6,6 +6,7 @@ import { USER_STATUS } from '../../../constants/user';
 import User from '../../user/user';
 import Svg from '../../svg/svg';
 import DropdownSearchUser from '../../dropdown/dropdown-search-user/dropdown-search-user';
+import DropdownSettings from '../../dropdown/dropdown-settings/dropdown-settings';
 
 import panelHeaderClassNames from '../../../assets/css/blocks/panel/panel-header/panel-header.css';
 
@@ -25,7 +26,11 @@ export default () => (
           <Svg icon={ICONS.USER_PLUS} />
         </div>
       </DropdownSearchUser>
-      <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
+      <DropdownSettings>
+        <div>
+          <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
+        </div>
+      </DropdownSettings>
     </div>
   </div>
 );
