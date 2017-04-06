@@ -13,6 +13,10 @@ export default class CallActions extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     actionClassName: React.PropTypes.string,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.element,
+      React.PropTypes.array,
+    ]),
     isMute: React.PropTypes.bool,
     isActive: React.PropTypes.bool,
   };
@@ -20,12 +24,13 @@ export default class CallActions extends React.PureComponent {
   static defaultProps = {
     className: '',
     actionClassName: '',
+    children: null,
     isMute: false,
     isActive: false,
   };
 
   render() {
-    const { className, actionClassName, isMute, isActive } = this.props;
+    const { className, actionClassName, children, isMute, isActive } = this.props;
 
     const callActionsClassName = classnames(callActionsClassNames['call-actions'], className);
 
@@ -46,6 +51,7 @@ export default class CallActions extends React.PureComponent {
             <CallAction className={actionClassName} icon={ICONS.PLUS} />
           </div>
         </DropdownSearchUser>
+        {children}
       </div>
     );
   }

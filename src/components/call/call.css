@@ -3,6 +3,7 @@
 .call {
   flex-direction: column;
   display: flex;
+  overflow: hidden;
   background-color: var(--color-purple);
 
   &__participants {
@@ -13,12 +14,31 @@
     align-items: center;
     flex-wrap: wrap;
     display: flex;
-   }
+  }
 
-  &__chat {
+  &__actions {
     justify-content: center;
     display: flex;
-    overflow: auto;
+  }
+
+  &__action {
+    background-color: var(--color-dark-purple);
+
+    &:hover {
+      background-color: var(--color-purple);
+    }
+  }
+
+  &__chat {
+    max-height: 260px;
+    justify-content: center;
+    display: flex;
     background-color: var(--color-white);
+    transition: max-height 0.2s linear;
+
+    &_hide {
+      max-height: 0;
+      transition: max-height 0.2s linear;
+    }
   }
 }
