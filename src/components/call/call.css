@@ -1,0 +1,24 @@
+@import "../../assets/css/variables.css";
+
+.call {
+  flex-direction: column;
+  display: flex;
+  background-color: var(--color-purple);
+
+  &__participants {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    display: flex;
+   }
+
+  &__chat {
+    justify-content: center;
+    display: flex;
+    overflow: auto;
+    background-color: var(--color-white);
+  }
+}
