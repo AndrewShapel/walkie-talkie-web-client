@@ -4,27 +4,13 @@
   padding: 12px 18px 12px 12px;
   display: flex;
 
-
-  &__action {
-    margin-right: 8px;
-    cursor: pointer;
-    border-radius: 20px;
-    background-color: var(--color-purple);
-
-    &:hover {
-      background-color: var(--color-dark-purple);
-      transition: background-color 0.1s linear;
+  &__dropdown {
+    &-icon {
+      display: flex;
     }
-  }
 
-  &__icon {
-    width: 18px;
-    height: 18px;
-    margin: 11px;
-    fill: var(--color-white);
-  }
-
-  &__dropdown-items {
-    margin-bottom: 15px;
+    &-items {
+      margin-bottom: 15px;
+    }
   }
 }

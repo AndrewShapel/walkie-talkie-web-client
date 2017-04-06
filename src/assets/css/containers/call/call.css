@@ -16,4 +16,11 @@
     flex-wrap: wrap;
     display: flex;
   }
+
+  &__chat {
+    justify-content: center;
+    display: flex;
+    overflow: auto;
+    background-color: var(--color-white);
+  }
 }

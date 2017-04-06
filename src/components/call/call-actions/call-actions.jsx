@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { ICONS } from '../../../constants/icons';
 
-import Svg from '../../svg/svg';
+import CallAction from './call-action/call-action';
 import DropdownSearchUser from '../../../components/dropdown/dropdown-search-user/dropdown-search-user';
 
 import callActionsClassNames from './call-actions.css';
@@ -28,33 +28,24 @@ export default class CallActions extends React.PureComponent {
     const { className, actionClassName, isMute, isActive } = this.props;
 
     const callActionsClassName = classnames(callActionsClassNames['call-actions'], className);
-    const callActionClassName = classnames(callActionsClassNames['call-actions__action'], actionClassName);
 
-    const volumeIcon = (isMute)
-      ? <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.VOLUME_MUTE} />
-      : <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.VOLUME_HIGH} />;
-    const phoneIcon = (isActive)
-      ? <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.PHONE} />
-      : <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.PHONE_HANG_UP} />;
+    const volumeAction = (isMute)
+      ? <CallAction className={actionClassName} icon={ICONS.VOLUME_MUTE} />
+      : <CallAction className={actionClassName} icon={ICONS.VOLUME_HIGH} />;
+    const phoneAction = (isActive)
+      ? <CallAction className={actionClassName} icon={ICONS.PHONE} />
+      : <CallAction className={actionClassName} icon={ICONS.PHONE_HANG_UP} />;
 
     return (
       <div className={callActionsClassName}>
-        <div className={callActionClassName}>
-          {volumeIcon}
-        </div>
-        <div className={callActionClassName}>
-          <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.VIDEO_CAMERA} />
-        </div>
-        <div className={callActionClassName}>
-          {phoneIcon}
-        </div>
-        <div className={callActionClassName}>
-          <DropdownSearchUser itemsClassName={callActionsClassNames['call-actions__dropdown-items']} isStickToBottom>
-            <div>
-              <Svg className={callActionsClassNames['call-actions__icon']} icon={ICONS.PLUS} />
-            </div>
-          </DropdownSearchUser>
-        </div>
+        {volumeAction}
+        <CallAction className={actionClassName} icon={ICONS.VIDEO_CAMERA} />
+        {phoneAction}
+        <DropdownSearchUser itemsClassName={callActionsClassNames['call-actions__dropdown-items']} isStickToBottom>
+          <div className={callActionsClassNames['call-actions__dropdown-icon']}>
+            <CallAction className={actionClassName} icon={ICONS.PLUS} />
+          </div>
+        </DropdownSearchUser>
       </div>
     );
   }
