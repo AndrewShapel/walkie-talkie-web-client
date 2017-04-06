@@ -1,7 +1,7 @@
 @import "../../../assets/css/variables.css";
 
 .call-actions {
-  padding: 12px 18px 12px 12px;
+  padding: 12px;
   display: flex;
 
   &__dropdown {

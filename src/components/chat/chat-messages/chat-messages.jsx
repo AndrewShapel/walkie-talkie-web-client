@@ -16,6 +16,60 @@ const ChatMessages = ({ className }) => {
       <li className={chatMessagesClassNames['chat-messages__message']}>
         <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
       </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} />
+      </li>
+      <li className={chatMessagesClassNames['chat-messages__message']}>
+        <ChatMessage time={'14:25'} message={'Message text'} isFrom={false} />
+      </li>
     </ul>
   );
 };
