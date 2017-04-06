@@ -34,3 +34,34 @@ export const FORM_VALIDATIONS = {
     type: 'equalsField',
   },
 };
+
+/**
+ * @const
+ * @type {Object}
+ */
+export const VALIDATIONS = {
+  email: {
+    types: {
+      [FORM_VALIDATIONS.isEmail.type]: true,
+    },
+    errors: {
+      [FORM_VALIDATIONS.isEmail.type]: FORM_VALIDATIONS.isEmail.errorMessage,
+    },
+  },
+  firstLastName: {
+    types: {
+      [FORM_VALIDATIONS.isAlpha.type]: true,
+    },
+    errors: {
+      [FORM_VALIDATIONS.isAlpha.type]: FORM_VALIDATIONS.isAlpha.errorMessage,
+    },
+  },
+  passwordRepeat: {
+    types: {
+      [FORM_VALIDATIONS.isEqualsField.type]: 'password',
+    },
+    errors: {
+      [FORM_VALIDATIONS.isEqualsField.type]: 'Password does not match',
+    },
+  },
+};

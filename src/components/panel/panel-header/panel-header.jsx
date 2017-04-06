@@ -5,7 +5,8 @@ import { USER_STATUS } from '../../../constants/user';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';
-import DropdownAddToFriends from '../../dropdown/dropdown-add-to-friends/dropdown-add-to-friends';
+import DropdownSearchUser from '../../dropdown/dropdown-search-user/dropdown-search-user';
+import DropdownSettings from '../../dropdown/dropdown-settings/dropdown-settings';
 
 import panelHeaderClassNames from '../../../assets/css/blocks/panel/panel-header/panel-header.css';
 
@@ -20,12 +21,16 @@ export default () => (
       userStatusName="Online"
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
-      <DropdownAddToFriends itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
+      <DropdownSearchUser itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
         <div className={panelHeaderClassNames['panel-header__add-friend']}>
           <Svg icon={ICONS.USER_PLUS} />
         </div>
-      </DropdownAddToFriends>
-      <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
+      </DropdownSearchUser>
+      <DropdownSettings>
+        <div>
+          <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
+        </div>
+      </DropdownSettings>
     </div>
   </div>
 );

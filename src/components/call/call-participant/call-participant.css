@@ -1,0 +1,42 @@
+@import "../../../assets/css/variables.css";
+
+.call-participant {
+  width: 18.2%;
+  padding: 15px;
+  text-align: center;
+  display: inline-block;
+
+  &__user-avatar {
+    width: 100%;
+    max-width: 350px;
+    height: 18vw;
+    max-height: 350px;
+    margin: 0 4px 15px 0;
+    border-radius: 175px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  &__spinner {
+    width: 66%;
+    height: 66%;
+  }
+
+  &__user-name {
+    color: var(--color-white);
+  }
+
+  &__kick-icon {
+    width: 33%;
+    height: 33%;
+    fill: var(--color-red);
+    opacity: 1;
+    transition: opacity 0.1s linear;
+
+    &_hide {
+      opacity: 0;
+      transition: opacity 0.1s linear;
+    }
+  }
+}

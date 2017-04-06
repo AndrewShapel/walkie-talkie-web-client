@@ -9,6 +9,15 @@
   align-items: flex-end;
   display: flex;
   background-color: var(--color-black);
+  position: relative;
+
+  &_active {
+    border: 2px solid var(--color-light-blue);
+  }
+
+  &__spinner {
+    position: absolute;
+  }
 
   &__status {
     width: 12px;

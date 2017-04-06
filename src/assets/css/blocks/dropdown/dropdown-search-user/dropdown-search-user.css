@@ -1,6 +1,6 @@
 @import "../../../variables.css";
 
-.dropdown-add-to-friends {
+.dropdown-search-user {
   display: flex;
 
   &__items {

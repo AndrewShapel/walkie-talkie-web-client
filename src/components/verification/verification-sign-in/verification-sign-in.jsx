@@ -12,23 +12,19 @@ export default class VerificationSignIn extends React.PureComponent {
 
   static propTypes = {
     validations: React.PropTypes.object.isRequired,
-  }
+  };
 
   static onValidSubmit() {
     // Submit
   }
 
-  constructor(props) {
-    super(props);
-
-    /**
-     * @param {Object} model
-     */
-    this.formModel = model => ({
-      email: model.email,
-      password: model.password,
-    });
-  }
+  /**
+   * @param {Object} model
+   */
+  formModel = model => ({
+    email: model.email,
+    password: model.password,
+  });
 
   render() {
     const { validations } = this.props;

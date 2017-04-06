@@ -1,0 +1,16 @@
+@import "../../../assets/css/variables.css";
+
+.call-actions {
+  padding: 12px;
+  display: flex;
+
+  &__dropdown {
+    &-icon {
+      display: flex;
+    }
+
+    &-items {
+      margin-bottom: 15px;
+    }
+  }
+}

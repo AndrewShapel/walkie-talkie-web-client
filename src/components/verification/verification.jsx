@@ -12,12 +12,12 @@ export default class Verification extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     match: React.PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     className: '',
     match: {},
-  }
+  };
 
   constructor(props) {
     super(props);

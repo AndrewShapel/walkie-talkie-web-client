@@ -4,6 +4,11 @@
 .dropdown {
   position: relative;
 
+  &_stick-to-bottom {
+    bottom: 100%;
+    background-color: #141414;
+  }
+
   &__items {
     top: 100%;
     right: 50%;
@@ -14,10 +19,26 @@
     transform: translate(50%, 0);
 
     &:after {
-      @apply --mixin-triangle-top;
+      @apply --mixin-triangle;
 
       border-bottom: 5px solid var(--color-white);
-      content: "";
+    }
+
+    &_stick-to-bottom {
+      top: auto;
+      bottom: 100%;
+
+      &:before {
+        @apply --mixin-triangle;
+
+        top: 100%;
+        margin-top: 2px;
+        border-top: 5px solid var(--color-white);
+      }
+
+      &:after {
+        display: none;
+      }
     }
   }
 }
