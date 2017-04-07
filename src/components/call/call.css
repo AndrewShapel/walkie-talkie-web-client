@@ -29,6 +29,10 @@
     &:hover {
       background-color: var(--color-purple);
     }
+
+    &-chat {
+      margin-right: 0;
+    }
   }
 
   &__chat {
