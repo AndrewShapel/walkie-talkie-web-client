@@ -4,7 +4,7 @@ import { ICONS } from '../../../constants/icons';
 
 import Svg from '../../svg/svg';
 
-import searchInputExpandClassNames from '../../../assets/css/blocks/search/search-input-expand/search-input-expand.css';
+import searchInputExpandClassNames from './search-input-expand.css';
 
 export default () => (
   <div className={searchInputExpandClassNames['search-input-expand']}>

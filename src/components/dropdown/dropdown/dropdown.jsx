@@ -4,7 +4,7 @@ import classnames from 'classnames';
 
 import Dom from '../../../utils/dom';
 
-import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
+import dropdownClassNames from './dropdown.css';
 
 class Dropdown extends React.Component {
 

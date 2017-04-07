@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import badgeClassNames from '../../assets/css/blocks/badge/badge.css';
+import badgeClassNames from './badge.css';
 
 const Badge = ({ className, count, isInvert }) => {
   const badgeClassName = classnames(badgeClassNames.badge, {

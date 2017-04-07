@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import searchInputClassNames from '../../../assets/css/blocks/search/search-input/search-input.css';
+import searchInputClassNames from './search-input.css';
 
 class SearchInput extends React.PureComponent {
   constructor(props) {

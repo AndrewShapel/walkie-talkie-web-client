@@ -6,7 +6,7 @@ import { USER_STATUS } from '../../../constants/user';
 
 import Spinner from '../../../components/spinner/spinner';
 
-import userAvatarClassNames from '../../../assets/css/blocks/user/user-avatar/user-avatar.css';
+import userAvatarClassNames from './user-avatar.css';
 
 export default class UserAvatar extends React.PureComponent {
   /**

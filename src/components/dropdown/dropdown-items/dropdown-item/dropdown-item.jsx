@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import dropdownItemClassNames from '../../../../assets/css/blocks/dropdown/dropdown-items/dropdown-item/dropdown-item.css';
+import dropdownItemClassNames from './dropdown-item.css';
 
 class DropdownItem extends React.PureComponent {
   constructor(props) {

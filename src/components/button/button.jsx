@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { BUTTON_TYPES } from '../../constants/form';
 
-import buttonClassNames from '../../assets/css/blocks/button/button.css';
+import buttonClassNames from './button.css';
 
 const Button = ({ className, title, type, isDisable }) => {
   const buttonClassName = classnames(buttonClassNames.button, {

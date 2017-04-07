@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import ChatMessages from '../chat-messages/chat-messages';
 import ChatSendInput from '../chat-send-input/chat-send-input';
 
-import chatContentClassNames from '../../../assets/css/blocks/chat/chat-content/chat-content.css';
+import chatContentClassNames from './chat-content.css';
 
 const ChatContent = ({ className }) => {
   const chatContentClassName = classnames(chatContentClassNames['chat-content'], className);

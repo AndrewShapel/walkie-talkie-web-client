@@ -6,7 +6,7 @@ import { VERIFICATION_TYPES, VERIFICATION_ITEMS } from '../../constants/verifica
 import VerificationHeader from './verification-header/verification-header';
 import VerificationContent from './verification-content/verification-content';
 
-import verificationClassNames from '../../assets/css/blocks/verification/verification.css';
+import verificationClassNames from './verification.css';
 
 export default class Verification extends React.PureComponent {
   static propTypes = {

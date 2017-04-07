@@ -6,7 +6,7 @@ import User from '../../user/user';
 import SearchInputExpand from '../../search/search-input-expand/search-input-expand';
 import CallActions from '../../call/call-actions/call-actions';
 
-import chatHeaderClassNames from '../../../assets/css/blocks/chat/chat-header/chat-header.css';
+import chatHeaderClassNames from './chat-header.css';
 
 export default () => (
   <div className={chatHeaderClassNames['chat-header']}>

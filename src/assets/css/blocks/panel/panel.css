@@ -1,8 +1,0 @@
-@import "../../variables.css";
-@import "../../breakpoints.css";
-
-.panel {
-  min-width: var(--breakpoint-phone);
-  max-width: var(--breakpoint-phone);
-  background-color: var(--color-purple);
-}

@@ -6,7 +6,7 @@ import { USER_STATUS } from '../../../../constants/user';
 import User from '../../../user/user';
 import Badge from '../../../badge/badge';
 
-import panelFriendsItemClassNames from '../../../../assets/css/blocks/panel/panel-friends/panel-friends-item/panel-friends-item.css';
+import panelFriendsItemClassNames from './panel-friends-item.css';
 
 const PanelFriendsItem = ({ isActive }) => {
   const friendsItemClassName = classnames(panelFriendsItemClassNames['panel-friends-item'], {

@@ -1,0 +1,11 @@
+@import "../../assets/css/variables.css";
+
+.form {
+  &__error-message {
+    margin: 7px 2px;
+    font-size: 14px;
+    color: var(--color-red);
+    text-align: center;
+    display: block;
+  }
+}

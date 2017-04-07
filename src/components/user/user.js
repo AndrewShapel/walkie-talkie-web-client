@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import UserAvatar from './user-avatar/user-avatar';
 import UserInformation from './user-information/user-information';
 
-import userClassNames from '../../assets/css/blocks/user/user.css';
+import userClassNames from './user.css';
 
 const User = ({ className, userNameClassName, userStatusClassName, userStatus, userName, userStatusName }) => {
   const userClassName = classnames(userClassNames.user, className);

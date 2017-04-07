@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import panelTabsItemClassNames from '../../../../assets/css/blocks/panel/panel-tabs/panel-tabs-item/panel-tabs-item.css';
+import panelTabsItemClassNames from './panel-tabs-item.css';
 
 const PanelTabsItem = ({ title, isActive }) => {
   const tabsItemClassName = classnames(panelTabsItemClassNames['panel-tabs-item'], {

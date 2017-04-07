@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form as FormsyForm } from 'formsy-react';
 
-import formClassNames from '../../assets/css/blocks/form/form.css';
+import formClassNames from './form.css';
 
 class Form extends React.PureComponent {
   /**

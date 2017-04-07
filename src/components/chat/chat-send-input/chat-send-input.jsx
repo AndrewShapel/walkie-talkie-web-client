@@ -5,7 +5,7 @@ import { ICONS } from '../../../constants/icons';
 
 import Svg from '../../svg/svg';
 
-import chatSendInputClassNames from '../../../assets/css/blocks/chat/chat-send-input/chat-send-input.css';
+import chatSendInputClassNames from './chat-send-input.css';
 
 class ChatSendInput extends React.PureComponent {
 

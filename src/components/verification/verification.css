@@ -1,0 +1,9 @@
+@import "../../assets/css/variables.css";
+@import "../../assets/css/breakpoints.css";
+
+.verification {
+  width: var(--breakpoint-phone);
+  border-radius: 6px;
+  background-color: var(--color-white);
+  box-shadow: 0 0 2px var(--color-gray);
+}

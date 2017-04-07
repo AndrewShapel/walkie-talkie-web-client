@@ -1,0 +1,20 @@
+@import "../../../assets/css/variables.css";
+@import "../../../assets/css/mixins.css";
+
+.user-information {
+  flex-direction: column;
+  display: flex;
+
+  &__user-name {
+    @apply --mixin-text-ellipsis;
+
+    max-width: 160px;
+    font-size: 14px;
+  }
+
+  &__user-status {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--color-light-pink);
+  }
+}

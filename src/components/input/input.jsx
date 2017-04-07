@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import { INPUT_TYPES } from '../../constants/form';
 
-import inputClassNames from '../../assets/css/blocks/input/input.css';
+import inputClassNames from './input.css';
 
 class Input extends React.PureComponent {
   /**

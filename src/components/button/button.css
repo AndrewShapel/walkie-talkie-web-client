@@ -1,0 +1,25 @@
+@import "../../assets/css/variables.css";
+
+.button {
+  padding: 10px;
+  font-size: 14px;
+  color: var(--color-white);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: var(--color-purple);
+  transition: background-color 0.1s linear;
+
+  &:hover {
+    background-color: var(--color-dark-purple);
+    transition: background-color 0.1s linear;
+  }
+
+  &_disabled {
+    background-color: var(--color-light-pink);
+
+    &:hover {
+      background-color: var(--color-light-pink);
+    }
+  }
+}
