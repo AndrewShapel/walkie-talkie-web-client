@@ -6,6 +6,9 @@ export default {
   home: {
     url: '/',
   },
+  conversation: {
+    url: '/conversation/:id',
+  },
   about: {
     url: '/about',
   },
