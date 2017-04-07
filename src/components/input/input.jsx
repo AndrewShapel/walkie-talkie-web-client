@@ -1,11 +1,39 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
 import { INPUT_TYPES } from '../../constants/form';
 
 import inputClassNames from './input.css';
 
-class Input extends React.PureComponent {
+export default class Input extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    inputClassName: React.PropTypes.string,
+    name: React.PropTypes.string,
+    defaultValue: React.PropTypes.string,
+    placeholder: React.PropTypes.string,
+    type: React.PropTypes.string,
+    errorMessages: React.PropTypes.array,
+    isInvalid: React.PropTypes.bool,
+    isShowRequired: React.PropTypes.bool,
+    onChange: React.PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    inputClassName: '',
+    name: '',
+    defaultValue: '',
+    placeholder: '',
+    type: INPUT_TYPES.text,
+    errorMessages: [],
+    isInvalid: false,
+    isShowRequired: false,
+    onChange: null,
+  };
+
   /**
    * @param {Array} errorMessages
    */
@@ -17,15 +45,10 @@ class Input extends React.PureComponent {
     ));
   }
 
-  constructor(props) {
-    super(props);
-
-    this.onChange = this.onChange.bind(this);
-  }
-
   /**
    * @param {Object} event
    */
+  @autobind
   onChange(event) {
     const { onChange } = this.props;
 
@@ -64,32 +87,3 @@ class Input extends React.PureComponent {
     );
   }
 }
-
-Input.defaultProps = {
-  className: '',
-  inputClassName: '',
-  name: '',
-  defaultValue: '',
-  placeholder: '',
-  type: INPUT_TYPES.text,
-  errorMessages: [],
-  isInvalid: false,
-  isShowRequired: false,
-  onChange: null,
-};
-
-Input.propTypes = {
-  className: React.PropTypes.string,
-  inputClassName: React.PropTypes.string,
-  name: React.PropTypes.string,
-  defaultValue: React.PropTypes.string,
-  placeholder: React.PropTypes.string,
-  type: React.PropTypes.string,
-  errorMessages: React.PropTypes.array,
-  isInvalid: React.PropTypes.bool,
-  isShowRequired: React.PropTypes.bool,
-  onChange: React.PropTypes.func,
-};
-
-export default Input;
-

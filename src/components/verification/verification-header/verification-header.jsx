@@ -9,12 +9,13 @@ export default class VerificationHeader extends React.PureComponent {
   static propTypes = {
     items: React.PropTypes.array,
     match: React.PropTypes.object,
-  }
+  };
 
   static defaultProps = {
     items: [],
     match: {},
-  }
+  };
+
   /**
    * @param {Array} items
    * @param {Object} match

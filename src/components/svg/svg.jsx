@@ -1,6 +1,17 @@
 import React from 'react';
 
-class Svg extends React.PureComponent {
+export default class Svg extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    icon: React.PropTypes.string,
+  };
+
+  static defaultProps = {
+    className: '',
+    icon: '',
+  };
+
   componentDidMount() {
     const { icon } = this.props;
 
@@ -20,15 +31,3 @@ class Svg extends React.PureComponent {
     );
   }
 }
-
-Svg.defaultProps = {
-  className: '',
-  icon: '',
-};
-
-Svg.propTypes = {
-  className: React.PropTypes.string,
-  icon: React.PropTypes.string,
-};
-
-export default Svg;

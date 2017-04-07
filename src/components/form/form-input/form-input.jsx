@@ -1,20 +1,28 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import { Decorator as FormsyElement } from 'formsy-react';
 
 import Input from '../../input/input';
 
 @FormsyElement()
-class FormInput extends React.Component {
-  constructor(props) {
-    super(props);
+export default class FormInput extends React.Component {
 
-    this.state = {
-      errorMessages: [],
-      isShowRequired: false,
-    };
+  static defaultProps = Object.assign(Input.defaultProps, {
+    validations: {},
+    validationErrors: {},
+    onMount: null,
+  });
 
-    this.onChange = this.onChange.bind(this);
-  }
+  static propTypes = Object.assign(Input.propTypes, {
+    validations: React.PropTypes.object,
+    validationErrors: React.PropTypes.object,
+    onMount: React.PropTypes.func,
+  });
+
+  state = {
+    errorMessages: [],
+    isShowRequired: false,
+  };
 
   componentWillMount() {
     const { defaultValue, setValue } = this.props;
@@ -35,6 +43,7 @@ class FormInput extends React.Component {
   /**
    * @param {String} value
    */
+  @autobind
   onChange(value) {
     const { getValue, setValue } = this.props;
 
@@ -73,17 +82,3 @@ class FormInput extends React.Component {
     );
   }
 }
-
-FormInput.defaultProps = Object.assign(Input.defaultProps, {
-  validations: {},
-  validationErrors: {},
-  onMount: null,
-});
-
-FormInput.propTypes = Object.assign(Input.propTypes, {
-  validations: React.PropTypes.object,
-  validationErrors: React.PropTypes.object,
-  onMount: React.PropTypes.func,
-});
-
-export default FormInput;

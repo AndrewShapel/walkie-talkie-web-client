@@ -9,6 +9,34 @@ import Spinner from '../../../components/spinner/spinner';
 import userAvatarClassNames from './user-avatar.css';
 
 export default class UserAvatar extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    userStatusClassName: React.PropTypes.string,
+    spinnerClassName: React.PropTypes.string,
+    children: React.PropTypes.oneOfType(([
+      React.PropTypes.element,
+      React.PropTypes.array,
+    ])),
+    userStatus: React.PropTypes.string,
+    isActive: React.PropTypes.bool,
+    isLoad: React.PropTypes.bool,
+    onMouseOver: React.PropTypes.func,
+    onMouseLeave: React.PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    userStatusClassName: '',
+    spinnerClassName: '',
+    children: null,
+    userStatus: '',
+    isActive: false,
+    isLoad: false,
+    onMouseOver: null,
+    onMouseLeave: null,
+  };
+
   /**
    * @param {String} userStatus
    * @param {String} userStatusClassName
@@ -66,31 +94,3 @@ export default class UserAvatar extends React.PureComponent {
     );
   }
 }
-
-UserAvatar.defaultProps = {
-  className: '',
-  userStatusClassName: '',
-  spinnerClassName: '',
-  children: null,
-  userStatus: '',
-  isActive: false,
-  isLoad: false,
-  onMouseOver: null,
-  onMouseLeave: null,
-};
-
-UserAvatar.propTypes = {
-  className: React.PropTypes.string,
-  userStatusClassName: React.PropTypes.string,
-  spinnerClassName: React.PropTypes.string,
-  children: React.PropTypes.oneOfType(([
-    React.PropTypes.element,
-    React.PropTypes.array,
-  ])),
-  userStatus: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  isLoad: React.PropTypes.bool,
-  onMouseOver: React.PropTypes.func,
-  onMouseLeave: React.PropTypes.func,
-};
-

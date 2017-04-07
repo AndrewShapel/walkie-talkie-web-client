@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import { VERIFICATION_TYPES, VERIFICATION_ITEMS } from '../../constants/verification';
+import { VERIFICATION_ITEMS } from '../../constants/verification';
 
 import VerificationHeader from './verification-header/verification-header';
 import VerificationContent from './verification-content/verification-content';
@@ -9,6 +9,7 @@ import VerificationContent from './verification-content/verification-content';
 import verificationClassNames from './verification.css';
 
 export default class Verification extends React.PureComponent {
+
   static propTypes = {
     className: React.PropTypes.string,
     match: React.PropTypes.object,
@@ -18,14 +19,6 @@ export default class Verification extends React.PureComponent {
     className: '',
     match: {},
   };
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      selectedType: VERIFICATION_TYPES.SIGN_IN,
-    };
-  }
 
   render() {
     const { className, match } = this.props;

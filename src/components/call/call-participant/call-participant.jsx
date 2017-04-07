@@ -10,6 +10,7 @@ import Svg from '../../svg/svg';
 import callParticipantClassNames from './call-participant.css';
 
 export default class CallParticipant extends React.PureComponent {
+
   state = {
     isKickAllow: false,
   };

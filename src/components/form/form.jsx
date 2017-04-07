@@ -3,7 +3,27 @@ import { Form as FormsyForm } from 'formsy-react';
 
 import formClassNames from './form.css';
 
-class Form extends React.PureComponent {
+export default class Form extends React.PureComponent {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.element,
+      React.PropTypes.array,
+    ]),
+    mapping: React.PropTypes.func,
+    errorMessages: React.PropTypes.array,
+    onValidSubmit: React.PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    children: null,
+    mapping: null,
+    errorMessages: [],
+    onValidSubmit: null,
+  };
+
   /**
    * @param {Array} errorMessages
    */
@@ -96,24 +116,3 @@ class Form extends React.PureComponent {
     );
   }
 }
-
-Form.defaultProps = {
-  className: '',
-  children: null,
-  mapping: null,
-  errorMessages: [],
-  onValidSubmit: null,
-};
-
-Form.propTypes = {
-  className: React.PropTypes.string,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.array,
-  ]),
-  mapping: React.PropTypes.func,
-  errorMessages: React.PropTypes.array,
-  onValidSubmit: React.PropTypes.func,
-};
-
-export default Form;

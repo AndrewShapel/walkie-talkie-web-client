@@ -1,21 +1,33 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 
 import Dropdown from '../dropdown/dropdown';
 import DropdownItem from './dropdown-item/dropdown-item';
 
 import dropdownItemsClassNames from './dropdown-items.css';
 
-class DropdownItems extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default class DropdownItems extends React.PureComponent {
 
-    this.onActiveItemIdSelect = this.onActiveItemIdSelect.bind(this);
-    this.renderItems = this.renderItems.bind(this);
-  }
+  static propTypes = Object.assign(Dropdown.propTypes, {
+    items: React.PropTypes.array,
+    activeItemId: React.PropTypes.number,
+    renderContentAfter: React.PropTypes.bool,
+    renderContent: React.PropTypes.func,
+    onItemSelect: React.PropTypes.func,
+  });
+
+  static defaultProps = Object.assign(Dropdown.defaultProps, {
+    items: [],
+    activeItemId: null,
+    renderContentAfter: false,
+    renderContent: null,
+    onItemSelect: null,
+  });
 
   /**
    * @param {Number} id
    */
+  @autobind
   onActiveItemIdSelect(id) {
     const { activeItemId, onItemSelect } = this.props;
     if (id !== activeItemId && onItemSelect) {
@@ -26,6 +38,7 @@ class DropdownItems extends React.PureComponent {
   /**
    * @returns {Object}
    */
+  @autobind
   renderItems() {
     const { items, activeItemId, renderContentAfter, renderContent } = this.props;
 
@@ -72,22 +85,3 @@ class DropdownItems extends React.PureComponent {
     );
   }
 }
-
-DropdownItems.defaultProps = Object.assign(Dropdown.defaultProps, {
-  items: [],
-  activeItemId: null,
-  renderContentAfter: false,
-  renderContent: null,
-  onItemSelect: null,
-});
-
-DropdownItems.propTypes = Object.assign(Dropdown.propTypes, {
-  items: React.PropTypes.array,
-  activeItemId: React.PropTypes.number,
-  renderContentAfter: React.PropTypes.bool,
-  renderContent: React.PropTypes.func,
-  onItemSelect: React.PropTypes.func,
-});
-
-export default DropdownItems;
-
