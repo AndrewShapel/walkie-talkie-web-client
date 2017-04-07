@@ -20,6 +20,7 @@
   &__actions {
     margin: 0 auto 5px auto;
     align-items: center;
+    justify-content: center;
   }
 
   &__action {
