@@ -7,25 +7,29 @@ import verificationHeaderItemClassNames from '../../../../assets/css/blocks/veri
 export default class VerificationHeaderItem extends React.PureComponent {
 
   static propTypes = {
-    title: React.PropTypes.string,
     match: React.PropTypes.object,
+    title: React.PropTypes.string,
     path: React.PropTypes.string,
-  }
+  };
 
   static defaultProps = {
     match: {},
-    path: '',
     title: '',
-  }
+    path: '',
+  };
 
   render() {
-    const { title, match, path } = this.props;
+    const { match, title, path } = this.props;
 
     const verificationHeaderItemClassName = classnames(verificationHeaderItemClassNames['verification-header-item']);
 
     return (
       <li className={verificationHeaderItemClassName}>
-        <NavLink to={`${match.path}${path}`} style={{ textDecoration: 'none' }} activeClassName={verificationHeaderItemClassNames['verification-header-item_active']} >
+        <NavLink
+          className={verificationHeaderItemClassNames['verification-header-item__text']}
+          activeClassName={verificationHeaderItemClassNames['verification-header-item_active']}
+          to={`${match.path}${path}`}
+        >
           { title }
         </NavLink>
       </li>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Route } from 'react-router-dom';
 
 import routes from '../../../constants/routes/routes';
@@ -22,10 +21,19 @@ export default class VerificationContent extends React.PureComponent {
 
   render() {
     const { match } = this.props;
+
     return (
       <div className={verificationContentClassNames['verification-content']}>
-        <Route exact path={`${match.path}${routes.userVerification.url.signin}`} render={() => <VerificationSignIn validations={VALIDATIONS} />} />
-        <Route exact path={`${match.path}${routes.userVerification.url.signup}`} render={() => <VerificationSignUp validations={VALIDATIONS} />} />
+        <Route
+          path={`${match.path}${routes.userVerification.url.signin}`}
+          exact
+          render={() => <VerificationSignIn validations={VALIDATIONS} />}
+        />
+        <Route
+          path={`${match.path}${routes.userVerification.url.signup}`}
+          exact
+          render={() => <VerificationSignUp validations={VALIDATIONS} />}
+        />
       </div>
     );
   }

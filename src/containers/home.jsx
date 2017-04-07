@@ -1,13 +1,29 @@
 import React from 'react';
 
-import Chat from '../components/chat/chat';
-import Panel from '../components/panel/panel';
+import routes from '../constants/routes/routes';
 
-import homeClassNames from '../assets/css/containers/home/home.css';
+import Route from '../utils/route';
 
-export default () => (
-  <div className={homeClassNames.home}>
-    <Panel className={homeClassNames.home__panel} />
-    <Chat className={homeClassNames.home__chat} />
-  </div>
-);
+export default class Home extends React.Component {
+
+  static propTypes = {
+    match: React.PropTypes.object,
+    history: React.PropTypes.object,
+  };
+
+  static defaultProps = {
+    match: {},
+    history: {},
+  };
+
+  componentWillMount() {
+    const { match, history } = this.props;
+
+    const redirectToPathName = routes.conversation.url.replace(/:id/, 24);
+    Route.redirectIfExactRoute(match.isExact, '', redirectToPathName, history.replace);
+  }
+
+  render() {
+    return null;
+  }
+}

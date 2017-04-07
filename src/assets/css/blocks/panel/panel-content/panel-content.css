@@ -3,8 +3,10 @@
   display: flex;
 
   &__tabs {
-    margin: 0 auto;
+    margin: 0;
     padding: 0;
+    justify-content: center;
+    display: flex;
   }
 
   &__friends {
