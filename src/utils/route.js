@@ -7,7 +7,8 @@ export default class Route {
    */
   static redirectIfExactRoute(isExact, pathName, redirectTo, redirect) {
     if (isExact) {
-      const redirectToPathName = `${pathName}${redirectTo}`;
+      const pathNameWithputSlash = pathName.replace(/\/$/, '');
+      const redirectToPathName = `${pathNameWithputSlash}${redirectTo}`;
       redirect(redirectToPathName);
     }
   }

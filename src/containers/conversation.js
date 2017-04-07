@@ -16,7 +16,6 @@ export default class Conversation extends React.Component {
   };
 
   componentWillMount() {
-    console.log(this.props.match.params.id, 'tr');
     // Set conversation id to redux store
   }
 

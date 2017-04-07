@@ -2,6 +2,8 @@ import React from 'react';
 
 import routes from '../constants/routes/routes';
 
+import Route from '../utils/route';
+
 import Verification from '../components/verification/verification';
 
 import verificationClassNames from '../assets/css/containers/user-verification/user-verification.css';
@@ -21,12 +23,8 @@ export default class VerificationContainer extends React.Component {
   componentWillMount() {
     const { match, history } = this.props;
 
-    if (match.isExact) {
-      const { location, replace } = history;
-
-      const redirectToPathName = `${location.pathname}${routes.userVerification.url.signin}`;
-      replace(redirectToPathName);
-    }
+    const { location, replace } = history;
+    Route.redirectIfExactRoute(match.isExact, location.pathname, routes.userVerification.url.signin, replace);
   }
 
   render() {
