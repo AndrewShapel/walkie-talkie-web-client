@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import routes from '../constants/routes/routes';
 
-import rootClassNames from '../assets/css/blocks/root/root.css';
+import rootClassNames from '../assets/css/containers/root/root.css';
 
 import Home from '../containers/home';
 import About from '../containers/about';

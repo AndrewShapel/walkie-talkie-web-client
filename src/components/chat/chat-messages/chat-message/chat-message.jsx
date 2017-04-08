@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import UserAvatar from '../../../user/user-avatar/user-avatar';
 
-import chatMessageClassNames from '../../../../assets/css/blocks/chat/chat-messages/chat-message/chat-message.css';
+import chatMessageClassNames from './chat-message.css';
 
 const ChatMessage = ({ className, time, message, isFrom }) => {
   const messageClassName = classnames(chatMessageClassNames['chat-message'], {

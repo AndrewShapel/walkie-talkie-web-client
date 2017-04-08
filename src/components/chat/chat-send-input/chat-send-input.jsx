@@ -1,11 +1,12 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
 import { ICONS } from '../../../constants/icons';
 
 import Svg from '../../svg/svg';
 
-import chatSendInputClassNames from '../../../assets/css/blocks/chat/chat-send-input/chat-send-input.css';
+import chatSendInputClassNames from './chat-send-input.css';
 
 class ChatSendInput extends React.PureComponent {
 
@@ -21,21 +22,10 @@ class ChatSendInput extends React.PureComponent {
     minRows: 1,
   };
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      value: '',
-      rows: 0,
-    };
-
-    /**
-     * @type {Number}
-     */
-    this.baseHeight = 0;
-
-    this.onChange = this.onChange.bind(this);
-  }
+  state = {
+    value: '',
+    rows: 0,
+  };
 
   componentWillMount() {
     const rows = this.props.rows;
@@ -53,6 +43,7 @@ class ChatSendInput extends React.PureComponent {
     }
   }
 
+  @autobind
   onChange() {
     if (this.textArea) {
       const rows = this.state.rows;
@@ -69,6 +60,11 @@ class ChatSendInput extends React.PureComponent {
       }
     }
   }
+
+  /**
+   * @type {Number}
+   */
+  baseHeight = 0;
 
   render() {
     const { rows } = this.state;

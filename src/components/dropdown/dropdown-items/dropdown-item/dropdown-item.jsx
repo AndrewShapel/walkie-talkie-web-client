@@ -1,15 +1,32 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
-import dropdownItemClassNames from '../../../../assets/css/blocks/dropdown/dropdown-items/dropdown-item/dropdown-item.css';
+import dropdownItemClassNames from './dropdown-item.css';
 
-class DropdownItem extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default class DropdownItem extends React.PureComponent {
 
-    this.onClick = this.onClick.bind(this);
-  }
+  static propTypes = {
+    className: React.PropTypes.string,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.element,
+      React.PropTypes.array,
+    ]),
+    id: React.PropTypes.number.isRequired,
+    title: React.PropTypes.string,
+    isActive: React.PropTypes.bool,
+    onClick: React.PropTypes.func,
+  };
 
+  static defaultProps = {
+    className: '',
+    children: null,
+    title: '',
+    isActive: false,
+    onClick: null,
+  };
+
+  @autobind
   onClick() {
     const { id, onClick } = this.props;
 
@@ -33,25 +50,3 @@ class DropdownItem extends React.PureComponent {
     );
   }
 }
-
-DropdownItem.defaultProps = {
-  className: '',
-  children: null,
-  title: '',
-  isActive: false,
-  onClick: null,
-};
-
-DropdownItem.propTypes = {
-  className: React.PropTypes.string,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.array,
-  ]),
-  id: React.PropTypes.number.isRequired,
-  title: React.PropTypes.string,
-  isActive: React.PropTypes.bool,
-  onClick: React.PropTypes.func,
-};
-
-export default DropdownItem;

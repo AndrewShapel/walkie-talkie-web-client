@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import chatClassNames from '../../assets/css/blocks/chat/chat.css';
+import chatClassNames from './chat.css';
 
 import ChatHeader from './chat-header/chat-header';
 import ChatContent from './chat-content/chat-content';

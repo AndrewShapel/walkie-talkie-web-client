@@ -9,7 +9,7 @@ import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';
 import DropdownItems from '../dropdown-items/dropdown-items';
 
-import dropdownSearchUserClassNames from '../../../assets/css/blocks/dropdown/dropdown-search-user/dropdown-search-user.css';
+import dropdownSearchUserClassNames from './dropdown-search-user.css';
 
 class DropdownSearchUser extends React.Component {
 

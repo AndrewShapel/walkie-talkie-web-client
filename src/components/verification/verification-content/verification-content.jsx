@@ -7,7 +7,7 @@ import { VALIDATIONS } from '../../../constants/form';
 import VerificationSignIn from '../verification-sign-in/verification-sign-in';
 import VerificationSignUp from '../verification-sign-up/verification-sign-up';
 
-import verificationContentClassNames from '../../../assets/css/blocks/verification/verification-content/verification-content.css';
+import verificationContentClassNames from './verification-content.css';
 
 export default class VerificationContent extends React.PureComponent {
 

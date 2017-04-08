@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { NavLink } from 'react-router-dom';
 
-import verificationHeaderItemClassNames from '../../../../assets/css/blocks/verification/verification-header/verification-header-item/verification-header-item.css';
+import verificationHeaderItemClassNames from './verification-header-item.css';
 
 export default class VerificationHeaderItem extends React.PureComponent {
 

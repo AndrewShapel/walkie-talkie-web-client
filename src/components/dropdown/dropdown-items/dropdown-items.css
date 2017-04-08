@@ -1,0 +1,8 @@
+@import "../../../assets/css/variables.css";
+
+.dropdown-items {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  list-style-type: none;
+}

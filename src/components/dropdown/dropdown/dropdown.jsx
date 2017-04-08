@@ -4,9 +4,32 @@ import classnames from 'classnames';
 
 import Dom from '../../../utils/dom';
 
-import dropdownClassNames from '../../../assets/css/blocks/dropdown/dropdown/dropdown.css';
+import dropdownClassNames from './dropdown.css';
 
-class Dropdown extends React.Component {
+export default class Dropdown extends React.Component {
+
+  static propTypes = {
+    className: React.PropTypes.string,
+    itemsClassName: React.PropTypes.string,
+    children: React.PropTypes.oneOfType([
+      React.PropTypes.element,
+      React.PropTypes.array,
+    ]),
+    isStickToBottom: React.PropTypes.bool,
+    isOpen: React.PropTypes.bool,
+    renderContent: React.PropTypes.func,
+    onToggle: React.PropTypes.func,
+  };
+
+  static defaultProps = {
+    className: '',
+    itemsClassName: '',
+    children: null,
+    isOpen: false,
+    isStickToBottom: false,
+    renderContent: null,
+    onToggle: null,
+  };
 
   componentWillMount() {
     const { onToggle } = this.props;
@@ -86,28 +109,3 @@ class Dropdown extends React.Component {
     );
   }
 }
-
-Dropdown.defaultProps = {
-  className: '',
-  itemsClassName: '',
-  children: null,
-  isOpen: false,
-  isStickToBottom: false,
-  renderContent: null,
-  onToggle: null,
-};
-
-Dropdown.propTypes = {
-  className: React.PropTypes.string,
-  itemsClassName: React.PropTypes.string,
-  children: React.PropTypes.oneOfType([
-    React.PropTypes.element,
-    React.PropTypes.array,
-  ]),
-  isStickToBottom: React.PropTypes.bool,
-  isOpen: React.PropTypes.bool,
-  renderContent: React.PropTypes.func,
-  onToggle: React.PropTypes.func,
-};
-
-export default Dropdown;

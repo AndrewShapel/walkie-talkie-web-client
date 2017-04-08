@@ -6,7 +6,7 @@ import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';
 import Button from '../../button/button';
 
-import verificationSignInClassNames from '../../../assets/css/blocks/verification/verification-sign-in/verification-sign-in.css';
+import verificationSignInClassNames from './verification-sign-in.css';
 
 export default class VerificationSignIn extends React.PureComponent {
 

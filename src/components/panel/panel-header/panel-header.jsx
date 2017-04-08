@@ -8,7 +8,7 @@ import Svg from '../../svg/svg';
 import DropdownSearchUser from '../../dropdown/dropdown-search-user/dropdown-search-user';
 import DropdownSettings from '../../dropdown/dropdown-settings/dropdown-settings';
 
-import panelHeaderClassNames from '../../../assets/css/blocks/panel/panel-header/panel-header.css';
+import panelHeaderClassNames from './panel-header.css';
 
 export default () => (
   <div className={panelHeaderClassNames['panel-header']}>

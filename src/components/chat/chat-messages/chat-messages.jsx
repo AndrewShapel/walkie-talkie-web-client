@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import ChatMessage from './chat-message/chat-message';
 
-import chatMessagesClassNames from '../../../assets/css/blocks/chat/chat-messages/chat-messages.css';
+import chatMessagesClassNames from './chat-messages.css';
 
 const ChatMessages = ({ className }) => {
   const chatMessagesClassName = classnames(chatMessagesClassNames['chat-messages'], className);

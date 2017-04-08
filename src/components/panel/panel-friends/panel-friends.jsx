@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
 
-import panelFriendsClassNames from '../../../assets/css/blocks/panel/panel-friends/panel-friends.css';
+import panelFriendsClassNames from './panel-friends.css';
 
 const PanelFriends = ({ className }) => {
   const friendsClassName = classnames(panelFriendsClassNames['panel-friends'], className);

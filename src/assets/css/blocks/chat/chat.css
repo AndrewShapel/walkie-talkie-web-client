@@ -1,9 +1,0 @@
-@import "../../breakpoints.css";
-
-.chat {
-  min-width: var(--breakpoint-desktop);
-
-  &__content {
-    margin: 0 auto;
-  }
-}

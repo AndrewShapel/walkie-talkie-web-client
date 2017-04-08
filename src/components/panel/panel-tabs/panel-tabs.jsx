@@ -3,7 +3,7 @@ import classnames from 'classnames';
 
 import PanelTabsItem from './panel-tabs-item/panel-tabs-item';
 
-import panelTabsClassNames from '../../../assets/css/blocks/panel/panel-tabs/panel-tabs.css';
+import panelTabsClassNames from './panel-tabs.css';
 
 const PanelTabs = ({ className }) => {
   const tabsClassName = classnames(panelTabsClassNames['panel-tabs'], className);

@@ -1,0 +1,17 @@
+@import "../../../../assets/css/variables.css";
+
+.panel-tabs-item {
+  margin-left: 20px;
+  font-size: 15px;
+  color: var(--color-white);
+  cursor: pointer;
+  display: inline-block;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &_active {
+    border-bottom: 2px solid var(--color-light-pink);
+  }
+}

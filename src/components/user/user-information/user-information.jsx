@@ -1,7 +1,7 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import userInformationClassNames from '../../../assets/css/blocks/user/user-information/user-information.css';
+import userInformationClassNames from './user-information.css';
 
 const userInformation = ({ className, userNameClassName, userName, userStatus }) => {
   const userInformationClassName = classnames(userInformationClassNames['user-information'], className);

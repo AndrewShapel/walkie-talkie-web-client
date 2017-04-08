@@ -1,16 +1,24 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import classnames from 'classnames';
 
-import searchInputClassNames from '../../../assets/css/blocks/search/search-input/search-input.css';
+import searchInputClassNames from './search-input.css';
 
-class SearchInput extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default class SearchInput extends React.PureComponent {
 
-    this.onFocus = this.onFocus.bind(this);
-    this.onBlur = this.onBlur.bind(this);
-  }
+  static propTypes = {
+    className: React.PropTypes.string,
+    onFocus: React.PropTypes.func,
+    onBlur: React.PropTypes.func,
+  };
 
+  static defaultProps = {
+    className: '',
+    onFocus: null,
+    onBlur: null,
+  };
+
+  @autobind
   onFocus() {
     const { onFocus } = this.props;
 
@@ -19,6 +27,7 @@ class SearchInput extends React.PureComponent {
     }
   }
 
+  @autobind
   onBlur() {
     const { onBlur } = this.props;
 
@@ -51,18 +60,3 @@ class SearchInput extends React.PureComponent {
     );
   }
 }
-
-SearchInput.defaultProps = {
-  className: '',
-  onFocus: null,
-  onBlur: null,
-};
-
-SearchInput.propTypes = {
-  className: React.PropTypes.string,
-  onFocus: React.PropTypes.func,
-  onBlur: React.PropTypes.func,
-};
-
-export default SearchInput;
-
