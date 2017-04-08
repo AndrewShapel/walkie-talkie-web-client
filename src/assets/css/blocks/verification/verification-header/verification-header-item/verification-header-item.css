@@ -3,7 +3,6 @@
 .verification-header-item {
   margin-left: 35px;
   font-size: 15px;
-  color: var(--color-purple);
   text-transform: uppercase;
   cursor: pointer;
   display: inline-block;
@@ -14,5 +13,10 @@
 
   &_active {
     border-bottom: 2px solid var(--color-light-pink);
+  }
+
+  &__text {
+    color: var(--color-purple);
+    text-decoration: none;
   }
 }

@@ -42,6 +42,7 @@ export default class Call extends React.PureComponent {
     const chatClassName = classnames(callClassNames.call__chat, {
       [callClassNames.call__chat_hide]: !isChatOpen,
     });
+    const chatActionClassName = classnames(callClassNames.call__action, callClassNames['call__action-chat']);
 
     return (
       <div className={callClassName}>
@@ -53,7 +54,7 @@ export default class Call extends React.PureComponent {
           actionClassName={callClassNames.call__action}
         >
           <CallAction
-            className={callClassNames.call__action}
+            className={chatActionClassName}
             icon={ICONS.BUBBLES}
             onClick={this.onChatToggle}
           />
