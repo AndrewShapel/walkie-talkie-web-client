@@ -80,6 +80,7 @@ module.exports = {
       },
       __DEV__: process.env.NODE_ENV === 'development',
       __PROD__: process.env.NODE_ENV === 'production',
+      __ENDPOINT__: JSON.stringify(process.env.ENDPOINT || '/api')
     }),
     new webpack.NamedModulesPlugin(),
   ],
