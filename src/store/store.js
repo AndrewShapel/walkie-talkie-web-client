@@ -1,11 +1,14 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import sagaMiddleware from 'redux-saga';
+import createSagaMiddleware from 'redux-saga';
+
 import * as reducers from '../reducers';
+import sagas from '../sagas';
 
 class Store {
   constructor(initialState = {}) {
     const globalReducer = combineReducers(reducers);
-    const middleware = [sagaMiddleware()];
+    const sagaMiddleware = createSagaMiddleware();
+    const middleware = [sagaMiddleware];
 
     /* eslint-disable no-underscore-dangle, no-undef */
     const reduxDevToolsExtensions = window ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : window;
@@ -21,6 +24,7 @@ class Store {
      */
     this.store = store;
 
+    sagaMiddleware.run(sagas);
     this.runHotModuleReplacement(store);
   }
 
