@@ -20,5 +20,10 @@ module.exports = merge(baseConfig, {
     contentBase: sourcePath,
     historyApiFallback: true,
     hot: true,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:4000',
+      },
+    },
   },
 });
