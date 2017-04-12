@@ -47,6 +47,12 @@ export default class VerificationSignUp extends React.PureComponent {
     setMessagesAction: React.PropTypes.func.isRequired,
   };
 
+  componentWillUnmount() {
+    const { messages, setMessagesAction } = this.props;
+
+    VerificationActions.clearMessages(messages, setMessagesAction);
+  }
+
   @autobind
   onSubmit() {
     const { messages, setMessagesAction } = this.props;
