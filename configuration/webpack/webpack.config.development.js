@@ -22,7 +22,7 @@ module.exports = merge(baseConfig, {
     hot: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:9229',
       },
     },
   },

@@ -5,10 +5,12 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/form';
-import { MESSAGE_TARGETS } from '../../../constants/messages';
 
 import { signUp } from '../../../action-types/users';
 import { setMessages } from '../../../action-types/messages';
+
+import VerificationActions from '../verification-actions';
+import VerificationUtils from '../verification-utils';
 
 import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';
@@ -45,24 +47,11 @@ export default class VerificationSignUp extends React.PureComponent {
     setMessagesAction: React.PropTypes.func.isRequired,
   };
 
-  /**
-   * @param {Object} messages
-   * @returns {Array}
-   */
-  static convertMessages(messages) {
-    return messages.getByTarget(MESSAGE_TARGETS.USERS)
-      .valueSeq()
-      .toArray()
-      .map(message => message.getText());
-  }
-
   @autobind
   onSubmit() {
     const { messages, setMessagesAction } = this.props;
 
-    const messagesIds = messages.getByTarget(MESSAGE_TARGETS.USERS).map(message => message.getId());
-    const removedMessages = messages.deleteByIds(messagesIds);
-    setMessagesAction(removedMessages);
+    VerificationActions.clearMessages(messages, setMessagesAction);
   }
 
   /**
@@ -89,7 +78,7 @@ export default class VerificationSignUp extends React.PureComponent {
   render() {
     const { validations, messages } = this.props;
 
-    const convertedMessages = VerificationSignUp.convertMessages(messages);
+    const convertedMessages = VerificationUtils.convertMessages(messages);
 
     return (
       <Form

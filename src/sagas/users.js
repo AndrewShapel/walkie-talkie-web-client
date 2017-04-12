@@ -2,8 +2,10 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 
 import { verificationSignUp } from '../api/verification';
 
+import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
+
 import { SIGN_UP } from '../action-types/users';
-import { usersError } from '../action-types/messages';
+import { addMessage } from '../action-types/messages';
 
 /**
  * @param {Object} action
@@ -16,7 +18,7 @@ export function* signUp(action) {
     console.log(res);
   } catch (exception) {
     const message = exception.response.data;
-    yield put(usersError(message));
+    yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
   }
 }
 

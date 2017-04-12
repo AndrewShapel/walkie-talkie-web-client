@@ -29,7 +29,7 @@ export default class Messages extends Structure {
    * @param {Object} message
    * @return {Object}
    */
-  pushMessage(message) {
+  addMessage(message) {
     const id = message.getId();
     const updatedMessages = this.getMessages().set(id, message);
 

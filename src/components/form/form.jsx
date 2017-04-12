@@ -32,7 +32,7 @@ export default class Form extends React.PureComponent {
    */
   static renderErrorMessages(errorMessages) {
     return errorMessages.map(errorMessage => (
-      <span className={formClassNames['form__error-message']}>
+      <span className={formClassNames['form__error-message']} key={errorMessage}>
         {errorMessage}
       </span>
     ));
