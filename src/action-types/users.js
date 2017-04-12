@@ -11,22 +11,6 @@ export const signIn = (email, password) => ({
   },
 });
 
-export const SIGN_UP_FAILED = 'users:SIGN_UP_FAILED';
-/**
- * @param {String} message
- */
-export const signUpFailed = message => ({
-  type: SIGN_UP_FAILED,
-  payload: {
-    message,
-  },
-});
-
-export const SIGN_UP_SUCCEEDED = 'users:SIGN_UP_SUCCEEDED';
-export const signUpSucceeded = () => ({
-  type: SIGN_UP_SUCCEEDED,
-});
-
 export const SIGN_UP = 'users:SIGN_UP';
 /**
  * @param {String} email

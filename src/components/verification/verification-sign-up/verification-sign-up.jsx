@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/form';
+import { MESSAGE_TARGETS } from '../../../constants/messages';
 
 import { signUp } from '../../../action-types/users';
 
@@ -13,6 +14,14 @@ import FormInput from '../../form/form-input/form-input';
 import Button from '../../button/button';
 
 import verificationSignUpClassNames from './verification-sign-up.css';
+
+/**
+ * @param {String} Messages
+ * @return {Object}
+ */
+const mapStateToProps = ({ Messages }) => ({
+  messages: Messages.getByTarget(MESSAGE_TARGETS.USERS),
+});
 
 /**
  * @param {Function} dispatch
@@ -24,12 +33,17 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class VerificationSignUp extends React.PureComponent {
 
   static propTypes = {
     validations: React.PropTypes.object.isRequired,
+    messages: React.PropTypes.object,
     signUpAction: React.PropTypes.func.isRequired,
+  };
+
+  static defaultProps = {
+    messages: {},
   };
 
   /**
@@ -57,7 +71,11 @@ export default class VerificationSignUp extends React.PureComponent {
     const { validations } = this.props;
 
     return (
-      <Form mapping={this.formModel} onValidSubmit={this.onValidSubmit}>
+      <Form
+        mapping={this.formModel}
+        onValidSubmit={this.onValidSubmit}
+        ref={(node) => { this.form = node; }}
+      >
         <FormInput
           className={verificationSignUpClassNames['verification-sign-up__form-input']}
           name="email"

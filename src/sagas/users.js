@@ -2,7 +2,8 @@ import { takeEvery, call, put } from 'redux-saga/effects';
 
 import { verificationSignUp } from '../api/verification';
 
-import { SIGN_UP, signUpSucceeded, signUpFailed } from '../action-types/users';
+import { SIGN_UP } from '../action-types/users';
+import { usersError } from '../action-types/messages';
 
 /**
  * @param {Object} action
@@ -12,9 +13,10 @@ export function* signUp(action) {
 
   try {
     const res = yield call(verificationSignUp, email, firstName, lastName, password);
-    yield put(signUpSucceeded(res));
+    console.log(res);
   } catch (exception) {
-    yield put(signUpFailed(exception.message));
+    const message = exception.response.data;
+    yield put(usersError(message));
   }
 }
 

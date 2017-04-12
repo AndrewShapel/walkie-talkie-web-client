@@ -1,4 +1,5 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 import { Form as FormsyForm } from 'formsy-react';
 
 import formClassNames from './form.css';
@@ -46,20 +47,17 @@ export default class Form extends React.PureComponent {
     });
   }
 
-  constructor(props) {
-    super(props);
-
-    this.children = [];
-
-    this.onMount = this.onMount.bind(this);
-    this.onValidSubmit = this.onValidSubmit.bind(this);
-    this.onInvalidSubmit = this.onInvalidSubmit.bind(this);
-    this.renderChildren = this.renderChildren.bind(this);
+  /**
+   * @return {Element}
+   */
+  static getRef() {
+    return this.form;
   }
 
   /**
    * @param {Object} child
    */
+  @autobind
   onMount(child) {
     if (child) {
       this.children.push(child);
@@ -69,6 +67,7 @@ export default class Form extends React.PureComponent {
   /**
    * @param {Object} model
    */
+  @autobind
   onValidSubmit(model) {
     const { onValidSubmit } = this.props;
 
@@ -82,6 +81,7 @@ export default class Form extends React.PureComponent {
     }
   }
 
+  @autobind
   onInvalidSubmit() {
     const children = this.children;
     if (children && children.length > 0) {
@@ -90,10 +90,16 @@ export default class Form extends React.PureComponent {
   }
 
   /**
+   * @type {Array}
+   */
+  children = [];
+
+  /**
    * @param {Object} children
    * @param {Object} index
    * @return {Object|Null}
    */
+  @autobind
   renderChildren(children, index) {
     if (children) {
       return React.cloneElement(children, {
@@ -109,7 +115,13 @@ export default class Form extends React.PureComponent {
     const { className, children, mapping, errorMessages } = this.props;
 
     return (
-      <FormsyForm className={className} mapping={mapping} onValidSubmit={this.onValidSubmit} onInvalidSubmit={this.onInvalidSubmit}>
+      <FormsyForm
+        className={className}
+        mapping={mapping}
+        onValidSubmit={this.onValidSubmit}
+        onInvalidSubmit={this.onInvalidSubmit}
+        ref={(node) => { this.form = node; }}
+      >
         {Form.renderErrorMessages(errorMessages)}
         {React.Children.map(children, this.renderChildren)}
       </FormsyForm>
