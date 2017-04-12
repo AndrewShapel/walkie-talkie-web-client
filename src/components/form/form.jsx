@@ -14,6 +14,7 @@ export default class Form extends React.PureComponent {
     ]),
     mapping: React.PropTypes.func,
     errorMessages: React.PropTypes.array,
+    onSubmit: React.PropTypes.func,
     onValidSubmit: React.PropTypes.func,
   };
 
@@ -22,6 +23,7 @@ export default class Form extends React.PureComponent {
     children: null,
     mapping: null,
     errorMessages: [],
+    onSubmit: null,
     onValidSubmit: null,
   };
 
@@ -61,6 +63,18 @@ export default class Form extends React.PureComponent {
   onMount(child) {
     if (child) {
       this.children.push(child);
+    }
+  }
+
+  /**
+   * @param {Object} model
+   */
+  @autobind
+  onSubmit(model) {
+    const { onSubmit } = this.props;
+
+    if (onSubmit) {
+      onSubmit(model);
     }
   }
 
@@ -118,6 +132,7 @@ export default class Form extends React.PureComponent {
       <FormsyForm
         className={className}
         mapping={mapping}
+        onSubmit={this.onSubmit}
         onValidSubmit={this.onValidSubmit}
         onInvalidSubmit={this.onInvalidSubmit}
         ref={(node) => { this.form = node; }}

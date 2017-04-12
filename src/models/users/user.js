@@ -1,4 +1,4 @@
-import {Record} from 'immutable';
+import { Record } from 'immutable';
 
 const Structure = Record({
 
@@ -74,14 +74,14 @@ export default class User extends Structure {
 
   /**
    * @param {String} firstName
-   * @returns {Object}
+   * @returns {String}
    */
   setFirstName(firstName) {
     return this.set('firstName', firstName);
   }
 
   /**
-   * @returns {Object}
+   * @returns {String}
    */
   getLastName() {
     return this.get('lastName');
@@ -92,7 +92,7 @@ export default class User extends Structure {
    * @returns {Object}
    */
   setLastName(lastName) {
-    return this.set('lastName');
+    return this.set('lastName', lastName);
   }
 
   /**

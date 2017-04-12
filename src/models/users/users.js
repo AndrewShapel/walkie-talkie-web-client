@@ -1,4 +1,4 @@
-import {Record, OrderedMap} from 'immutable';
+import { Record, OrderedMap } from 'immutable';
 
 import Account from './account';
 
@@ -21,7 +21,7 @@ export default class Users extends Structure {
    * @returns {Object}
    */
   getAccount() {
-    return this.get('account')
+    return this.get('account');
   }
 
   /**
@@ -52,8 +52,6 @@ export default class Users extends Structure {
    * @returns {Object}
    */
   getById(id) {
-    return this.getUsers().find((user) => {
-      return user.getId() === id;
-    });
+    return this.getUsers().find(user => user.getId() === id);
   }
 }

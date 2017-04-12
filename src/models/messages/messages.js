@@ -51,4 +51,18 @@ export default class Messages extends Structure {
   getByType(type) {
     return this.getMessages().filter(message => message.getType() === type);
   }
+
+  /**
+   * @param {Object|Array} ids
+   * @return {Object}
+   */
+  deleteByIds(ids) {
+    return this.getMessages().withMutations(context => (
+      ids.forEach((id) => {
+        if (context.has(id)) {
+          context.delete(id);
+        }
+      })
+    ));
+  }
 }
