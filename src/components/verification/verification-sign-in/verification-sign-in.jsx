@@ -1,6 +1,16 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
+
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 import { INPUT_TYPES, BUTTON_TYPES } from '../../../constants/form';
+
+import { signIn } from '../../../action-types/users';
+import { setMessages } from '../../../action-types/messages';
+
+import VerificationActions from '../verification-actions';
+import VerificationUtils from '../verification-utils';
 
 import Form from '../../form/form';
 import FormInput from '../../form/form-input/form-input';
@@ -8,14 +18,50 @@ import Button from '../../button/button';
 
 import verificationSignInClassNames from './verification-sign-in.css';
 
+/**
+ * @param {Object} Messages
+ */
+const mapStateToProps = ({ Messages }) => ({
+  messages: Messages,
+});
+
+/**
+ * @param {Function} dispatch
+ * @returns {Object}
+ */
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    signInAction: signIn,
+    setMessagesAction: setMessages,
+  }, dispatch)
+);
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class VerificationSignIn extends React.PureComponent {
 
   static propTypes = {
     validations: React.PropTypes.object.isRequired,
+    messages: React.PropTypes.object.isRequired,
+    signInAction: React.PropTypes.func.isRequired,
+    setMessagesAction: React.PropTypes.func.isRequired,
   };
 
-  static onValidSubmit() {
-    // Submit
+  @autobind
+  onSubmit() {
+    const { messages, setMessagesAction } = this.props;
+
+    VerificationActions.clearMessages(messages, setMessagesAction);
+  }
+
+  /**
+   * @param {Object} data
+   */
+  @autobind
+  onValidSubmit(data) {
+    const { signInAction } = this.props;
+
+    const { email, password } = data;
+    signInAction(email, password);
   }
 
   /**
@@ -27,10 +73,17 @@ export default class VerificationSignIn extends React.PureComponent {
   });
 
   render() {
-    const { validations } = this.props;
+    const { validations, messages } = this.props;
+
+    const convertedMessages = VerificationUtils.convertMessages(messages);
 
     return (
-      <Form mapping={this.formModel} onValidSubmit={VerificationSignIn.onValidSubmit}>
+      <Form
+        mapping={this.formModel}
+        errorMessages={convertedMessages}
+        onSubmit={this.onSubmit}
+        onValidSubmit={this.onValidSubmit}
+      >
         <FormInput
           className={verificationSignInClassNames['verification-sign-in__form-input']}
           name="email"

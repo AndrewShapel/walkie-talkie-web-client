@@ -2,7 +2,23 @@ import http from '../http/http';
 
 import api from '../constants/api/api';
 
-export const verificationSignIn = {};
+/**
+ * @param {String} email
+ * @param {String} password
+ * @returns {Promise}
+ */
+export const verificationSignIn = (email, password) => {
+  const signIn = api.verification.signIn;
+
+  return http({
+    method: signIn.method,
+    url: signIn.url,
+    data: {
+      email,
+      password,
+    },
+  });
+};
 
 /**
  * @param {String} email
