@@ -62,7 +62,6 @@ export default class VerificationSignUp extends React.PureComponent {
     const { messages, setMessagesAction } = this.props;
 
     VerificationActions.clearMessages(messages, setMessagesAction);
-    VerificationUtils.resetForm(this.form);
   }
 
   /**
@@ -74,6 +73,8 @@ export default class VerificationSignUp extends React.PureComponent {
 
     const { email, password } = data;
     signUpAction(email, '', '', password);
+
+    VerificationUtils.resetForm(this.form);
   }
 
   /**

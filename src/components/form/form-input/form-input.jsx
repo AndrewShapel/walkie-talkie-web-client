@@ -63,14 +63,14 @@ export default class FormInput extends React.Component {
   }
 
   reset() {
-    const { setValue } = this.props;
+    const { defaultValue, setValue } = this.props;
 
     const input = this.input;
     if (input) {
-      input.resetValue();
+      input.reset();
     }
 
-    setValue('');
+    setValue(defaultValue);
   }
 
   render() {

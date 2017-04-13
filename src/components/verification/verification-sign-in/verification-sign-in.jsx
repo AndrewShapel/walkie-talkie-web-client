@@ -68,6 +68,8 @@ export default class VerificationSignIn extends React.PureComponent {
 
     const { email, password } = data;
     signInAction(email, password);
+
+    VerificationUtils.resetForm(this.form);
   }
 
   /**
@@ -89,6 +91,7 @@ export default class VerificationSignIn extends React.PureComponent {
         errorMessages={convertedMessages}
         onSubmit={this.onSubmit}
         onValidSubmit={this.onValidSubmit}
+        ref={(node) => { this.form = node; }}
       >
         <FormInput
           className={verificationSignInClassNames['verification-sign-in__form-input']}
