@@ -22,13 +22,9 @@ import verificationSignUpClassNames from './verification-sign-up.css';
  * @param {String} Messages
  * @return {Object}
  */
-const mapStateToProps = ({ Messages, Users }) => {
-  console.log(Users.toJS(), 'tr');
-
-  return {
-    messages: Messages,
-  };
-};
+const mapStateToProps = ({ Messages }) => ({
+  messages: Messages,
+});
 
 /**
  * @param {Function} dispatch

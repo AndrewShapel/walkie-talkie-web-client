@@ -1,5 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
+import Token from '../utils/token';
+
 import { verificationSignIn, verificationSignUp } from '../api/verification';
 
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
@@ -14,8 +16,8 @@ export function* signIn(action) {
   const { email, password } = action.payload;
 
   try {
-    const accountResponse = yield call(verificationSignIn, email, password);
-    yield put(setAccount(accountResponse.id, accountResponse.email));
+    const tokenResponse = yield call(verificationSignIn, email, password);
+    Token.setToken(tokenResponse.data.token);
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
@@ -29,8 +31,8 @@ export function* signUp(action) {
   const { email, firstName, lastName, password } = action.payload;
 
   try {
-    const res = yield call(verificationSignUp, email, firstName, lastName, password);
-    console.log(res);
+    const accountResponse = yield call(verificationSignUp, email, firstName, lastName, password);
+    yield put(setAccount(accountResponse.data.id, accountResponse.data.email));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
