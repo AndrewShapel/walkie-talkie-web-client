@@ -1,13 +1,26 @@
 import User from './user';
+import Account from './account';
 
 export default class UsersFactory {
+
+  /**
+   * @param {String} id
+   * @param {String} email
+   * @returns {Account}
+   */
+  static createAccount(id, email) {
+    return new Account({
+      id,
+      email,
+    });
+  }
 
   /**
    * @param {Object} user
    * @returns {Object}
    */
-  static userFromResponse(user) {
-    const {id, email, firstName, lastName, password} = user;
+  static createUser(user) {
+    const { id, email, firstName, lastName, password } = user;
 
     return new User({
       id,
@@ -19,10 +32,10 @@ export default class UsersFactory {
   }
 
   /**
-   * @param {Object} response
+   * @param {Array} users
    * @returns {Object}
    */
-  static usersFromResponse(response) {
-    return response.map((user) => UsersFactory.userFromResponse(user));
+  static createUsers(users) {
+    return users.map(user => UsersFactory.createUser(user));
   }
 }

@@ -3,9 +3,9 @@ import { Record } from 'immutable';
 const Structure = Record({
 
   /**
-   * @type {Number}
+   * @type {String}
    */
-  id: 0,
+  id: '',
 
   /**
    * @type {String}
@@ -36,14 +36,14 @@ const Structure = Record({
 export default class User extends Structure {
 
   /**
-   * @returns {Number}
+   * @returns {String}
    */
   getId() {
     return this.get('id');
   }
 
   /**
-   * @param {Number} id
+   * @param {String} id
    * @returns {Object}
    */
   setId(id) {

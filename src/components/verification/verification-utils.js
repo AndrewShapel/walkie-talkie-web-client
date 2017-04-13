@@ -12,4 +12,13 @@ export default class VerificationUtils {
       .toArray()
       .map(message => message.getText());
   }
+
+  /**
+   * @param {Object} form
+   */
+  static resetForm(form) {
+    if (form) {
+      form.reset();
+    }
+  }
 }

@@ -4,7 +4,7 @@ import { verificationSignIn, verificationSignUp } from '../api/verification';
 
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 
-import { SIGN_IN, SIGN_UP } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, setAccount } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -14,8 +14,8 @@ export function* signIn(action) {
   const { email, password } = action.payload;
 
   try {
-    const res = yield call(verificationSignIn, email, password);
-    console.log(res);
+    const accountResponse = yield call(verificationSignIn, email, password);
+    yield put(setAccount(accountResponse.id, accountResponse.email));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));

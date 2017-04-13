@@ -50,10 +50,14 @@ export default class Form extends React.PureComponent {
   }
 
   /**
-   * @return {Element}
+   * @param {Array} children
    */
-  static getRef() {
-    return this.form;
+  static resetChildren(children) {
+    children.forEach((child) => {
+      if (child && child.reset) {
+        child.reset();
+      }
+    });
   }
 
   /**
@@ -100,6 +104,18 @@ export default class Form extends React.PureComponent {
     const children = this.children;
     if (children && children.length > 0) {
       Form.validateChildren(children);
+    }
+  }
+
+  @autobind
+  reset() {
+    if (this.form) {
+      const form = this.form;
+      const children = this.children;
+      if (form && children.length > 0) {
+        form.reset();
+        Form.resetChildren(children);
+      }
     }
   }
 

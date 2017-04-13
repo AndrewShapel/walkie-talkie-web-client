@@ -22,9 +22,13 @@ import verificationSignUpClassNames from './verification-sign-up.css';
  * @param {String} Messages
  * @return {Object}
  */
-const mapStateToProps = ({ Messages }) => ({
-  messages: Messages,
-});
+const mapStateToProps = ({ Messages, Users }) => {
+  console.log(Users.toJS(), 'tr');
+
+  return {
+    messages: Messages,
+  };
+};
 
 /**
  * @param {Function} dispatch
@@ -58,6 +62,7 @@ export default class VerificationSignUp extends React.PureComponent {
     const { messages, setMessagesAction } = this.props;
 
     VerificationActions.clearMessages(messages, setMessagesAction);
+    VerificationUtils.resetForm(this.form);
   }
 
   /**

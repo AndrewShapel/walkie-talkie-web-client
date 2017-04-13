@@ -27,3 +27,16 @@ export const signUp = (email, firstName, lastName, password) => ({
     password,
   },
 });
+
+export const SET_ACCOUNT = 'users:SET_ACCOUNT';
+/**
+ * @param {String} id
+ * @param {String} email
+ */
+export const setAccount = (id, email) => ({
+  type: SET_ACCOUNT,
+  payload: {
+    id,
+    email,
+  },
+});
