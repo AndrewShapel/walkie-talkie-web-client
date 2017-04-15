@@ -17,7 +17,8 @@ export function* signIn(action) {
 
   try {
     const tokenResponse = yield call(verificationSignIn, email, password);
-    Token.setToken(tokenResponse.data.token);
+    const responseData = tokenResponse.data;
+    Token.setToken(responseData.token);
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
@@ -32,7 +33,8 @@ export function* signUp(action) {
 
   try {
     const accountResponse = yield call(verificationSignUp, email, firstName, lastName, password);
-    yield put(setAccount(accountResponse.data.id, accountResponse.data.email));
+    const responseData = accountResponse.data;
+    yield put(setAccount(responseData.id, responseData.email));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));

@@ -8,7 +8,6 @@ const instance = axios.create({
   /* eslint-enable no-underscore-dangle, no-undef */
 });
 
-instance.interceptors.request.use(Interceptors.onSuccessRequestInterceptor, Interceptors.onErrorRequestInterceptor);
-instance.interceptors.response.use(Interceptors.onSuccessResponseInterceptor, Interceptors.onErrorResponseInterceptor);
+Interceptors.invokeInterceptors(instance);
 
 export default instance;

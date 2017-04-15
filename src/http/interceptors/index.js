@@ -1,2 +1,3 @@
+/* eslint-disable import/prefer-default-export */
 export { default as authorization } from './authorization';
-export const d = 5;
+/* eslint-enable import/prefer-default-export */
