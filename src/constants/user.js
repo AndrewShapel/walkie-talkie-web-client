@@ -8,4 +8,12 @@ export const USER_STATUS = {
   DO_NOT_DISTURB: 'DO_NOT_DISTURB',
 };
 
-export const USER_STATUSES = {};
+/**
+ * @const
+ * @type {Object}
+ */
+export const USER_PERMISSION = {
+  VIEW_ONLY: 'VIEW_ONLY',
+  BASIC: 'BASIC',
+  ADVANCED: 'ADVANCED',
+};
