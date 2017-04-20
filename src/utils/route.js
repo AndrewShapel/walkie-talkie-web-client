@@ -1,6 +1,5 @@
-import routes from '../constants/routes/routes';
-
 export default class Route {
+
   /**
    * @param {Boolean} isExact
    * @param {String} pathName
@@ -15,10 +14,10 @@ export default class Route {
     }
   }
 
-  static redirectToSignIn() {
-    const url = routes.userVerification.url;
-
-    const { base, signin } = url;
-    return `${base}${signin}`;
+  /**
+   * @param {Function} redirect
+   */
+  static redirectToSignIn(redirect) {
+    console.log(redirect);
   }
 }
