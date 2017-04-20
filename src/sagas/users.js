@@ -6,11 +6,12 @@ import { verificationSignIn, verificationSignUp } from '../api/verification';
 
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 
-import { SIGN_IN, SIGN_UP, setAccount } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, SET_ACCOUNT_PERMISSION, setAccount, setAccountPermission } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
  * @param {Object} action
+ * @returns {Object}
  */
 export function* signIn(action) {
   const { email, password } = action.payload;
@@ -27,6 +28,7 @@ export function* signIn(action) {
 
 /**
  * @param {Object} action
+ * @returns {Object}
  */
 export function* signUp(action) {
   const { email, firstName, lastName, password } = action.payload;
@@ -41,7 +43,16 @@ export function* signUp(action) {
   }
 }
 
+/**
+ * @param {Object} action
+ * @returns {Object}
+ */
+export function* setPermission(action) {
+  yield put(setAccountPermission(action.payload.accountPermission));
+}
+
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
+  yield takeEvery(SET_ACCOUNT_PERMISSION, setPermission);
 }

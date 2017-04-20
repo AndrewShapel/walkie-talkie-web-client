@@ -22,7 +22,7 @@ export default class Permit extends React.PureComponent {
       React.PropTypes.array,
     ]),
     permission: React.PropTypes.string,
-    history: React.PropTypes.func,
+    history: React.PropTypes.object,
     redirectTo: React.PropTypes.string,
     accountPermission: React.PropTypes.string,
   };
@@ -31,9 +31,9 @@ export default class Permit extends React.PureComponent {
     className: '',
     children: null,
     permission: USER_PERMISSION.VIEW_ONLY,
-    history: null,
+    history: {},
     redirectTo: '',
-    accountPermission: USER_PERMISSION.VIEW_ONLY,
+    accountPermission: '',
   };
 
   /**

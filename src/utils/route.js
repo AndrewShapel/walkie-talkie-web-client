@@ -13,11 +13,4 @@ export default class Route {
       redirect(redirectToPathName);
     }
   }
-
-  /**
-   * @param {Function} redirect
-   */
-  static redirectToSignIn(redirect) {
-    console.log(redirect);
-  }
 }

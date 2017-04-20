@@ -40,3 +40,14 @@ export const setAccount = (id, email) => ({
     email,
   },
 });
+
+export const SET_ACCOUNT_PERMISSION = 'users:SET_ACCOUNT_PERMISSION';
+/**
+ * @param {String} accountPermission
+ */
+export const setAccountPermission = accountPermission => ({
+  type: SET_ACCOUNT_PERMISSION,
+  payload: {
+    accountPermission,
+  },
+});
