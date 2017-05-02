@@ -51,8 +51,7 @@ export default class Root extends React.Component {
 
   componentWillMount() {
     const { accountPermission, setAccountPermissionAction } = this.props;
-    console.log(accountPermission, Token);
-    if (accountPermission === USER_PERMISSION.VIEW_ONLY && true) {
+    if (accountPermission === USER_PERMISSION.VIEW_ONLY && Token.getToken()) {
       setAccountPermissionAction(USER_PERMISSION.BASIC);
     }
   }
