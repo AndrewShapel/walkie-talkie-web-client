@@ -1,5 +1,9 @@
 import React from 'react';
 
+import routes from '../constants/routes/routes';
+import { USER_PERMISSION } from '../constants/user';
+
+import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
 import Panel from '../components/panel/panel';
 
@@ -8,11 +12,11 @@ import chatClassNames from '../assets/css/containers/conversation/conversation.c
 export default class Conversation extends React.Component {
 
   static propTypes = {
-    match: React.PropTypes.object,
+    history: React.PropTypes.object,
   };
 
   static defaultProps = {
-    match: {},
+    history: {},
   };
 
   componentWillMount() {
@@ -20,11 +24,18 @@ export default class Conversation extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
+
     return (
-      <div className={chatClassNames.conversation}>
+      <Permit
+        className={chatClassNames.conversation}
+        permission={USER_PERMISSION.BASIC}
+        history={history}
+        redirectTo={`${routes.userVerification.url.base}${routes.userVerification.url.signin}`}
+      >
         <Panel className={chatClassNames.conversation__panel} />
         <Chat className={chatClassNames.conversation__chat} />
-      </div>
+      </Permit>
     );
   }
 }

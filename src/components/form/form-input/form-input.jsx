@@ -62,6 +62,17 @@ export default class FormInput extends React.Component {
     });
   }
 
+  reset() {
+    const { defaultValue, setValue } = this.props;
+
+    const input = this.input;
+    if (input) {
+      input.reset();
+    }
+
+    setValue(defaultValue);
+  }
+
   render() {
     const { errorMessages, isShowRequired } = this.state;
     const { className, inputClassName, name, defaultValue, placeholder, type } = this.props;
@@ -78,6 +89,7 @@ export default class FormInput extends React.Component {
         isInvalid={isShowRequired}
         isShowRequired={isShowRequired}
         onChange={this.onChange}
+        ref={(node) => { this.input = node; }}
       />
     );
   }

@@ -45,6 +45,10 @@ export default class Input extends React.PureComponent {
     ));
   }
 
+  state = {
+    value: '',
+  };
+
   /**
    * @param {Object} event
    */
@@ -55,6 +59,15 @@ export default class Input extends React.PureComponent {
     const value = event.target.value;
     if (onChange) {
       onChange(value);
+    }
+  }
+
+  reset() {
+    const { defaultValue } = this.props;
+
+    const input = this.input;
+    if (input) {
+      input.value = defaultValue;
     }
   }
 
@@ -79,6 +92,7 @@ export default class Input extends React.PureComponent {
             placeholder={placeholder}
             type={type}
             onChange={this.onChange}
+            ref={(node) => { this.input = node; }}
           />
           {requireIndicator}
         </div>
