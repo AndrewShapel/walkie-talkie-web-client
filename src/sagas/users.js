@@ -5,6 +5,7 @@ import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
 
+import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 
 import { SIGN_IN, SIGN_UP, SET_ACCOUNT_PERMISSION, setAccount, setAccountPermission } from '../action-types/users';
@@ -21,6 +22,8 @@ export function* signIn(action) {
     const tokenResponse = yield call(verificationSignIn, email, password);
     const responseData = tokenResponse.data;
     Token.setToken(responseData.token);
+
+    yield push(routes.conversation.url);
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
@@ -37,7 +40,10 @@ export function* signUp(action) {
   try {
     const accountResponse = yield call(verificationSignUp, email, firstName, lastName, password);
     const responseData = accountResponse.data;
+    const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
+
     yield put(setAccount(responseData.id, responseData.email));
+    yield put(push(redirectTo));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));

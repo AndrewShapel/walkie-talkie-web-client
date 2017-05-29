@@ -28,14 +28,22 @@ export default class Form extends React.PureComponent {
   };
 
   /**
-   * @param {Array} errorMessages
+   * @param {Object} errorMessages
+   * @return {Object|Null}
    */
   static renderErrorMessages(errorMessages) {
-    return errorMessages.map(errorMessage => (
-      <span className={formClassNames['form__error-message']} key={errorMessage}>
-        {errorMessage}
-      </span>
-    ));
+    return (errorMessages)
+      ? Object.keys(errorMessages).map((errorMessageKey) => {
+        const errorMessage = errorMessages[errorMessageKey];
+        const message = errorMessage.message;
+
+        return (
+          <span className={formClassNames['form__error-message']} key={message}>
+            {message}
+          </span>
+        );
+      })
+      : null;
   }
 
   /**
