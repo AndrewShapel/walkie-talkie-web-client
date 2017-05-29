@@ -1,5 +1,7 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+
+import { Route, Switch } from 'react-router-dom';
+import { ConnectedRouter } from 'react-router-redux';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -41,15 +43,17 @@ const mapDispatchToProps = dispatch => (
 export default class Root extends React.Component {
 
   static propTypes = {
+    history: React.PropTypes.object,
     accountPermission: React.PropTypes.string,
     setAccountPermissionAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
+    history: null,
     accountPermission: '',
   };
 
-  componentWillMount() {
+  componentDidUpdate() {
     const { accountPermission, setAccountPermissionAction } = this.props;
     if (accountPermission === USER_PERMISSION.VIEW_ONLY && Token.getToken()) {
       setAccountPermissionAction(USER_PERMISSION.BASIC);
@@ -57,9 +61,11 @@ export default class Root extends React.Component {
   }
 
   render() {
+    const { history } = this.props;
+
     return (
       <div className={rootClassNames.root}>
-        <BrowserRouter>
+        <ConnectedRouter history={history}>
           <Switch>
             <Route exact path={routes.home.url} component={Home} />
             <Route path={routes.conversation.url} component={Conversation} />
@@ -67,7 +73,7 @@ export default class Root extends React.Component {
             <Route path={routes.userVerification.url.base} component={UserVerification} />
             <Route component={NotFound} />
           </Switch>
-        </BrowserRouter>
+        </ConnectedRouter>
       </div>
     );
   }
