@@ -22,15 +22,16 @@ export default () => (
     />
     <div className={panelHeaderClassNames['panel-header__icons']}>
       <DropdownSearchUser itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
-        <div className={panelHeaderClassNames['panel-header__add-friend']}>
+        <div className={panelHeaderClassNames['panel-header__icon']}>
           <Svg icon={ICONS.USER_PLUS} />
         </div>
       </DropdownSearchUser>
       <DropdownSettings>
         <div>
-          <Svg className={panelHeaderClassNames['panel-header__settings']} icon={ICONS.COG} />
+          <Svg className={panelHeaderClassNames['panel-header__icon']} icon={ICONS.COG} />
         </div>
       </DropdownSettings>
+      <Svg className={panelHeaderClassNames['panel-header__icon']} icon={ICONS.EXIT} />
     </div>
   </div>
 );

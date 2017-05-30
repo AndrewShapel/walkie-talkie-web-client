@@ -27,19 +27,11 @@
     right: 27px;
   }
 
-  &__add-friend {
+  &__icon {
     width: 20px;
     height: 20px;
     margin-right: 15px;
     fill: var(--color-white);
     cursor: pointer;
-  }
-
-  &__settings {
-    width: 20px;
-    height: 20px;
-    margin-right: 15px;
-    cursor: pointer;
-    fill: var(--color-white);
   }
 }
