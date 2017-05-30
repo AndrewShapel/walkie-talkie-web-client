@@ -6,24 +6,42 @@ import chatClassNames from './chat.css';
 import ChatHeader from './chat-header/chat-header';
 import ChatContent from './chat-content/chat-content';
 
-const Chat = ({ className }) => {
-  const chatClassName = classnames(chatClassNames.chat, className);
+export default class Chat extends React.Component {
 
-  return (
-    <div className={chatClassName}>
-      <ChatHeader />
-      <ChatContent className={chatClassNames.chat__content} />
-    </div>
-  );
-};
+  static propTypes = {
+    className: React.PropTypes.string,
+    isEmpty: React.PropTypes.bool,
+  };
 
-Chat.defaultProps = {
-  className: '',
-};
+  static defaultProps = {
+    className: '',
+    isEmpty: true,
+  };
 
-Chat.propTypes = {
-  className: React.PropTypes.string,
-};
+  render() {
+    const { className, isEmpty } = this.props;
 
-export default Chat;
+    const chatClassName = classnames(chatClassNames.chat, {
+      [chatClassNames.chat_empty]: isEmpty,
+    }, className);
 
+    const content = (isEmpty)
+      ? (
+        <span className={chatClassNames.chat__title}>
+          Select your friend to start a conversation
+        </span>
+      )
+      : (
+        <div>
+          <ChatHeader />
+          <ChatContent className={chatClassNames.chat__content} />
+        </div>
+      );
+
+    return (
+      <div className={chatClassName}>
+        {content}
+      </div>
+    );
+  }
+}

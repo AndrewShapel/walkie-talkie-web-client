@@ -66,7 +66,7 @@ export default class Conversation extends React.Component {
   }
 
   render() {
-    const { history } = this.props;
+    const { history, activeConversationId } = this.props;
 
     return (
       <Permit
@@ -76,7 +76,10 @@ export default class Conversation extends React.Component {
         redirectTo={`${routes.userVerification.url.base}${routes.userVerification.url.signin}`}
       >
         <Panel className={chatClassNames.conversation__panel} />
-        <Chat className={chatClassNames.conversation__chat} />
+        <Chat
+          className={chatClassNames.conversation__chat}
+          isEmpty={!activeConversationId}
+        />
       </Permit>
     );
   }
