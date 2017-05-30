@@ -68,7 +68,7 @@ export default class Root extends React.Component {
         <ConnectedRouter history={history}>
           <Switch>
             <Route exact path={routes.home.url} component={Home} />
-            <Route path={routes.conversation.url} component={Conversation} />
+            <Route path={`${routes.conversation.url.base}${routes.conversation.url.specific}`} component={Conversation} />
             <Route path={routes.call.url} component={Call} />
             <Route path={routes.userVerification.url.base} component={UserVerification} />
             <Route component={NotFound} />

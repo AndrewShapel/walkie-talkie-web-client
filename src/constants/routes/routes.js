@@ -7,7 +7,10 @@ export default {
     url: '/',
   },
   conversation: {
-    url: '/conversation/:id',
+    url: {
+      base: '/conversation',
+      specific: '/:id?',
+    },
   },
   about: {
     url: '/about',

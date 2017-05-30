@@ -25,7 +25,7 @@ export function* signIn(action) {
     Token.setToken(responseData.token);
 
     yield put(setAccountPermission(USER_PERMISSION.BASIC));
-    yield put(push(routes.conversation.url));
+    yield put(push(routes.conversation.url.base));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
