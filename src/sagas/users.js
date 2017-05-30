@@ -7,8 +7,9 @@ import { verificationSignIn, verificationSignUp } from '../api/verification';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
+import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, SET_ACCOUNT_PERMISSION, setAccount, setAccountPermission } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, setAccount, setAccountPermission } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -23,7 +24,8 @@ export function* signIn(action) {
     const responseData = tokenResponse.data;
     Token.setToken(responseData.token);
 
-    yield push(routes.conversation.url);
+    yield put(setAccountPermission(USER_PERMISSION.BASIC));
+    yield put(push(routes.conversation.url));
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
@@ -50,16 +52,7 @@ export function* signUp(action) {
   }
 }
 
-/**
- * @param {Object} action
- * @returns {Object}
- */
-export function* setPermission(action) {
-  yield put(setAccountPermission(action.payload.accountPermission));
-}
-
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
-  yield takeEvery(SET_ACCOUNT_PERMISSION, setPermission);
 }
