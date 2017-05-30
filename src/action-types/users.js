@@ -2,6 +2,7 @@ export const SIGN_IN = 'users:SIGN_IN';
 /**
  * @param {String} email
  * @param {String} password
+ * @returns {Object}
  */
 export const signIn = (email, password) => ({
   type: SIGN_IN,
@@ -17,6 +18,7 @@ export const SIGN_UP = 'users:SIGN_UP';
  * @param {String} firstName
  * @param {String} lastName
  * @param {String} password
+ * @returns {Object}
  */
 export const signUp = (email, firstName, lastName, password) => ({
   type: SIGN_UP,
@@ -28,10 +30,19 @@ export const signUp = (email, firstName, lastName, password) => ({
   },
 });
 
+export const LOG_OUT = 'users:LOG_OUT';
+/**
+ * @returns {Object}
+ */
+export const logOut = () => ({
+  type: LOG_OUT,
+});
+
 export const SET_ACCOUNT = 'users:SET_ACCOUNT';
 /**
  * @param {String} id
  * @param {String} email
+ * @returns {Object}
  */
 export const setAccount = (id, email) => ({
   type: SET_ACCOUNT,
@@ -44,6 +55,7 @@ export const setAccount = (id, email) => ({
 export const SET_ACCOUNT_PERMISSION = 'users:SET_ACCOUNT_PERMISSION';
 /**
  * @param {String} accountPermission
+ * @returns {Object}
  */
 export const setAccountPermission = accountPermission => ({
   type: SET_ACCOUNT_PERMISSION,

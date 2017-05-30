@@ -9,7 +9,7 @@ import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, setAccount, setAccountPermission } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, setAccount, setAccountPermission } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -52,7 +52,21 @@ export function* signUp(action) {
   }
 }
 
+/**
+ * @returns {Object}
+ */
+export function* logOut() {
+  const token = Token.getToken();
+  if (token) {
+    const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
+    Token.removeToken();
+
+    yield put(push(redirectTo));
+  }
+}
+
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
+  yield takeEvery(LOG_OUT, logOut);
 }

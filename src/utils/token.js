@@ -20,4 +20,8 @@ export default class Token {
   static getToken() {
     return localStorage.getItem(Token.tokenName);
   }
+
+  static removeToken() {
+    localStorage.removeItem(Token.tokenName);
+  }
 }
