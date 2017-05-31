@@ -4,15 +4,28 @@ import { Provider } from 'react-redux';
 import { AppContainer } from 'react-hot-loader';
 
 class Application {
-  constructor(store, Component, mountTo) {
+  /**
+   * @param {Object} store
+   * @param {Object} history
+   * @param {Object} Component
+   * @param {Element} mountTo
+   */
+  constructor(store, history, Component, mountTo) {
     /**
      * @type {Object}
      */
     this.store = store;
+
+    /**
+     * @type {Object}
+     */
+    this.history = history;
+
     /**
      * @type {Object}
      */
     this.component = Component;
+
     /**
      * @type {Element}
      */
@@ -24,12 +37,14 @@ class Application {
    */
   getProvider() {
     const Component = this.component;
+
     const store = this.store;
+    const history = this.history;
 
     return (
       <AppContainer>
         <Provider store={store}>
-          <Component store={store} />
+          <Component store={store} history={history} />
         </Provider>
       </AppContainer>
     );
