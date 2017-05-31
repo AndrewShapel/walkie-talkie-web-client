@@ -7,7 +7,7 @@ const Structure = Record({
   /**
    * @type {String}
    */
-  activeTab: TABS.FRIENDS
+  activeTab: TABS.FRIENDS,
 });
 
 export default class Tabs extends Structure {
