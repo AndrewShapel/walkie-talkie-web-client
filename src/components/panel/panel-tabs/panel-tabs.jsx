@@ -5,24 +5,26 @@ import PanelTabsItem from './panel-tabs-item/panel-tabs-item';
 
 import panelTabsClassNames from './panel-tabs.css';
 
-const PanelTabs = ({ className }) => {
-  const tabsClassName = classnames(panelTabsClassNames['panel-tabs'], className);
+export default class PanelTabs extends React.PureComponent {
 
-  return (
-    <ul className={tabsClassName}>
-      <PanelTabsItem title="Friends" isActive />
-      <PanelTabsItem title="Requests" />
-    </ul>
-  );
-};
+  static propTypes = {
+    className: React.PropTypes.string,
+  };
 
-PanelTabs.defaultProps = {
-  className: '',
-};
+  static defaultProps = {
+    className: '',
+  };
 
-PanelTabs.propTypes = {
-  className: React.PropTypes.string,
-};
+  render() {
+    const { className } = this.props;
 
-export default PanelTabs;
+    const tabsClassName = classnames(panelTabsClassNames['panel-tabs'], className);
 
+    return (
+      <ul className={tabsClassName}>
+        <PanelTabsItem title="Friends" isActive />
+        <PanelTabsItem title="Requests" />
+      </ul>
+    );
+  }
+}
