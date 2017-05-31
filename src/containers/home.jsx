@@ -19,7 +19,7 @@ export default class Home extends React.Component {
   componentWillMount() {
     const { match, history } = this.props;
 
-    const redirectToPathName = routes.conversation.url.replace(/:id/, 24);
+    const redirectToPathName = routes.conversation.url.base;
     Route.redirectIfExactRoute(match.isExact, '', redirectToPathName, history.replace);
   }
 

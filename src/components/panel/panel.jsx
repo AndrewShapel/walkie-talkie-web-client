@@ -6,24 +6,26 @@ import PanelContent from './panel-content/panel-content';
 
 import panelClassNames from './panel.css';
 
-const Panel = ({ className }) => {
-  const panelClassName = classnames(panelClassNames.panel, className);
+export default class Panel extends React.PureComponent {
 
-  return (
-    <div className={panelClassName}>
-      <PanelHeader />
-      <PanelContent />
-    </div>
-  );
-};
+  propTypes = {
+    className: React.PropTypes.string,
+  };
 
-Panel.defaultProps = {
-  className: '',
-};
+  defaultProps = {
+    className: '',
+  };
 
-Panel.propTypes = {
-  className: React.PropTypes.string,
-};
+  render() {
+    const { className } = this.props;
 
-export default Panel;
+    const panelClassName = classnames(panelClassNames.panel, className);
 
+    return (
+      <div className={panelClassName}>
+        <PanelHeader />
+        <PanelContent />
+      </div>
+    );
+  }
+}

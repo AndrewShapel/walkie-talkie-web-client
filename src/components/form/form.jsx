@@ -1,5 +1,6 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
+
 import { Form as FormsyForm } from 'formsy-react';
 
 import formClassNames from './form.css';

@@ -11,6 +11,7 @@ import volumeMute from '../assets/icons/svg/volume-mute.svg';
 import plus from '../assets/icons/svg/plus.svg';
 import spinner from '../assets/icons/svg/spinner.svg';
 import bubbles from '../assets/icons/svg/bubbles.svg';
+import exit from '../assets/icons/svg/exit.svg';
 
 /**
  * @const
@@ -30,6 +31,7 @@ export const ICONS = {
   PLUS: plus,
   SPINNER: spinner,
   BUBBLES: bubbles,
+  EXIT: exit,
 };
 
 export const ICO = {};
