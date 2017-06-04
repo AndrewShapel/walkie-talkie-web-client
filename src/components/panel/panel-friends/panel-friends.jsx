@@ -1,30 +1,56 @@
 import React from 'react';
 import classnames from 'classnames';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import { getFriends } from '../../../action-types/friends';
+
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
 
 import panelFriendsClassNames from './panel-friends.css';
 
-const PanelFriends = ({ className }) => {
-  const friendsClassName = classnames(panelFriendsClassNames['panel-friends'], className);
+/**
+ * @param {Function} dispatch
+ * @returns {Object}
+ */
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    getFriendsAction: getFriends,
+  }, dispatch)
+);
 
-  return (
-    <ul className={friendsClassName}>
-      <SearchInput className={panelFriendsClassNames['panel-friends__search-input']} />
-      <PanelFriendsItem isActive />
-      <PanelFriendsItem />
-    </ul>
-  );
-};
+@connect(null, mapDispatchToProps)
+export default class PanelFriends extends React.PureComponent {
 
-PanelFriends.defaultProps = {
-  className: '',
-};
+  static propTypes = {
+    className: React.PropTypes.string,
+    getFriendsAction: React.PropTypes.func,
+  };
 
-PanelFriends.propTypes = {
-  className: React.PropTypes.string,
-};
+  static defaultProps = {
+    className: '',
+    getFriendsAction: null,
+  };
 
-export default PanelFriends;
+  componentWillMount() {
+    const { getFriendsAction } = this.props;
 
+    getFriendsAction();
+  }
+
+  render() {
+    const { className } = this.props;
+
+    const friendsClassName = classnames(panelFriendsClassNames['panel-friends'], className);
+
+    return (
+      <ul className={friendsClassName}>
+        <SearchInput className={panelFriendsClassNames['panel-friends__search-input']} />
+        <PanelFriendsItem isActive />
+        <PanelFriendsItem />
+      </ul>
+    );
+  }
+}

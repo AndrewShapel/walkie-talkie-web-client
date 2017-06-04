@@ -65,6 +65,9 @@ export function* logOut() {
   }
 }
 
+/**
+ * @returns {Object}
+ */
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);

@@ -13,4 +13,8 @@ export default {
       method: 'POST',
     },
   },
+  graphql: {
+    url: '/graphql',
+    method: 'POST',
+  },
 };

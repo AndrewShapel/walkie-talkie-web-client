@@ -40,6 +40,8 @@ export default class PanelContent extends React.PureComponent {
         return null;
       case TABS.ROOMS:
         return null;
+      default:
+        return null;
     }
   }
 
