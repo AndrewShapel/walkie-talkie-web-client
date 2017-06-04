@@ -14,7 +14,7 @@ export default {
       const token = Token.getToken();
 
       if (token) {
-        updatedRequest.headers.Authorization = `Bearer ${token}`;
+        updatedRequest.headers.Authorization = `JWT ${token}`;
       }
 
       return updatedRequest;
