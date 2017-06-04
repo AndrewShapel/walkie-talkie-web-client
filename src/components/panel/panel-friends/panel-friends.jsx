@@ -4,7 +4,7 @@ import classnames from 'classnames';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getFriends } from '../../../action-types/friends';
+import { getFriends } from '../../../action-types/users';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';

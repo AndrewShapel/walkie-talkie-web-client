@@ -4,12 +4,13 @@ import { push } from 'react-router-redux';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
+import { getFriends } from '../api/graphql/friends';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, setAccount, setAccountPermission } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, setAccount, setAccountPermission, setFriends } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -68,8 +69,19 @@ export function* logOut() {
 /**
  * @returns {Object}
  */
+export function* fetchFriends() {
+  const friendsResponse = yield call(getFriends);
+  const responseData = friendsResponse.data;
+
+  yield put(setFriends(responseData.data.me.friends));
+}
+
+/**
+ * @returns {Object}
+ */
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(LOG_OUT, logOut);
+  yield takeEvery(GET_FRIENDS, fetchFriends);
 }

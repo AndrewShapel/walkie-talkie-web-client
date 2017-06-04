@@ -63,3 +63,23 @@ export const setAccountPermission = accountPermission => ({
     accountPermission,
   },
 });
+
+export const GET_FRIENDS = 'users:GET_FRIENDS';
+/**
+ * @returns {Object}
+ */
+export const getFriends = () => ({
+  type: GET_FRIENDS,
+});
+
+export const SET_FRIENDS = 'users:SET_FRIENDS';
+/**
+ * @param {Object} friends
+ * @returns {Object}
+ */
+export const setFriends = friends => ({
+  type: SET_FRIENDS,
+  payload: {
+    friends,
+  },
+});

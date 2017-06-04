@@ -13,8 +13,8 @@
     "test": "jest"
   },
   "keywords": [],
-  "author": "AndrewShapel & Anton Yaskevich",
-  "license": "",
+  "author": "AndrewShapel",
+  "license": "GPL",
   "dependencies": {
     "autobind-decorator": "^1.3.4",
     "axios": "^0.16.1",
