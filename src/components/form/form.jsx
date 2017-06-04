@@ -1,6 +1,7 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+import { uniqueId } from 'lodash';
 import { Form as FormsyForm } from 'formsy-react';
 
 import formClassNames from './form.css';
@@ -37,9 +38,10 @@ export default class Form extends React.PureComponent {
       ? Object.keys(errorMessages).map((errorMessageKey) => {
         const errorMessage = errorMessages[errorMessageKey];
         const message = errorMessage.message;
+        const key = uniqueId('message_');
 
         return (
-          <span className={formClassNames['form__error-message']} key={message}>
+          <span className={formClassNames['form__error-message']} key={key}>
             {message}
           </span>
         );

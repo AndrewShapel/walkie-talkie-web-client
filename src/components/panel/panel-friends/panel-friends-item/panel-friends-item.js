@@ -8,32 +8,34 @@ import Badge from '../../../badge/badge';
 
 import panelFriendsItemClassNames from './panel-friends-item.css';
 
-const PanelFriendsItem = ({ isActive }) => {
-  const friendsItemClassName = classnames(panelFriendsItemClassNames['panel-friends-item'], {
-    [panelFriendsItemClassNames['panel-friends-item_active']]: isActive,
-  });
+export default class PanelFriendsItem extends React.PureComponent {
 
-  return (
-    <li className={friendsItemClassName}>
-      <User
-        userNameClassName={panelFriendsItemClassNames['panel-friends-item__user-name']}
-        userStatusClassName={panelFriendsItemClassNames['panel-friends-item__user-status']}
-        userStatus={USER_STATUS.ONLINE}
-        userName="Just Friend"
-        userStatusName="Online"
-      />
-      <Badge count={3} isInvert={!isActive} />
-    </li>
-  );
-};
+  static propTypes = {
+    isActive: React.PropTypes.bool,
+  };
 
-PanelFriendsItem.defaultProps = {
-  isActive: false,
-};
+  static defaultProps = {
+    isActive: false,
+  };
 
-PanelFriendsItem.propTypes = {
-  isActive: React.PropTypes.bool,
-};
+  render() {
+    const { isActive } = this.props;
 
-export default PanelFriendsItem;
+    const friendsItemClassName = classnames(panelFriendsItemClassNames['panel-friends-item'], {
+      [panelFriendsItemClassNames['panel-friends-item_active']]: isActive,
+    });
 
+    return (
+      <li className={friendsItemClassName}>
+        <User
+          userNameClassName={panelFriendsItemClassNames['panel-friends-item__user-name']}
+          userStatusClassName={panelFriendsItemClassNames['panel-friends-item__user-status']}
+          userStatus={USER_STATUS.ONLINE}
+          userName="Just Friend"
+          userStatusName="Online"
+        />
+        <Badge count={3} isInvert={!isActive} />
+      </li>
+    );
+  }
+}
