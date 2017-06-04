@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import autobind from 'autobind-decorator';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -59,6 +60,14 @@ export default class PanelFriends extends React.PureComponent {
     this.props.getFriendsAction();
   }
 
+  /**
+   * @param {String} filter
+   */
+  @autobind
+  filterFriends(filter) {
+    console.log(this, filter);
+  }
+
   render() {
     const { className, friends } = this.props;
 
@@ -66,7 +75,11 @@ export default class PanelFriends extends React.PureComponent {
 
     return (
       <ul className={friendsClassName}>
-        <SearchInput className={panelFriendsClassNames['panel-friends__search-input']} />
+        <SearchInput
+          className={panelFriendsClassNames['panel-friends__search-input']}
+          delay={300}
+          onChange={this.filterFriends}
+        />
         { PanelFriends.renderFriends(friends) }
       </ul>
     );
