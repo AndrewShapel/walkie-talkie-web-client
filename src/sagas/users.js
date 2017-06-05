@@ -81,13 +81,12 @@ export function* fetchFriends() {
 }
 
 /**
- * @param {String} email
+ * @param {Object} action
  * @returns {Object}
  */
-export function* fetchFriendRequest(email) {
-  const res = yield call(makeFriendRequest, email);
-
-  console.log(res);
+export function* fetchFriendRequest(action) {
+  const { email } = action.payload;
+  yield call(makeFriendRequest, email);
 }
 
 /**
