@@ -1,7 +1,7 @@
 import Users from '../models/users/users';
 import UsersFactory from '../models/users/users-factory';
 
-import { SET_ACCOUNT, SET_ACCOUNT_PERMISSION, SET_FRIENDS } from '../action-types/users';
+import { SET_ACCOUNT, SET_ACCOUNT_PERMISSION, SET_FRIENDS, SET_USERS } from '../action-types/users';
 
 const initialState = new Users();
 
@@ -18,6 +18,8 @@ export default function users(state = initialState, action) {
       return state.setAccount(state.getAccount().setPermission(action.payload.accountPermission));
     case SET_FRIENDS:
       return state.setFriends(UsersFactory.createUsers(action.payload.friends));
+    case SET_USERS:
+      return state.setUsers(UsersFactory.createUsers(action.payload.users));
     default:
       return state;
   }

@@ -64,14 +64,6 @@ export const setAccountPermission = accountPermission => ({
   },
 });
 
-export const GET_USERS = 'users:GET_USERS';
-/**
- * @returns {Object}
- */
-export const getUsers = () => ({
-  type: GET_USERS,
-});
-
 export const GET_FRIENDS = 'users:GET_FRIENDS';
 /**
  * @returns {Object}
@@ -89,5 +81,25 @@ export const setFriends = friends => ({
   type: SET_FRIENDS,
   payload: {
     friends,
+  },
+});
+
+export const GET_USERS = 'users:GET_USERS';
+/**
+ * @returns {Object}
+ */
+export const getUsers = () => ({
+  type: GET_USERS,
+});
+
+export const SET_USERS = 'users:SET_USERS';
+/**
+ * @param {Object} users
+ * @returns {Object}
+ */
+export const setUsers = users => ({
+  type: SET_USERS,
+  payload: {
+    users,
   },
 });

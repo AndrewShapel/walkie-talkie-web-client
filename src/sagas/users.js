@@ -11,7 +11,7 @@ import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, GET_USERS, setAccount, setAccountPermission, setFriends } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, GET_USERS, setAccount, setAccountPermission, setFriends, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -84,7 +84,7 @@ export function* fetchUsers() {
   const usersResponse = yield call(getUsers);
   const responseData = usersResponse.data;
 
-  console.log(responseData);
+  yield put(setUsers(responseData.data.users));
 }
 
 /**

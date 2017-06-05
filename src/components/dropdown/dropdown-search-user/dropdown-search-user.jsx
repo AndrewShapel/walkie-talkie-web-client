@@ -49,26 +49,21 @@ class DropdownSearchUser extends React.Component {
 
   /**
    * @param {String} className
+   * @param {Object} users
    * @returns {Array}
    */
-  static getItems(className) {
-    return [{
-      className,
-      id: 0,
-      content: (
-        <User
-          userName="Friend to Add"
-        />
-      ),
-    }, {
-      className,
-      id: 1,
-      content: (
-        <User
-          userName="Another friend to add"
-        />
-      ),
-    }];
+  static getItems(className, users) {
+    return users.map((user) => {
+      const email = user.getEmail();
+
+      return {
+        className,
+        id: email,
+        content: (
+          <User userName={email} />
+        ),
+      };
+    }).toArray();
   }
 
   /**
@@ -204,7 +199,7 @@ class DropdownSearchUser extends React.Component {
 
   render() {
     const { isOpen, activeItemId } = this.state;
-    const { itemsClassName, children, isStickToBottom } = this.props;
+    const { itemsClassName, users, children, isStickToBottom } = this.props;
 
     const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
 
@@ -213,7 +208,7 @@ class DropdownSearchUser extends React.Component {
         <DropdownItems
           className={dropdownSearchUserClassNames['dropdown-search-user__items']}
           itemsClassName={itemsClassName}
-          items={DropdownSearchUser.getItems(itemClassName)}
+          items={DropdownSearchUser.getItems(itemClassName, users)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
           isStickToBottom={isStickToBottom}
