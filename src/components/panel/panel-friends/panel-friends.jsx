@@ -1,5 +1,4 @@
 import React from 'react';
-import classnames from 'classnames';
 import autobind from 'autobind-decorator';
 
 import { connect } from 'react-redux';
@@ -11,8 +10,6 @@ import { getFriends } from '../../../action-types/users';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
-
-import panelFriendsClassNames from './panel-friends.css';
 
 /**
  * @param {Object} Users
@@ -37,12 +34,14 @@ export default class PanelFriends extends React.PureComponent {
 
   static propTypes = {
     className: React.PropTypes.string,
+    searchInputClassName: React.PropTypes.string,
     friends: React.PropTypes.object.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className: '',
+    searchInputClassName: '',
   };
 
   /**
@@ -71,14 +70,12 @@ export default class PanelFriends extends React.PureComponent {
   }
 
   render() {
-    const { className, friends } = this.props;
-
-    const friendsClassName = classnames(panelFriendsClassNames['panel-friends'], className);
+    const { className, searchInputClassName, friends } = this.props;
 
     return (
-      <ul className={friendsClassName}>
+      <ul className={className}>
         <SearchInput
-          className={panelFriendsClassNames['panel-friends__search-input']}
+          className={searchInputClassName}
           delay={300}
           onChange={this.filterFriends}
         />
