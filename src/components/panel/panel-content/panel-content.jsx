@@ -43,7 +43,12 @@ export default class PanelContent extends React.PureComponent {
           />
         );
       case TABS.REQUESTS:
-        return <PanelRequests className={panelContentClassNames['panel-content__item']} />;
+        return (
+          <PanelRequests
+            className={panelContentClassNames['panel-content__content']}
+            searchInputClassName={panelContentClassNames['panel-content__search-input']}
+          />
+        );
       case TABS.ROOMS:
         return null;
       default:

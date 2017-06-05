@@ -1,29 +1,30 @@
 import React from 'react';
-import classnames from 'classnames';
 
 import SearchInput from '../../search/search-input/search-input';
+import PanelRequestsItem from './panel-requests-item/panel-requests-item';
 
 export default class PanelRequests extends React.Component {
 
   static propTypes = {
     className: React.PropTypes.string,
+    searchInputClassName: React.PropTypes.string,
   };
 
   static defaultProps = {
     className: '',
+    searchInputClassName: '',
   };
 
   render() {
-    const { className } = this.props;
-
-    const requestsClassName = classnames(className);
+    const { className, searchInputClassName } = this.props;
 
     return (
-      <ul>
+      <ul className={className}>
         <SearchInput
-          className={requestsClassName}
+          className={searchInputClassName}
           delay={300}
         />
+        <PanelRequestsItem />
       </ul>
     );
   }
