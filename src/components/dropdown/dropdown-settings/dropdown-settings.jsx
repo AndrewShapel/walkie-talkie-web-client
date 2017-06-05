@@ -8,9 +8,9 @@ import dropdownSettingsClassNames from './dropdown-settings.css';
 
 export default class DropdownSettings extends React.Component {
 
-  static propTypes = Object.assign(Dropdown.propTypes);
+  static propTypes = Object.assign({}, Dropdown.propTypes);
 
-  static defaultProps = Object.assign(Dropdown.defaultProps);
+  static defaultProps = Object.assign({}, Dropdown.defaultProps);
 
   static renderContent() {
     return (

@@ -5,12 +5,13 @@ import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
 import { getFriends } from '../api/graphql/friends';
+import { getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, setAccount, setAccountPermission, setFriends } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, GET_USERS, setAccount, setAccountPermission, setFriends } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -79,9 +80,20 @@ export function* fetchFriends() {
 /**
  * @returns {Object}
  */
+export function* fetchUsers() {
+  const usersResponse = yield call(getUsers);
+  const responseData = usersResponse.data;
+
+  console.log(responseData);
+}
+
+/**
+ * @returns {Object}
+ */
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(LOG_OUT, logOut);
   yield takeEvery(GET_FRIENDS, fetchFriends);
+  yield takeEvery(GET_USERS, fetchUsers);
 }

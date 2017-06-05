@@ -1,9 +1,14 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Keyboard from '../../../utils/keyboard';
 
 import { KEYBOARD_KEYS } from '../../../constants/keyboard';
+
+import { getUsers } from '../../../action-types/users';
 
 import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';
@@ -11,13 +16,34 @@ import DropdownItems from '../dropdown-items/dropdown-items';
 
 import dropdownSearchUserClassNames from './dropdown-search-user.css';
 
+/**
+ * @param {Object} Users
+ * @returns {Object}
+ */
+const mapStateToProps = ({ Users }) => ({
+  users: Users.getUsers(),
+});
+
+/**
+ * @param {Function} dispatch
+ * @returns {Object}
+ */
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    getUsersAction: getUsers,
+  }, dispatch)
+);
+
+@connect(mapStateToProps, mapDispatchToProps)
 class DropdownSearchUser extends React.Component {
 
-  static propTypes = Object.assign(DropdownItems.propTypes, {
+  static propTypes = Object.assign({}, DropdownItems.propTypes, {
     itemsClassName: React.PropTypes.string,
+    users: React.PropTypes.object.isRequired,
+    getUsersAction: React.PropTypes.func.isRequired,
   });
 
-  static defaultProps = Object.assign(DropdownItems.defaultProps, {
+  static defaultProps = Object.assign({}, DropdownItems.defaultProps, {
     itemsClassName: '',
   });
 
@@ -63,6 +89,12 @@ class DropdownSearchUser extends React.Component {
     activeItemId: null,
     isSearchInputInFocus: false,
   };
+
+  componentWillMount() {
+    const { getUsersAction } = this.props;
+
+    getUsersAction();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { isOpen } = this.state;

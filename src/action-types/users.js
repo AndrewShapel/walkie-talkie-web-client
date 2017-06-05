@@ -64,6 +64,14 @@ export const setAccountPermission = accountPermission => ({
   },
 });
 
+export const GET_USERS = 'users:GET_USERS';
+/**
+ * @returns {Object}
+ */
+export const getUsers = () => ({
+  type: GET_USERS,
+});
+
 export const GET_FRIENDS = 'users:GET_FRIENDS';
 /**
  * @returns {Object}

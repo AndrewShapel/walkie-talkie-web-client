@@ -57,7 +57,9 @@ export default class PanelFriends extends React.PureComponent {
   }
 
   componentWillMount() {
-    this.props.getFriendsAction();
+    const { getFriendsAction } = this.props;
+
+    getFriendsAction();
   }
 
   /**

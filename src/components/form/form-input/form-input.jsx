@@ -7,13 +7,13 @@ import Input from '../../input/input';
 @FormsyElement()
 export default class FormInput extends React.Component {
 
-  static defaultProps = Object.assign(Input.defaultProps, {
+  static defaultProps = Object.assign({}, Input.defaultProps, {
     validations: {},
     validationErrors: {},
     onMount: null,
   });
 
-  static propTypes = Object.assign(Input.propTypes, {
+  static propTypes = Object.assign({}, Input.propTypes, {
     validations: React.PropTypes.object,
     validationErrors: React.PropTypes.object,
     onMount: React.PropTypes.func,
