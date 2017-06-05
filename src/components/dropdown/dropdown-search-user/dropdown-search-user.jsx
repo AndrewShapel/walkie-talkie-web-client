@@ -41,23 +41,26 @@ class DropdownSearchUser extends React.Component {
     itemsClassName: React.PropTypes.string,
     users: React.PropTypes.object.isRequired,
     getUsersAction: React.PropTypes.func.isRequired,
+    onUserSelect: React.PropTypes.func,
   });
 
   static defaultProps = Object.assign({}, DropdownItems.defaultProps, {
     itemsClassName: '',
+    onUserSelect: null,
   });
 
   /**
-   * @param {String} className
    * @param {Object} users
    * @returns {Array}
    */
-  static getItems(className, users) {
+  static getItems(users) {
+    const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
+
     return users.map((user) => {
       const email = user.getEmail();
 
       return {
-        className,
+        className: itemClassName,
         id: email,
         content: (
           <User userName={email} />
@@ -81,7 +84,7 @@ class DropdownSearchUser extends React.Component {
 
   state = {
     isOpen: false,
-    activeItemId: null,
+    activeItemId: '',
     isSearchInputInFocus: false,
   };
 
@@ -122,12 +125,13 @@ class DropdownSearchUser extends React.Component {
   @autobind
   onKeyUp(event) {
     const { isOpen, activeItemId, isSearchInputInFocus } = this.state;
+    const { users } = this.props;
 
     if (isSearchInputInFocus) {
       const nextState = Object.assign(this.state);
 
       const pressedKeyName = Keyboard.getKeyName(event.keyCode);
-      const items = DropdownSearchUser.getItems();
+      const items = DropdownSearchUser.getItems(users);
 
       if (pressedKeyName === KEYBOARD_KEYS.ARROW_UP) {
         const previousItem = DropdownSearchUser.getAdjacentItem(items, activeItemId, false);
@@ -140,7 +144,7 @@ class DropdownSearchUser extends React.Component {
           nextState.activeItemId = nextItem.id;
         }
       } else if (pressedKeyName === KEYBOARD_KEYS.ENTER) {
-        nextState.isOpen = false;
+        this.onItemSelect(activeItemId);
       }
 
       if (nextState.activeItemId !== activeItemId || nextState.isOpen !== isOpen) {
@@ -154,9 +158,16 @@ class DropdownSearchUser extends React.Component {
    */
   @autobind
   onItemSelect(itemId) {
+    const { onUserSelect } = this.props;
+    console.log(itemId);
+
+    if (onUserSelect) {
+      onUserSelect(itemId);
+    }
+
     this.setState({
       isOpen: false,
-      activeItemId: itemId,
+      activeItemId: '',
     });
   }
 
@@ -201,14 +212,12 @@ class DropdownSearchUser extends React.Component {
     const { isOpen, activeItemId } = this.state;
     const { itemsClassName, users, children, isStickToBottom } = this.props;
 
-    const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
-
     return (
       <div className={dropdownSearchUserClassNames['dropdown-search-user']} onKeyUp={this.onKeyUp}>
         <DropdownItems
           className={dropdownSearchUserClassNames['dropdown-search-user__items']}
           itemsClassName={itemsClassName}
-          items={DropdownSearchUser.getItems(itemClassName, users)}
+          items={DropdownSearchUser.getItems(users)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
           isStickToBottom={isStickToBottom}

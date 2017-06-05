@@ -10,7 +10,10 @@ export default class DropdownItems extends React.PureComponent {
 
   static propTypes = Object.assign({}, Dropdown.propTypes, {
     items: React.PropTypes.array,
-    activeItemId: React.PropTypes.number,
+    activeItemId: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]),
     renderContentAfter: React.PropTypes.bool,
     renderContent: React.PropTypes.func,
     onItemSelect: React.PropTypes.func,
@@ -18,7 +21,7 @@ export default class DropdownItems extends React.PureComponent {
 
   static defaultProps = Object.assign({}, Dropdown.defaultProps, {
     items: [],
-    activeItemId: null,
+    activeItemId: '',
     renderContentAfter: false,
     renderContent: null,
     onItemSelect: null,
