@@ -34,6 +34,7 @@ export default class PanelFriends extends React.PureComponent {
 
   static propTypes = {
     className: React.PropTypes.string,
+    itemClassName: React.PropTypes.string,
     searchInputClassName: React.PropTypes.string,
     friends: React.PropTypes.object.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
@@ -41,17 +42,21 @@ export default class PanelFriends extends React.PureComponent {
 
   static defaultProps = {
     className: '',
+    itemClassName: '',
     searchInputClassName: '',
   };
 
   /**
+   * @param {String} className
    * @param {Object} friends
    * @returns {Object}
    */
-  static renderFriends(friends) {
+  static renderFriends(className, friends) {
     return friends.map(() => {
       const key = uniqueId('friend_');
-      return <PanelFriendsItem key={key} />;
+      return (
+        <PanelFriendsItem clasName={className} key={key} />
+      );
     });
   }
 
@@ -70,7 +75,7 @@ export default class PanelFriends extends React.PureComponent {
   }
 
   render() {
-    const { className, searchInputClassName, friends } = this.props;
+    const { className, itemClassName, searchInputClassName, friends } = this.props;
 
     return (
       <ul className={className}>
@@ -79,7 +84,7 @@ export default class PanelFriends extends React.PureComponent {
           delay={300}
           onChange={this.filterFriends}
         />
-        { PanelFriends.renderFriends(friends) }
+        { PanelFriends.renderFriends(itemClassName, friends) }
       </ul>
     );
   }

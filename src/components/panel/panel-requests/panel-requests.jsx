@@ -7,16 +7,18 @@ export default class PanelRequests extends React.Component {
 
   static propTypes = {
     className: React.PropTypes.string,
+    itemClassName: React.PropTypes.string,
     searchInputClassName: React.PropTypes.string,
   };
 
   static defaultProps = {
     className: '',
+    itemClassName: '',
     searchInputClassName: '',
   };
 
   render() {
-    const { className, searchInputClassName } = this.props;
+    const { className, itemClassName, searchInputClassName } = this.props;
 
     return (
       <ul className={className}>
@@ -24,7 +26,7 @@ export default class PanelRequests extends React.Component {
           className={searchInputClassName}
           delay={300}
         />
-        <PanelRequestsItem />
+        <PanelRequestsItem className={itemClassName} />
       </ul>
     );
   }

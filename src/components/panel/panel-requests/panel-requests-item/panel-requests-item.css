@@ -1,11 +1,6 @@
 @import "../../../../assets/css/variables.css";
 
 .panel-requests-item {
-  padding: 15px;
-  cursor: pointer;
-  justify-content: space-between;
-  display: flex;
-
   &__icons {
     align-items: center;
     display: flex;

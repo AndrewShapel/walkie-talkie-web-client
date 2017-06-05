@@ -39,6 +39,7 @@ export default class PanelContent extends React.PureComponent {
         return (
           <PanelFriends
             className={panelContentClassNames['panel-content__content']}
+            itemClassName={panelContentClassNames['panel-content__item']}
             searchInputClassName={panelContentClassNames['panel-content__search-input']}
           />
         );
@@ -46,6 +47,7 @@ export default class PanelContent extends React.PureComponent {
         return (
           <PanelRequests
             className={panelContentClassNames['panel-content__content']}
+            itemClassName={panelContentClassNames['panel-content__item']}
             searchInputClassName={panelContentClassNames['panel-content__search-input']}
           />
         );
