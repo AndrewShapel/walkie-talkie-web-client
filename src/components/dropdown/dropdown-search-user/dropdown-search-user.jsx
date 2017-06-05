@@ -41,12 +41,12 @@ class DropdownSearchUser extends React.Component {
     itemsClassName: React.PropTypes.string,
     users: React.PropTypes.object.isRequired,
     getUsersAction: React.PropTypes.func.isRequired,
-    onUserSelect: React.PropTypes.func,
+    onSelect: React.PropTypes.func,
   });
 
   static defaultProps = Object.assign({}, DropdownItems.defaultProps, {
     itemsClassName: '',
-    onUserSelect: null,
+    onSelect: null,
   });
 
   /**
@@ -158,17 +158,16 @@ class DropdownSearchUser extends React.Component {
    */
   @autobind
   onItemSelect(itemId) {
-    const { onUserSelect } = this.props;
-    console.log(itemId);
-
-    if (onUserSelect) {
-      onUserSelect(itemId);
-    }
+    const { onSelect } = this.props;
 
     this.setState({
       isOpen: false,
       activeItemId: '',
     });
+
+    if (onSelect) {
+      onSelect(itemId);
+    }
   }
 
   @autobind

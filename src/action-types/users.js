@@ -84,6 +84,18 @@ export const setFriends = friends => ({
   },
 });
 
+export const MAKE_FRIEND_REQUEST = 'users:MAKE_FRIEND_REQUEST';
+/**
+ * @param {String} email
+ * @returns {Object}
+ */
+export const makeFriendRequest = email => ({
+  type: MAKE_FRIEND_REQUEST,
+  payload: {
+    email,
+  },
+});
+
 export const GET_USERS = 'users:GET_USERS';
 /**
  * @returns {Object}

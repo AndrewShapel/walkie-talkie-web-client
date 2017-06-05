@@ -4,14 +4,17 @@ import { push } from 'react-router-redux';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
-import { getFriends } from '../api/graphql/friends';
+import { getFriends, makeFriendRequest } from '../api/graphql/friends';
 import { getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, GET_USERS, setAccount, setAccountPermission, setFriends, setUsers } from '../action-types/users';
+import {
+  SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, MAKE_FRIEND_REQUEST, GET_USERS,
+  setAccount, setAccountPermission, setFriends, setUsers,
+} from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -78,6 +81,16 @@ export function* fetchFriends() {
 }
 
 /**
+ * @param {String} email
+ * @returns {Object}
+ */
+export function* fetchFriendRequest(email) {
+  const res = yield call(makeFriendRequest, email);
+
+  console.log(res);
+}
+
+/**
  * @returns {Object}
  */
 export function* fetchUsers() {
@@ -95,5 +108,6 @@ export function* usersSaga() {
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(LOG_OUT, logOut);
   yield takeEvery(GET_FRIENDS, fetchFriends);
+  yield takeEvery(MAKE_FRIEND_REQUEST, fetchFriendRequest);
   yield takeEvery(GET_USERS, fetchUsers);
 }
