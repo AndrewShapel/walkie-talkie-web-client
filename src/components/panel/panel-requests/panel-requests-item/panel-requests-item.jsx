@@ -16,23 +16,23 @@ export default class PanelRequestsItem extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     user: React.PropTypes.instanceOf(User),
-    onBlock: React.PropTypes.func,
+    onDecline: React.PropTypes.func,
     onAccept: React.PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
     user: new User(),
-    onBlock: null,
+    onDecline: null,
     onAccept: null,
   };
 
   @autobind
-  onBlock() {
-    const { user, onBlock } = this.props;
+  onDecline() {
+    const { user, onDecline } = this.props;
 
-    if (onBlock) {
-      onBlock(user);
+    if (onDecline) {
+      onDecline(user);
     }
   }
 
@@ -59,7 +59,7 @@ export default class PanelRequestsItem extends React.PureComponent {
           <Svg
             className={iconBlockedClassName}
             icon={ICONS.BLOCKED}
-            onClick={this.onBlock}
+            onClick={this.onDecline}
           />
           <Svg
             className={iconAcceptClassName}

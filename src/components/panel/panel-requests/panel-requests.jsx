@@ -60,7 +60,7 @@ export default class PanelRequests extends React.Component {
    * @param {Object} user
    */
   @autobind
-  block(user) {
+  decline(user) {
     const { declineFriendRequestAction } = this.props;
 
     const email = user.getEmail();
@@ -95,7 +95,7 @@ export default class PanelRequests extends React.Component {
         <PanelRequestsItem
           className={className}
           user={from}
-          onBlock={this.block}
+          onDecline={this.decline}
           onAccept={this.accept}
           key={key}
         />
