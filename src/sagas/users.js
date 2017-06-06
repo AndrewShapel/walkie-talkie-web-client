@@ -1,6 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
+import logger from '../logger/logger';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
@@ -30,6 +31,7 @@ export function* signIn(action) {
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
+    logger.error(exception);
   }
 }
 
@@ -50,6 +52,7 @@ export function* signUp(action) {
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
+    logger.error(exception);
   }
 }
 
@@ -73,7 +76,11 @@ export function* fetchUsers() {
   const usersResponse = yield call(getUsers);
   const responseData = usersResponse.data;
 
-  yield put(setUsers(responseData.data.users));
+  try {
+    yield put(setUsers(responseData.data.users));
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 /**

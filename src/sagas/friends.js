@@ -16,7 +16,11 @@ export function* fetchFriends() {
   const friendsResponse = yield call(getFriends);
   const responseData = friendsResponse.data;
 
-  yield put(setFriends(responseData.data.me.friends));
+  try {
+    yield put(setFriends(responseData.data.me.friends));
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 /**
@@ -26,7 +30,11 @@ export function* fetchFriendRequests() {
   const friendRequestsResponse = yield call(getFriendRequests);
   const responseData = friendRequestsResponse.data;
 
-  yield put(setFriendRequests(responseData.data.me.friendRequests));
+  try {
+    yield put(setFriendRequests(responseData.data.me.friendRequests));
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 /**
@@ -36,8 +44,12 @@ export function* fetchFriendRequests() {
 export function* fetchMakeFriendRequest(action) {
   const { email } = action.payload;
 
-  yield call(makeFriendRequest, email);
-  yield call(fetchFriendRequests);
+  try {
+    yield call(makeFriendRequest, email);
+    yield call(fetchFriendRequests);
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 /**
@@ -47,8 +59,12 @@ export function* fetchMakeFriendRequest(action) {
 export function* fetchAcceptFriendRequest(action) {
   const { email } = action.payload;
 
-  yield call(acceptFriendRequest, email);
-  yield call(fetchFriendRequests);
+  try {
+    yield call(acceptFriendRequest, email);
+    yield call(fetchFriendRequests);
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 /**
