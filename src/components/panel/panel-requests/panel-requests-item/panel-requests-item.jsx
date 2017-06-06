@@ -19,8 +19,8 @@ export default class PanelRequestsItem extends React.PureComponent {
 
   static defaultProps = {
     className: '',
-    onBlock: React.PropTypes.func,
-    onAccept: React.PropTypes.func,
+    onBlock: null,
+    onAccept: null,
   };
 
   @autobind

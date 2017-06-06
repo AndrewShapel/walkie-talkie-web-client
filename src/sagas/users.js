@@ -12,7 +12,7 @@ import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
 import {
-  SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, MAKE_FRIEND_REQUEST, GET_USERS,
+  SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, MAKE_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST, GET_USERS,
   setAccount, setAccountPermission, setFriends, setUsers,
 } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
@@ -89,6 +89,12 @@ export function* fetchFriendRequest(action) {
   yield call(makeFriendRequest, email);
 }
 
+export function* fetchAcceptFriendRequest(action) {
+  const { email } = action.payload;
+
+  console.log(email);
+}
+
 /**
  * @returns {Object}
  */
@@ -108,5 +114,6 @@ export function* usersSaga() {
   yield takeEvery(LOG_OUT, logOut);
   yield takeEvery(GET_FRIENDS, fetchFriends);
   yield takeEvery(MAKE_FRIEND_REQUEST, fetchFriendRequest);
+  yield takeEvery(ACCEPT_FRIEND_REQUEST, fetchAcceptFriendRequest);
   yield takeEvery(GET_USERS, fetchUsers);
 }

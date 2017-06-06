@@ -96,6 +96,30 @@ export const makeFriendRequest = email => ({
   },
 });
 
+export const ACCEPT_FRIEND_REQUEST = 'users:ACCEPT_FRIEND_REQUEST';
+/**
+ * @param {String} email
+ * @returns {Object}
+ */
+export const acceptFriendRequest = email => ({
+  type: ACCEPT_FRIEND_REQUEST,
+  payload: {
+    email,
+  },
+});
+
+export const DECLINE_FRIEND_REQUEST = 'users:DECLINE_FRIEND_REQUEST';
+/**
+ * @param {String} email
+ * @returns {Object}
+ */
+export const declineFriendRequest = email => ({
+  type: DECLINE_FRIEND_REQUEST,
+  payload: {
+    email,
+  },
+});
+
 export const GET_USERS = 'users:GET_USERS';
 /**
  * @returns {Object}
