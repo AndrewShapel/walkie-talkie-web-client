@@ -56,6 +56,14 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.gql$/,
+        use: [
+          {
+            loader: 'raw-loader',
+          },
+        ],
+      },
     ],
   },
   resolve: {

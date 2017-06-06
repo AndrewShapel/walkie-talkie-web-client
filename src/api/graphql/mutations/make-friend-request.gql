@@ -1,0 +1,5 @@
+mutation MakeFriendRequest($email: String!) {
+  makeFriendRequest(email: $email) {
+    status
+  }
+}

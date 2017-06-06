@@ -8,6 +8,7 @@ import { ICONS } from '../../../constants/icons';
 import { USER_STATUS } from '../../../constants/user';
 
 import { logOut } from '../../../action-types/users';
+import { makeFriendRequest } from '../../../action-types/friends';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';
@@ -23,6 +24,7 @@ import panelHeaderClassNames from './panel-header.css';
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     logOutAction: logOut,
+    makeFriendRequestAction: makeFriendRequest,
   }, dispatch)
 );
 
@@ -30,20 +32,25 @@ const mapDispatchToProps = dispatch => (
 export default class PanelHeader extends React.Component {
 
   static propTypes = {
-    logOutAction: React.PropTypes.func,
+    logOutAction: React.PropTypes.func.isRequired,
+    makeFriendRequestAction: React.PropTypes.func.isRequired,
   };
 
-  static defaultProps = {
-    logOutAction: null,
-  };
+  /**
+   * @param {String} userEmail
+   */
+  @autobind
+  onUserSelect(userEmail) {
+    const { makeFriendRequestAction } = this.props;
+
+    makeFriendRequestAction(userEmail);
+  }
 
   @autobind
   logOut() {
     const { logOutAction } = this.props;
 
-    if (logOutAction) {
-      logOutAction();
-    }
+    logOutAction();
   }
 
   render() {
@@ -58,7 +65,10 @@ export default class PanelHeader extends React.Component {
           userStatusName="Online"
         />
         <div className={panelHeaderClassNames['panel-header__icons']}>
-          <DropdownSearchUser itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}>
+          <DropdownSearchUser
+            itemsClassName={panelHeaderClassNames['panel-header__dropdown-items']}
+            onSelect={this.onUserSelect}
+          >
             <div className={panelHeaderClassNames['panel-header__icon']}>
               <Svg icon={ICONS.USER_PLUS} />
             </div>

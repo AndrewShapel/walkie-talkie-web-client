@@ -8,11 +8,11 @@ import panelClassNames from './panel.css';
 
 export default class Panel extends React.PureComponent {
 
-  propTypes = {
+  static propTypes = {
     className: React.PropTypes.string,
   };
 
-  defaultProps = {
+  static defaultProps = {
     className: '',
   };
 

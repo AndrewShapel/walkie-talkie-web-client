@@ -1,0 +1,11 @@
+@import "../../../../assets/css/variables.css";
+
+.panel-content-user {
+  &__name {
+    color: var(--color-white);
+  }
+
+  &__status {
+    background-color: var(--color-purple);
+  }
+}

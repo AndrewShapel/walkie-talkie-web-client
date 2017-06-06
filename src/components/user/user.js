@@ -6,32 +6,34 @@ import UserInformation from './user-information/user-information';
 
 import userClassNames from './user.css';
 
-const User = ({ className, userNameClassName, userStatusClassName, userStatus, userName, userStatusName }) => {
-  const userClassName = classnames(userClassNames.user, className);
+export default class User extends React.PureComponent {
 
-  return (
-    <div className={userClassName}>
-      <UserAvatar
-        userStatusClassName={userStatusClassName}
-        userStatus={userStatus}
-      />
-      <UserInformation
-        className={userClassNames['user__user-information']}
-        userNameClassName={userNameClassName}
-        userName={userName}
-        userStatus={userStatusName}
-      />
-    </div>
-  );
-};
+  static propTypes = Object.assign({}, UserAvatar.propTypes, UserInformation.propTypes, {
+    className: React.PropTypes.string,
+  });
 
-User.defaultProps = Object.assign(UserAvatar.defaultProps, UserInformation.defaultProps, {
-  className: '',
-});
+  static defaultProps = Object.assign({}, UserAvatar.defaultProps, UserInformation.defaultProps, {
+    className: '',
+  });
 
-User.propTypes = Object.assign(UserAvatar.propTypes, UserInformation.propTypes, {
-  className: React.PropTypes.string,
-});
+  render() {
+    const { className, userNameClassName, userStatusClassName, userStatus, userName, userStatusName } = this.props;
 
-export default User;
+    const userClassName = classnames(userClassNames.user, className);
 
+    return (
+      <div className={userClassName}>
+        <UserAvatar
+          userStatusClassName={userStatusClassName}
+          userStatus={userStatus}
+        />
+        <UserInformation
+          className={userClassNames['user__user-information']}
+          userNameClassName={userNameClassName}
+          userName={userName}
+          userStatus={userStatusName}
+        />
+      </div>
+    );
+  }
+}

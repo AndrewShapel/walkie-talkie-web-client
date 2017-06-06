@@ -63,3 +63,23 @@ export const setAccountPermission = accountPermission => ({
     accountPermission,
   },
 });
+
+export const GET_USERS = 'users:GET_USERS';
+/**
+ * @returns {Object}
+ */
+export const getUsers = () => ({
+  type: GET_USERS,
+});
+
+export const SET_USERS = 'users:SET_USERS';
+/**
+ * @param {Object} users
+ * @returns {Object}
+ */
+export const setUsers = users => ({
+  type: SET_USERS,
+  payload: {
+    users,
+  },
+});

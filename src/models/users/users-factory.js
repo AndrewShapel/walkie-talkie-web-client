@@ -1,3 +1,5 @@
+import { List } from 'immutable';
+
 import User from './user';
 import Account from './account';
 
@@ -36,6 +38,11 @@ export default class UsersFactory {
    * @returns {Object}
    */
   static createUsers(users) {
-    return users.map(user => UsersFactory.createUser(user));
+    return List().withMutations((context) => {
+      users.forEach((user) => {
+        const newUser = UsersFactory.createUser(user);
+        context.push(newUser);
+      });
+    });
   }
 }

@@ -1,3 +1,5 @@
+@import "../../../assets/css/variables.css";
+
 .panel-content {
   flex-direction: column;
   display: flex;
@@ -9,7 +11,23 @@
     display: flex;
   }
 
-  &__friends {
+  &__content {
     padding: 0;
+    list-style-type: none;
+    overflow-y: auto;
+  }
+
+  &__item {
+    padding: 15px;
+    cursor: pointer;
+    justify-content: space-between;
+    display: flex;
+  }
+
+  &__search-input {
+    width: 286px;
+    margin: 0 auto 15px auto;
+    background-color: var(--color-purple);
+    display: block;
   }
 }

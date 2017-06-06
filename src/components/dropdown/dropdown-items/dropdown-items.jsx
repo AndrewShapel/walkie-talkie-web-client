@@ -8,17 +8,20 @@ import dropdownItemsClassNames from './dropdown-items.css';
 
 export default class DropdownItems extends React.PureComponent {
 
-  static propTypes = Object.assign(Dropdown.propTypes, {
+  static propTypes = Object.assign({}, Dropdown.propTypes, {
     items: React.PropTypes.array,
-    activeItemId: React.PropTypes.number,
+    activeItemId: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]),
     renderContentAfter: React.PropTypes.bool,
     renderContent: React.PropTypes.func,
     onItemSelect: React.PropTypes.func,
   });
 
-  static defaultProps = Object.assign(Dropdown.defaultProps, {
+  static defaultProps = Object.assign({}, Dropdown.defaultProps, {
     items: [],
-    activeItemId: null,
+    activeItemId: '',
     renderContentAfter: false,
     renderContent: null,
     onItemSelect: null,

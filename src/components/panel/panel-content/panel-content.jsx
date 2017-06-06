@@ -6,6 +6,7 @@ import { TABS } from '../../../constants/tabs';
 
 import PanelTabs from '../panel-tabs/panel-tabs';
 import PanelFriends from '../panel-friends/panel-friends';
+import PanelRequests from '../panel-requests/panel-requests';
 
 import panelContentClassNames from './panel-content.css';
 
@@ -35,10 +36,24 @@ export default class PanelContent extends React.PureComponent {
   static renderContent(activeTab) {
     switch (activeTab) {
       case TABS.FRIENDS:
-        return <PanelFriends className={panelContentClassNames['panel-content__friends']} />;
+        return (
+          <PanelFriends
+            className={panelContentClassNames['panel-content__content']}
+            itemClassName={panelContentClassNames['panel-content__item']}
+            searchInputClassName={panelContentClassNames['panel-content__search-input']}
+          />
+        );
       case TABS.REQUESTS:
-        return null;
+        return (
+          <PanelRequests
+            className={panelContentClassNames['panel-content__content']}
+            itemClassName={panelContentClassNames['panel-content__item']}
+            searchInputClassName={panelContentClassNames['panel-content__search-input']}
+          />
+        );
       case TABS.ROOMS:
+        return null;
+      default:
         return null;
     }
   }

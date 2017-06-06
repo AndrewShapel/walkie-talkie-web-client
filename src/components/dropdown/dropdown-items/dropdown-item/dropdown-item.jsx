@@ -12,7 +12,10 @@ export default class DropdownItem extends React.PureComponent {
       React.PropTypes.element,
       React.PropTypes.array,
     ]),
-    id: React.PropTypes.number.isRequired,
+    id: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]).isRequired,
     title: React.PropTypes.string,
     isActive: React.PropTypes.bool,
     onClick: React.PropTypes.func,

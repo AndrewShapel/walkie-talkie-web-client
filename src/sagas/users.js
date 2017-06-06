@@ -1,15 +1,17 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 import { push } from 'react-router-redux';
 
+import logger from '../logger/logger';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
+import { getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, setAccount, setAccountPermission } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -29,6 +31,7 @@ export function* signIn(action) {
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
+    logger.error(exception);
   }
 }
 
@@ -49,6 +52,7 @@ export function* signUp(action) {
   } catch (exception) {
     const message = exception.response.data;
     yield put(addMessage(MESSAGE_TARGETS.USERS, message, MESSAGE_TYPES.ERROR));
+    logger.error(exception);
   }
 }
 
@@ -65,8 +69,26 @@ export function* logOut() {
   }
 }
 
+/**
+ * @returns {Object}
+ */
+export function* fetchUsers() {
+  const usersResponse = yield call(getUsers);
+  const responseData = usersResponse.data;
+
+  try {
+    yield put(setUsers(responseData.data.users));
+  } catch (exception) {
+    logger.error(exception);
+  }
+}
+
+/**
+ * @returns {Object}
+ */
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(LOG_OUT, logOut);
+  yield takeEvery(GET_USERS, fetchUsers);
 }

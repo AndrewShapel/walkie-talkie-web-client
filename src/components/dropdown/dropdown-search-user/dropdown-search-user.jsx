@@ -1,9 +1,14 @@
 import React from 'react';
 import autobind from 'autobind-decorator';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import Keyboard from '../../../utils/keyboard';
 
 import { KEYBOARD_KEYS } from '../../../constants/keyboard';
+
+import { getUsers } from '../../../action-types/users';
 
 import SearchInput from '../../search/search-input/search-input';
 import User from '../../user/user';
@@ -11,38 +16,57 @@ import DropdownItems from '../dropdown-items/dropdown-items';
 
 import dropdownSearchUserClassNames from './dropdown-search-user.css';
 
+/**
+ * @param {Object} Users
+ * @returns {Object}
+ */
+const mapStateToProps = ({ Users }) => ({
+  users: Users.getUsers(),
+});
+
+/**
+ * @param {Function} dispatch
+ * @returns {Object}
+ */
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    getUsersAction: getUsers,
+  }, dispatch)
+);
+
+@connect(mapStateToProps, mapDispatchToProps)
 class DropdownSearchUser extends React.Component {
 
-  static propTypes = Object.assign(DropdownItems.propTypes, {
+  static propTypes = Object.assign({}, DropdownItems.propTypes, {
     itemsClassName: React.PropTypes.string,
+    users: React.PropTypes.object.isRequired,
+    getUsersAction: React.PropTypes.func.isRequired,
+    onSelect: React.PropTypes.func,
   });
 
-  static defaultProps = Object.assign(DropdownItems.defaultProps, {
+  static defaultProps = Object.assign({}, DropdownItems.defaultProps, {
     itemsClassName: '',
+    onSelect: null,
   });
 
   /**
-   * @param {String} className
+   * @param {Object} users
    * @returns {Array}
    */
-  static getItems(className) {
-    return [{
-      className,
-      id: 0,
-      content: (
-        <User
-          userName="Friend to Add"
-        />
-      ),
-    }, {
-      className,
-      id: 1,
-      content: (
-        <User
-          userName="Another friend to add"
-        />
-      ),
-    }];
+  static getItems(users) {
+    const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
+
+    return users.map((user) => {
+      const email = user.getEmail();
+
+      return {
+        className: itemClassName,
+        id: email,
+        content: (
+          <User userName={email} />
+        ),
+      };
+    }).toArray();
   }
 
   /**
@@ -60,9 +84,15 @@ class DropdownSearchUser extends React.Component {
 
   state = {
     isOpen: false,
-    activeItemId: null,
+    activeItemId: '',
     isSearchInputInFocus: false,
   };
+
+  componentWillMount() {
+    const { getUsersAction } = this.props;
+
+    getUsersAction();
+  }
 
   componentDidUpdate(prevProps, prevState) {
     const { isOpen } = this.state;
@@ -95,12 +125,13 @@ class DropdownSearchUser extends React.Component {
   @autobind
   onKeyUp(event) {
     const { isOpen, activeItemId, isSearchInputInFocus } = this.state;
+    const { users } = this.props;
 
     if (isSearchInputInFocus) {
       const nextState = Object.assign(this.state);
 
       const pressedKeyName = Keyboard.getKeyName(event.keyCode);
-      const items = DropdownSearchUser.getItems();
+      const items = DropdownSearchUser.getItems(users);
 
       if (pressedKeyName === KEYBOARD_KEYS.ARROW_UP) {
         const previousItem = DropdownSearchUser.getAdjacentItem(items, activeItemId, false);
@@ -113,7 +144,7 @@ class DropdownSearchUser extends React.Component {
           nextState.activeItemId = nextItem.id;
         }
       } else if (pressedKeyName === KEYBOARD_KEYS.ENTER) {
-        nextState.isOpen = false;
+        this.onItemSelect(activeItemId);
       }
 
       if (nextState.activeItemId !== activeItemId || nextState.isOpen !== isOpen) {
@@ -127,10 +158,16 @@ class DropdownSearchUser extends React.Component {
    */
   @autobind
   onItemSelect(itemId) {
+    const { onSelect } = this.props;
+
     this.setState({
       isOpen: false,
-      activeItemId: itemId,
+      activeItemId: '',
     });
+
+    if (onSelect) {
+      onSelect(itemId);
+    }
   }
 
   @autobind
@@ -172,16 +209,14 @@ class DropdownSearchUser extends React.Component {
 
   render() {
     const { isOpen, activeItemId } = this.state;
-    const { itemsClassName, children, isStickToBottom } = this.props;
-
-    const itemClassName = dropdownSearchUserClassNames['dropdown-search-user__item'];
+    const { itemsClassName, users, children, isStickToBottom } = this.props;
 
     return (
       <div className={dropdownSearchUserClassNames['dropdown-search-user']} onKeyUp={this.onKeyUp}>
         <DropdownItems
           className={dropdownSearchUserClassNames['dropdown-search-user__items']}
           itemsClassName={itemsClassName}
-          items={DropdownSearchUser.getItems(itemClassName)}
+          items={DropdownSearchUser.getItems(users)}
           activeItemId={activeItemId}
           renderContent={this.renderSearchInput}
           isStickToBottom={isStickToBottom}
