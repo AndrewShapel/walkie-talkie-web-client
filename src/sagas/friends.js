@@ -1,5 +1,7 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
 
+import logger from '../logger/logger';
+
 import { getFriends, getFriendRequests, makeFriendRequest, acceptFriendRequest, declineFriendRequest } from '../api/graphql/friends';
 
 import {
@@ -56,7 +58,11 @@ export function* fetchAcceptFriendRequest(action) {
 export function* fetchDeclineFriendRequest(action) {
   const { email } = action.payload;
 
-  yield call(declineFriendRequest, email);
+  try {
+    yield call(declineFriendRequest, email);
+  } catch (exception) {
+    logger.error(exception);
+  }
 }
 
 export function* friendsSaga() {
