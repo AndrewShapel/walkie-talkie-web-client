@@ -1,0 +1,3 @@
+mutation DeclineFriendRequest($email: String!) {
+  declineFriendRequest(email: $email)
+}

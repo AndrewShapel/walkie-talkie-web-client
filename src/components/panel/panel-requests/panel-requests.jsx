@@ -57,27 +57,6 @@ export default class PanelRequests extends React.Component {
   }
 
   /**
-   * @param {String} className
-   * @param {Object} friendRequests
-   */
-  @autobind
-  renderFriendRequests(className, friendRequests) {
-    return friendRequests.map((friendRequest) => {
-      const from = friendRequest.getFrom();
-      const key = uniqueId('friendRequest_');
-      return (
-        <PanelRequestsItem
-          className={className}
-          user={from}
-          onBlock={this.block}
-          onAccept={this.accept}
-          key={key}
-        />
-      );
-    });
-  }
-
-  /**
    * @param {Object} user
    */
   @autobind
@@ -101,6 +80,27 @@ export default class PanelRequests extends React.Component {
     if (email) {
       acceptFriendRequestAction(email);
     }
+  }
+
+  /**
+   * @param {String} className
+   * @param {Object} friendRequests
+   */
+  @autobind
+  renderFriendRequests(className, friendRequests) {
+    return friendRequests.map((friendRequest) => {
+      const from = friendRequest.getFrom();
+      const key = uniqueId('friendRequest_');
+      return (
+        <PanelRequestsItem
+          className={className}
+          user={from}
+          onBlock={this.block}
+          onAccept={this.accept}
+          key={key}
+        />
+      );
+    });
   }
 
   render() {
