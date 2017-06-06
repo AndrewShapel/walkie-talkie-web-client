@@ -5,10 +5,30 @@ const Structure = Record({
   /**
    * @type {Object}
    */
+  friendRequests: List(),
+
+  /**
+   * @type {Object}
+   */
   friends: List(),
 });
 
 export default class Friends extends Structure {
+
+  /**
+   * @returns {Object}
+   */
+  getFriendRequests() {
+    return this.get('friendRequests');
+  }
+
+  /**
+   * @param {Object} friendRequests
+   * @returns {Object}
+   */
+  setFriendRequests(friendRequests) {
+    return this.set('friendRequests', friendRequests);
+  }
 
   /**
    * @returns {Object}
