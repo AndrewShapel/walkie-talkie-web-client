@@ -35,6 +35,7 @@ export function* fetchMakeFriendRequest(action) {
   const { email } = action.payload;
 
   yield call(makeFriendRequest, email);
+  yield call(fetchFriendRequests);
 }
 
 /**
@@ -45,6 +46,7 @@ export function* fetchAcceptFriendRequest(action) {
   const { email } = action.payload;
 
   yield call(acceptFriendRequest, email);
+  yield call(fetchFriendRequests);
 }
 
 /**
