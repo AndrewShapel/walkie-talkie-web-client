@@ -6,6 +6,8 @@ import { bindActionCreators } from 'redux';
 
 import { uniqueId } from 'lodash';
 
+import { FRIEND_REQUEST_STATUS } from '../../../constants/friends';
+
 import { getFriendRequests, declineFriendRequest, acceptFriendRequest } from '../../../action-types/friends';
 
 import SearchInput from '../../search/search-input/search-input';
@@ -88,7 +90,10 @@ export default class PanelRequests extends React.Component {
    */
   @autobind
   renderFriendRequests(className, friendRequests) {
-    return friendRequests.map((friendRequest) => {
+    return friendRequests.filter((friendRequest) => {
+      const status = friendRequest.getStatus();
+      return status === FRIEND_REQUEST_STATUS.PENDING;
+    }).map((friendRequest) => {
       const from = friendRequest.getFrom();
       const key = uniqueId('friendRequest_');
       return (
