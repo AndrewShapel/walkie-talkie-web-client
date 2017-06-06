@@ -2,6 +2,8 @@ import React from 'react';
 import classnames from 'classnames';
 import autobind from 'autobind-decorator';
 
+import User from '../../../../models/users/user';
+
 import { ICONS } from '../../../../constants/icons';
 
 import Svg from '../../../svg/svg';
@@ -13,31 +15,33 @@ export default class PanelRequestsItem extends React.PureComponent {
 
   static propTypes = {
     className: React.PropTypes.string,
+    user: React.PropTypes.instanceOf(User),
     onBlock: React.PropTypes.func,
     onAccept: React.PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
+    user: new User(),
     onBlock: null,
     onAccept: null,
   };
 
   @autobind
   onBlock() {
-    const { onBlock } = this.props;
+    const { user, onBlock } = this.props;
 
     if (onBlock) {
-      onBlock();
+      onBlock(user);
     }
   }
 
   @autobind
   onAccept() {
-    const { onAccept } = this.props;
+    const { user, onAccept } = this.props;
 
     if (onAccept) {
-      onAccept();
+      onAccept(user);
     }
   }
 

@@ -1,9 +1,12 @@
 import React from 'react';
+import autobind from 'autobind-decorator';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getFriendRequests } from '../../../action-types/friends';
+import { uniqueId } from 'lodash';
+
+import { getFriendRequests, declineFriendRequest, acceptFriendRequest } from '../../../action-types/friends';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelRequestsItem from './panel-requests-item/panel-requests-item';
@@ -13,7 +16,7 @@ import PanelRequestsItem from './panel-requests-item/panel-requests-item';
  * @returns {Object}
  */
 const mapStateToProps = ({ Friends }) => ({
-  friends: Friends.getFriends(),
+  friendRequests: Friends.getFriendRequests(),
 });
 
 /**
@@ -23,6 +26,8 @@ const mapStateToProps = ({ Friends }) => ({
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getFriendRequestsAction: getFriendRequests,
+    declineFriendRequestAction: declineFriendRequest,
+    acceptFriendRequestAction: acceptFriendRequest,
   }, dispatch)
 );
 
@@ -33,8 +38,10 @@ export default class PanelRequests extends React.Component {
     className: React.PropTypes.string,
     itemClassName: React.PropTypes.string,
     searchInputClassName: React.PropTypes.string,
-    friends: React.PropTypes.object.isRequired,
+    friendRequests: React.PropTypes.object.isRequired,
     getFriendRequestsAction: React.PropTypes.func.isRequired,
+    declineFriendRequestAction: React.PropTypes.func.isRequired,
+    acceptFriendRequestAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -49,8 +56,55 @@ export default class PanelRequests extends React.Component {
     getFriendRequestsAction();
   }
 
+  /**
+   * @param {String} className
+   * @param {Object} friendRequests
+   */
+  @autobind
+  renderFriendRequests(className, friendRequests) {
+    return friendRequests.map((friendRequest) => {
+      const from = friendRequest.getFrom();
+      const key = uniqueId('friendRequest_');
+      return (
+        <PanelRequestsItem
+          className={className}
+          user={from}
+          onBlock={this.block}
+          onAccept={this.accept}
+          key={key}
+        />
+      );
+    });
+  }
+
+  /**
+   * @param {Object} user
+   */
+  @autobind
+  block(user) {
+    const { declineFriendRequestAction } = this.props;
+
+    const email = user.getEmail();
+    if (email) {
+      declineFriendRequestAction(email);
+    }
+  }
+
+  /**
+   * @param {Object} user
+   */
+  @autobind
+  accept(user) {
+    const { acceptFriendRequestAction } = this.props;
+
+    const email = user.getEmail();
+    if (email) {
+      acceptFriendRequestAction(email);
+    }
+  }
+
   render() {
-    const { className, itemClassName, searchInputClassName, friends } = this.props;
+    const { className, itemClassName, searchInputClassName, friendRequests } = this.props;
 
     return (
       <ul className={className}>
@@ -58,9 +112,7 @@ export default class PanelRequests extends React.Component {
           className={searchInputClassName}
           delay={300}
         />
-        <PanelRequestsItem
-          className={itemClassName}
-        />
+        { this.renderFriendRequests(itemClassName, friendRequests) }
       </ul>
     );
   }

@@ -4,7 +4,7 @@ import User from '../../models/users/user';
 
 const Structure = Record({
   from: new User(),
-  status: 'PENDING',
+  status: '',
 });
 
 export default class FriendRequest extends Structure {

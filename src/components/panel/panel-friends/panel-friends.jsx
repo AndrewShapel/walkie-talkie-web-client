@@ -55,7 +55,7 @@ export default class PanelFriends extends React.PureComponent {
     return friends.map(() => {
       const key = uniqueId('friend_');
       return (
-        <PanelFriendsItem clasName={className} key={key} />
+        <PanelFriendsItem className={className} key={key} />
       );
     });
   }

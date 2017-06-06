@@ -11,7 +11,7 @@ export const SET_FRIEND_REQUESTS = 'friends:SET_FRIEND_REQUESTS';
  * @param {Object} friendRequests
  * @returns {Object}
  */
-export const setFriendRequests = (friendRequests) => ({
+export const setFriendRequests = friendRequests => ({
   type: SET_FRIEND_REQUESTS,
   payload: {
     friendRequests,
