@@ -13,6 +13,8 @@ import { getFriendRequests, declineFriendRequest, acceptFriendRequest } from '..
 import SearchInput from '../../search/search-input/search-input';
 import PanelRequestsItem from './panel-requests-item/panel-requests-item';
 
+import panelRequestsClassNames from './panel-requests.css';
+
 /**
  * @param {Object} Friends
  * @returns {Object}
@@ -117,7 +119,9 @@ export default class PanelRequests extends React.Component {
           className={searchInputClassName}
           delay={300}
         />
-        { this.renderFriendRequests(itemClassName, friendRequests) }
+        <div className={panelRequestsClassNames['panel-requests__requests']}>
+          { this.renderFriendRequests(itemClassName, friendRequests) }
+        </div>
       </ul>
     );
   }

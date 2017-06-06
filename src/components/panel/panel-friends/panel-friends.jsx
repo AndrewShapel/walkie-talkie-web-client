@@ -11,6 +11,8 @@ import { getFriends } from '../../../action-types/friends';
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
 
+import panelFriendsClassNames from './panel-friends.css';
+
 /**
  * @param {Object} Friends
  * @returns {Object}
@@ -84,7 +86,9 @@ export default class PanelFriends extends React.PureComponent {
           delay={300}
           onChange={this.filterFriends}
         />
-        { PanelFriends.renderFriends(itemClassName, friends) }
+        <div className={panelFriendsClassNames['panel-friends__friends']}>
+          { PanelFriends.renderFriends(itemClassName, friends) }
+        </div>
       </ul>
     );
   }

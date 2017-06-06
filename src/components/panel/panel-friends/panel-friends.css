@@ -1,5 +1,5 @@
-.panel-requests {
-  &__requests {
+.panel-friends {
+  &__friends {
     max-height: 100%;
     overflow-y: auto;
   }
