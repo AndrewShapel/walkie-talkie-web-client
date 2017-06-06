@@ -6,17 +6,17 @@ import { bindActionCreators } from 'redux';
 
 import { uniqueId } from 'lodash';
 
-import { getFriends } from '../../../action-types/users';
+import { getFriends } from '../../../action-types/friends';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
 
 /**
- * @param {Object} Users
+ * @param {Object} Friends
  * @returns {Object}
  */
-const mapStateToProps = ({ Users }) => ({
-  friends: Users.getFriends(),
+const mapStateToProps = ({ Friends }) => ({
+  friends: Friends.getFriends(),
 });
 
 /**

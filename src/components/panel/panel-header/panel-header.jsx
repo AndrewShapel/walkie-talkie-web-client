@@ -7,7 +7,8 @@ import { bindActionCreators } from 'redux';
 import { ICONS } from '../../../constants/icons';
 import { USER_STATUS } from '../../../constants/user';
 
-import { logOut, makeFriendRequest } from '../../../action-types/users';
+import { logOut } from '../../../action-types/users';
+import { makeFriendRequest } from '../../../action-types/friends';
 
 import User from '../../user/user';
 import Svg from '../../svg/svg';

@@ -4,17 +4,13 @@ import { push } from 'react-router-redux';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp } from '../api/verification';
-import { getFriends, makeFriendRequest } from '../api/graphql/friends';
 import { getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import {
-  SIGN_IN, SIGN_UP, LOG_OUT, GET_FRIENDS, MAKE_FRIEND_REQUEST, ACCEPT_FRIEND_REQUEST, GET_USERS,
-  setAccount, setAccountPermission, setFriends, setUsers,
-} from '../action-types/users';
+import { SIGN_IN, SIGN_UP, LOG_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -73,31 +69,6 @@ export function* logOut() {
 /**
  * @returns {Object}
  */
-export function* fetchFriends() {
-  const friendsResponse = yield call(getFriends);
-  const responseData = friendsResponse.data;
-
-  yield put(setFriends(responseData.data.me.friends));
-}
-
-/**
- * @param {Object} action
- * @returns {Object}
- */
-export function* fetchFriendRequest(action) {
-  const { email } = action.payload;
-  yield call(makeFriendRequest, email);
-}
-
-export function* fetchAcceptFriendRequest(action) {
-  const { email } = action.payload;
-
-  console.log(email);
-}
-
-/**
- * @returns {Object}
- */
 export function* fetchUsers() {
   const usersResponse = yield call(getUsers);
   const responseData = usersResponse.data;
@@ -112,8 +83,5 @@ export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(LOG_OUT, logOut);
-  yield takeEvery(GET_FRIENDS, fetchFriends);
-  yield takeEvery(MAKE_FRIEND_REQUEST, fetchFriendRequest);
-  yield takeEvery(ACCEPT_FRIEND_REQUEST, fetchAcceptFriendRequest);
   yield takeEvery(GET_USERS, fetchUsers);
 }

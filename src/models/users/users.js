@@ -40,21 +40,6 @@ export default class Users extends Structure {
   /**
    * @returns {Object}
    */
-  getFriends() {
-    return this.get('friends');
-  }
-
-  /**
-   * @param {Object} friends
-   * @returns {Object}
-   */
-  setFriends(friends) {
-    return this.set('friends', friends);
-  }
-
-  /**
-   * @returns {Object}
-   */
   getUsers() {
     return this.get('users');
   }
