@@ -1,18 +1,20 @@
-import { takeEvery, call } from 'redux-saga/effects';
+import { takeEvery, call, put } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 
 import { getChats, createChat } from '../api/graphql/chats';
 
-import { GET_CHATS, CREATE_CHAT } from '../action-types/chats';
+import { GET_CHATS, CREATE_CHAT, setChats } from '../action-types/chats';
 
 /**
  * @returns {Object}
  */
 export function* fetchChats() {
   try {
-    const chatsReponse = yield call(getChats);
-    console.log(chatsReponse);
+    const chatsResponse = yield call(getChats);
+    const responseData = chatsResponse.data;
+
+    put(setChats(responseData.data.me.chats));
   } catch (exception) {
     logger.error(exception);
   }

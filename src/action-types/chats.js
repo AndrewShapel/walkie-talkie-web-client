@@ -6,6 +6,18 @@ export const getChats = () => ({
   type: GET_CHATS,
 });
 
+export const SET_CHATS = 'chats:SET_CHATS';
+/**
+ * @param {Object} chats
+ * @returns {Object}
+ */
+export const setChats = (chats) => ({
+  type: SET_CHATS,
+  payload: {
+    chats,
+  },
+});
+
 export const CREATE_CHAT = 'chats:CREATE_CHAT';
 /**
  * @param {String} title

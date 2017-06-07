@@ -2,7 +2,7 @@ import { Record } from 'immutable';
 
 import User from '../../models/users/user';
 
-const Structure  = Record({
+const Structure = Record({
 
   /**
    * @type {String}
