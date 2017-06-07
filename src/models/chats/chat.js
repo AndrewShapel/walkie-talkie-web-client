@@ -27,7 +27,7 @@ const Structure = Record({
   /**
    * @type {Object}
    */
-  users: List(),
+  members: List(),
 });
 
 export default class Chat extends Structure {
@@ -95,15 +95,15 @@ export default class Chat extends Structure {
   /**
    * @returns {Object}
    */
-  getUsers() {
-    return this.get('users');
+  getMembers() {
+    return this.get('members');
   }
 
   /**
-   * @param {Object} users
+   * @param {Object} members
    * @returns {Object}
    */
-  setUsers(users) {
-    return this.set('users', users);
+  setMembers(members) {
+    return this.set('members', members);
   }
 }

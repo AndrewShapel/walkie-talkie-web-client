@@ -18,10 +18,12 @@ import panelFriendsClassNames from './panel-friends.css';
 
 /**
  * @param {Object} Friends
+ * @param {Object} Chats
  * @returns {Object}
  */
-const mapStateToProps = ({ Friends }) => ({
+const mapStateToProps = ({ Friends, Chats }) => ({
   friends: Friends.getFriends(),
+  chats: Chats.getChats(),
 });
 
 /**
@@ -43,6 +45,7 @@ export default class PanelFriends extends React.PureComponent {
     itemClassName: React.PropTypes.string,
     searchInputClassName: React.PropTypes.string,
     friends: React.PropTypes.object.isRequired,
+    chats: React.PropTypes.object.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
     createChatAction: React.PropTypes.func.isRequired,
   };
@@ -64,14 +67,22 @@ export default class PanelFriends extends React.PureComponent {
    */
   @autobind
   createChat(user) {
-    const { createChatAction } = this.props;
+    const { chats, createChatAction } = this.props;
 
     const email = user.getEmail();
     if (user) {
       const members = {
         email,
       };
-      createChatAction('', CHAT_TYPES.INDIVIDUAL, [members]);
+
+      const isChatCreated = chats
+        .filter(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL)
+        .find(chat => chat.getMembers().find(member => member.getEmail() === email));
+      if (isChatCreated) {
+        console.log('tre');
+      } else {
+        createChatAction('', CHAT_TYPES.INDIVIDUAL, [members]);
+      }
     }
   }
 

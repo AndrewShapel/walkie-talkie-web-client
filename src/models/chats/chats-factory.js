@@ -25,16 +25,16 @@ export default class ChatsFactory {
    * @param {String} type
    * @param {String} title
    * @param {Object} owner
-   * @param {Object} users
+   * @param {Object} members
    * @returns {Object}
    */
-  static createChat(id, type, title, owner, users) {
+  static createChat(id, type, title, owner, members) {
     return new Chat({
       id,
       type,
       title,
       owner,
-      users,
+      members,
     });
   }
 

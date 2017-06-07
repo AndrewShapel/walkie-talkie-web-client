@@ -16,6 +16,7 @@ import PanelRequestsItem from './panel-requests-item/panel-requests-item';
 import panelRequestsClassNames from './panel-requests.css';
 
 /**
+ * @param {Object} Users
  * @param {Object} Friends
  * @returns {Object}
  */
@@ -99,7 +100,7 @@ export default class PanelRequests extends React.Component {
     return friendRequests.filter((friendRequest) => {
       const email = friendRequest.getFrom().getEmail();
       const status = friendRequest.getStatus();
-      
+
       return email !== accountEmail && status === FRIEND_REQUEST_STATUS.PENDING;
     }).map((friendRequest) => {
       const from = friendRequest.getFrom();

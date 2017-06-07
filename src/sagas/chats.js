@@ -14,7 +14,7 @@ export function* fetchChats() {
     const chatsResponse = yield call(getChats);
     const responseData = chatsResponse.data;
 
-    put(setChats(responseData.data.me.chats));
+    yield put(setChats(responseData.data.me.chats));
   } catch (exception) {
     logger.error(exception);
   }
