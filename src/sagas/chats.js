@@ -2,9 +2,21 @@ import { takeEvery, call } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 
-import { createChat } from '../api/graphql/chats';
+import { getChats, createChat } from '../api/graphql/chats';
 
-import { CREATE_CHAT } from '../action-types/chats';
+import { GET_CHATS, CREATE_CHAT } from '../action-types/chats';
+
+/**
+ * @returns {Object}
+ */
+export function* fetchChats() {
+  try {
+    const chatsReponse = yield call(getChats);
+    console.log(chatsReponse);
+  } catch (exception) {
+    logger.error(exception);
+  }
+}
 
 /**
  * @param {Object} action
@@ -24,5 +36,6 @@ export function* fetchCreateChat(action) {
  * @returns {Object}
  */
 export function* chatsSaga() {
+  yield takeEvery(GET_CHATS, fetchChats);
   yield takeEvery(CREATE_CHAT, fetchCreateChat);
 }

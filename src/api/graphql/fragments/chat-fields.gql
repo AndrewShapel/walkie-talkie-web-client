@@ -1,0 +1,7 @@
+fragment chatFields on Chat {
+  id
+  type
+  title
+  owner
+  users
+}

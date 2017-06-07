@@ -1,3 +1,11 @@
+export const GET_CHATS = 'chats:GET_CHATS';
+/**
+ * @returns {Object}
+ */
+export const getChats = () => ({
+  type: GET_CHATS,
+});
+
 export const CREATE_CHAT = 'chats:CREATE_CHAT';
 /**
  * @param {String} title
