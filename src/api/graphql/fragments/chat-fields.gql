@@ -2,6 +2,10 @@ fragment chatFields on Chat {
   id
   type
   title
-  owner
-  users
+  owner {
+    ...userFields
+  }
+  users {
+    ...userFields
+  }
 }

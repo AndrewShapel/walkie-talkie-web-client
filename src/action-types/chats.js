@@ -11,7 +11,7 @@ export const SET_CHATS = 'chats:SET_CHATS';
  * @param {Object} chats
  * @returns {Object}
  */
-export const setChats = (chats) => ({
+export const setChats = chats => ({
   type: SET_CHATS,
   payload: {
     chats,
