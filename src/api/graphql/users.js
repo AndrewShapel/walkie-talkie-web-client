@@ -2,7 +2,7 @@ import http from '../../http/http';
 
 import api from '../../constants/api/api';
 
-import getUsersQuery from './queries/get-users.gql';
+import { getUsersQuery } from './queries';
 
 /**
  * @returns {Promise}

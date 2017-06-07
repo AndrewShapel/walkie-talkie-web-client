@@ -2,7 +2,7 @@ query getFriends {
   me {
     email,
     friends {
-      email
+      ...userFields
     }
   }
 }
