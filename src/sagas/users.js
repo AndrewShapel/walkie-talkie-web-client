@@ -11,7 +11,7 @@ import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, SIGN_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -59,7 +59,7 @@ export function* signUp(action) {
 /**
  * @returns {Object}
  */
-export function* logOut() {
+export function* signOut() {
   const token = Token.getToken();
   if (token) {
     try {
@@ -95,6 +95,6 @@ export function* fetchUsers() {
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
-  yield takeEvery(LOG_OUT, logOut);
+  yield takeEvery(SIGN_OUT, signOut);
   yield takeEvery(GET_USERS, fetchUsers);
 }

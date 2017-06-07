@@ -30,12 +30,12 @@ export const signUp = (email, firstName, lastName, password) => ({
   },
 });
 
-export const LOG_OUT = 'users:LOG_OUT';
+export const SIGN_OUT = 'users:SIGN_OUT';
 /**
  * @returns {Object}
  */
-export const logOut = () => ({
-  type: LOG_OUT,
+export const signOut = () => ({
+  type: SIGN_OUT,
 });
 
 export const SET_ACCOUNT = 'users:SET_ACCOUNT';

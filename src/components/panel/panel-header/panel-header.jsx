@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux';
 import { ICONS } from '../../../constants/icons';
 import { USER_STATUS } from '../../../constants/user';
 
-import { logOut } from '../../../action-types/users';
+import { signOut } from '../../../action-types/users';
 import { makeFriendRequest } from '../../../action-types/friends';
 
 import User from '../../user/user';
@@ -23,7 +23,7 @@ import panelHeaderClassNames from './panel-header.css';
  */
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    logOutAction: logOut,
+    signOutAction: signOut,
     makeFriendRequestAction: makeFriendRequest,
   }, dispatch)
 );
@@ -32,7 +32,7 @@ const mapDispatchToProps = dispatch => (
 export default class PanelHeader extends React.Component {
 
   static propTypes = {
-    logOutAction: React.PropTypes.func.isRequired,
+    signOutAction: React.PropTypes.func.isRequired,
     makeFriendRequestAction: React.PropTypes.func.isRequired,
   };
 
@@ -48,9 +48,9 @@ export default class PanelHeader extends React.Component {
 
   @autobind
   logOut() {
-    const { logOutAction } = this.props;
+    const { signOutAction } = this.props;
 
-    logOutAction();
+    signOutAction();
   }
 
   render() {
