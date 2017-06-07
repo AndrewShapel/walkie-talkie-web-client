@@ -4,7 +4,7 @@ import { push } from 'react-router-redux';
 import logger from '../logger/logger';
 import Token from '../utils/token';
 
-import { verificationSignIn, verificationSignUp } from '../api/verification';
+import { verificationSignIn, verificationSignUp, verificationSignOut } from '../api/verification';
 import { getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
@@ -62,10 +62,16 @@ export function* signUp(action) {
 export function* logOut() {
   const token = Token.getToken();
   if (token) {
-    const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
-    Token.removeToken();
+    try {
+      const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
 
-    yield put(push(redirectTo));
+      yield call(verificationSignOut);
+      yield put(push(redirectTo));
+
+      Token.removeToken();
+    } catch (exception) {
+      logger.error(exception);
+    }
   }
 }
 

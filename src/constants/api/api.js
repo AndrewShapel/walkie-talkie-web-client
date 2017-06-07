@@ -12,6 +12,10 @@ export default {
       url: '/signin',
       method: 'POST',
     },
+    signOut: {
+      url: '/signout',
+      method: 'POST',
+    },
   },
   graphql: {
     url: '/graphql',

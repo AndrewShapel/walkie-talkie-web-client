@@ -41,3 +41,15 @@ export const verificationSignUp = (email, firstName, lastName, password) => {
     },
   });
 };
+
+/**
+ * @returns {Promise}
+ */
+export const verificationSignOut = () => {
+  const signOut = api.verification.signOut;
+
+  return http({
+    method: signOut.method,
+    url: signOut.url,
+  });
+};
