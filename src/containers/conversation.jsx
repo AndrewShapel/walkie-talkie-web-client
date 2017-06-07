@@ -68,9 +68,21 @@ export default class Conversation extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { activeConversationId } = this.props;
+    const { match, activeConversationId, setActiveConversationIdAction } = this.props;
 
-    if (activeConversationId !== nextProps.activeConversationId) {
+    const nextMatch = nextProps.match;
+    const nextActiveConversationId = nextProps.activeConversationId;
+
+    if (match && nextMatch) {
+      const conversationId = match.params.id;
+      const nextConversationId = nextMatch.params.id;
+
+      if (nextConversationId !== conversationId) {
+        setActiveConversationIdAction(nextConversationId);
+      }
+    }
+
+    if (activeConversationId !== nextActiveConversationId) {
       // getChatsAction();
     }
   }

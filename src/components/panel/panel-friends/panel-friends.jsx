@@ -85,7 +85,7 @@ export default class PanelFriends extends React.PureComponent {
         .find(chat => chat.getMembers().find(member => member.getEmail() === email));
       if (createdChat) {
         const chatId = createdChat.getId();
-        const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id/, chatId)}`;
+        const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, chatId)}`;
 
         pushAction(redirectTo);
       } else {
