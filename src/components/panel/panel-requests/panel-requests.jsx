@@ -97,9 +97,9 @@ export default class PanelRequests extends React.Component {
     const { accountEmail } = this.props;
 
     return friendRequests.filter((friendRequest) => {
-      const email = friendRequest.getEmail();
+      const email = friendRequest.getFrom().getEmail();
       const status = friendRequest.getStatus();
-
+      
       return email !== accountEmail && status === FRIEND_REQUEST_STATUS.PENDING;
     }).map((friendRequest) => {
       const from = friendRequest.getFrom();

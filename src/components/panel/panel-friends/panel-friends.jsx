@@ -62,12 +62,16 @@ export default class PanelFriends extends React.PureComponent {
   /**
    * @param {Object} user
    */
+  @autobind
   createChat(user) {
     const { createChatAction } = this.props;
 
     const email = user.getEmail();
-    if (email) {
-      createChatAction('', CHAT_TYPES.INDIVIDUAL, email);
+    if (user) {
+      const members = {
+        email,
+      };
+      createChatAction('', CHAT_TYPES.INDIVIDUAL, [members]);
     }
   }
 
@@ -91,7 +95,7 @@ export default class PanelFriends extends React.PureComponent {
         <PanelFriendsItem
           className={className}
           user={friend}
-          onClick={this.createChat}
+          onSelect={this.createChat}
           key={key}
         />
       );

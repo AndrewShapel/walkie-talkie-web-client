@@ -1,3 +1,5 @@
-mutation CreateChat($title: String, $chatType: String!, $members: [UserInput]!) {
-  createChat(title: $title, chatType: $type, members: $members)
+mutation CreateChat($title: String, $type: String!, $members: [UserInput]!) {
+  createChat(title: $title, type: $type, members: $members) {
+    ...chatFields
+  }
 }
