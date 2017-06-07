@@ -4,8 +4,11 @@ import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import { push } from 'react-router-redux';
+
 import { uniqueId } from 'lodash';
 
+import routes from '../../../constants/routes/routes';
 import { CHAT_TYPES } from '../../../constants/chat';
 
 import { getFriends } from '../../../action-types/friends';
@@ -34,6 +37,7 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getFriendsAction: getFriends,
     createChatAction: createChat,
+    pushAction: push,
   }, dispatch)
 );
 
@@ -48,6 +52,7 @@ export default class PanelFriends extends React.PureComponent {
     chats: React.PropTypes.object.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
     createChatAction: React.PropTypes.func.isRequired,
+    pushAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -67,7 +72,7 @@ export default class PanelFriends extends React.PureComponent {
    */
   @autobind
   createChat(user) {
-    const { chats, createChatAction } = this.props;
+    const { chats, createChatAction, pushAction } = this.props;
 
     const email = user.getEmail();
     if (user) {
@@ -75,11 +80,14 @@ export default class PanelFriends extends React.PureComponent {
         email,
       };
 
-      const isChatCreated = chats
+      const createdChat = chats
         .filter(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL)
         .find(chat => chat.getMembers().find(member => member.getEmail() === email));
-      if (isChatCreated) {
-        console.log('tre');
+      if (createdChat) {
+        const chatId = createdChat.getId();
+        const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id/, chatId)}`;
+
+        pushAction(redirectTo);
       } else {
         createChatAction('', CHAT_TYPES.INDIVIDUAL, [members]);
       }
