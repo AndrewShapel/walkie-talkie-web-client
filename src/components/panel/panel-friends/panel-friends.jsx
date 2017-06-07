@@ -6,7 +6,10 @@ import { bindActionCreators } from 'redux';
 
 import { uniqueId } from 'lodash';
 
+import { CHAT_TYPES } from '../../../constants/chat';
+
 import { getFriends } from '../../../action-types/friends';
+import { createChat } from '../../../action-types/chats';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
@@ -28,6 +31,7 @@ const mapStateToProps = ({ Friends }) => ({
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getFriendsAction: getFriends,
+    createChatAction: createChat,
   }, dispatch)
 );
 
@@ -40,6 +44,7 @@ export default class PanelFriends extends React.PureComponent {
     searchInputClassName: React.PropTypes.string,
     friends: React.PropTypes.object.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
+    createChatAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -48,24 +53,22 @@ export default class PanelFriends extends React.PureComponent {
     searchInputClassName: '',
   };
 
-  /**
-   * @param {String} className
-   * @param {Object} friends
-   * @returns {Object}
-   */
-  static renderFriends(className, friends) {
-    return friends.map(() => {
-      const key = uniqueId('friend_');
-      return (
-        <PanelFriendsItem className={className} key={key} />
-      );
-    });
-  }
-
   componentWillMount() {
     const { getFriendsAction } = this.props;
 
     getFriendsAction();
+  }
+
+  /**
+   * @param {Object} user
+   */
+  createChat(user) {
+    const { createChatAction } = this.props;
+
+    const email = user.getEmail();
+    if (email) {
+      createChatAction('', CHAT_TYPES.INDIVIDUAL, email);
+    }
   }
 
   /**
@@ -74,6 +77,25 @@ export default class PanelFriends extends React.PureComponent {
   @autobind
   filterFriends(filter) {
     console.log(this, filter);
+  }
+
+  /**
+   * @param {String} className
+   * @param {Object} friends
+   * @returns {Object}
+   */
+  renderFriends(className, friends) {
+    return friends.map((friend) => {
+      const key = uniqueId('friend_');
+      return (
+        <PanelFriendsItem
+          className={className}
+          user={friend}
+          onClick={this.createChat}
+          key={key}
+        />
+      );
+    });
   }
 
   render() {
@@ -87,7 +109,7 @@ export default class PanelFriends extends React.PureComponent {
           onChange={this.filterFriends}
         />
         <div className={panelFriendsClassNames['panel-friends__friends']}>
-          { PanelFriends.renderFriends(itemClassName, friends) }
+          { this.renderFriends(itemClassName, friends) }
         </div>
       </ul>
     );
