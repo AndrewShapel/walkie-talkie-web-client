@@ -19,7 +19,8 @@ import panelRequestsClassNames from './panel-requests.css';
  * @param {Object} Friends
  * @returns {Object}
  */
-const mapStateToProps = ({ Friends }) => ({
+const mapStateToProps = ({ Users, Friends }) => ({
+  accountEmail: Users.getAccount().getEmail(),
   friendRequests: Friends.getFriendRequests(),
 });
 
@@ -42,6 +43,7 @@ export default class PanelRequests extends React.Component {
     className: React.PropTypes.string,
     itemClassName: React.PropTypes.string,
     searchInputClassName: React.PropTypes.string,
+    accountEmail: React.PropTypes.string.isRequired,
     friendRequests: React.PropTypes.object.isRequired,
     getFriendRequestsAction: React.PropTypes.func.isRequired,
     declineFriendRequestAction: React.PropTypes.func.isRequired,
@@ -92,9 +94,13 @@ export default class PanelRequests extends React.Component {
    */
   @autobind
   renderFriendRequests(className, friendRequests) {
+    const { accountEmail } = this.props;
+
     return friendRequests.filter((friendRequest) => {
+      const email = friendRequest.getEmail();
       const status = friendRequest.getStatus();
-      return status === FRIEND_REQUEST_STATUS.PENDING;
+
+      return email !== accountEmail && status === FRIEND_REQUEST_STATUS.PENDING;
     }).map((friendRequest) => {
       const from = friendRequest.getFrom();
       const key = uniqueId('friendRequest_');

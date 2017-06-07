@@ -12,12 +12,14 @@ import panelFriendsItemClassNames from './panel-friends-item.css';
 export default class PanelFriendsItem extends React.PureComponent {
 
   static propTypes = {
+    className: React.PropTypes.string,
     user: React.PropTypes.instanceOf(User),
     isActive: React.PropTypes.bool,
     onSelect: React.PropTypes.func,
   };
 
   static defaultProps = {
+    className: '',
     user: new User(),
     isActive: false,
     onSelect: null,
@@ -33,11 +35,11 @@ export default class PanelFriendsItem extends React.PureComponent {
   }
 
   render() {
-    const { isActive } = this.props;
+    const { className, isActive } = this.props;
 
     const friendsItemClassName = classnames(panelFriendsItemClassNames['panel-friends-item'], {
       [panelFriendsItemClassNames['panel-friends-item_active']]: isActive,
-    });
+    }, className);
 
     return (
       <li className={friendsItemClassName} onClick={this.onClick}>
