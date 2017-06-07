@@ -3,10 +3,7 @@ import http from '../../http/http';
 import api from '../../constants/api/api';
 
 import { getFriendsQuery, getFriendRequestsQuery } from './queries';
-
-import makeFriendRequestMutation from './mutations/make-friend-request.gql';
-import acceptFriendRequestMutation from './mutations/accept-friend-request.gql';
-import declineFriendRequestMutation from './mutations/decline-friend-request.gql';
+import { makeFriendRequestMutation, acceptFriendRequestMutation, declineFriendRequestMutation } from './mutations';
 
 /**
  * @returns {Promise}
