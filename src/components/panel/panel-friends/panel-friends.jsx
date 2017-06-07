@@ -22,11 +22,13 @@ import panelFriendsClassNames from './panel-friends.css';
 /**
  * @param {Object} Friends
  * @param {Object} Chats
+ * @param {Object} Conversations
  * @returns {Object}
  */
-const mapStateToProps = ({ Friends, Chats }) => ({
+const mapStateToProps = ({ Friends, Chats, Conversations }) => ({
   friends: Friends.getFriends(),
   chats: Chats.getChats(),
+  activeConversationId: Conversations.getActiveId(),
 });
 
 /**
@@ -50,6 +52,7 @@ export default class PanelFriends extends React.PureComponent {
     searchInputClassName: React.PropTypes.string,
     friends: React.PropTypes.object.isRequired,
     chats: React.PropTypes.object.isRequired,
+    activeConversationId: React.PropTypes.string.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
     createChatAction: React.PropTypes.func.isRequired,
     pushAction: React.PropTypes.func.isRequired,
@@ -60,6 +63,17 @@ export default class PanelFriends extends React.PureComponent {
     itemClassName: '',
     searchInputClassName: '',
   };
+
+  /**
+   * @param {Object} chats
+   * @param {String} email
+   * @returns {Object}
+   */
+  static getCreatedChat(chats, email) {
+    return chats
+      .filter(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL)
+      .find(chat => chat.getMembers().find(member => member.getEmail() === email));
+  }
 
   componentWillMount() {
     const { getFriendsAction } = this.props;
@@ -80,9 +94,7 @@ export default class PanelFriends extends React.PureComponent {
         email,
       };
 
-      const createdChat = chats
-        .filter(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL)
-        .find(chat => chat.getMembers().find(member => member.getEmail() === email));
+      const createdChat = PanelFriends.getCreatedChat(chats, email);
       if (createdChat) {
         const chatId = createdChat.getId();
         const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, chatId)}`;
@@ -105,15 +117,20 @@ export default class PanelFriends extends React.PureComponent {
   /**
    * @param {String} className
    * @param {Object} friends
+   * @param {String} chats
+   * @param {String} activeConversationId
    * @returns {Object}
    */
-  renderFriends(className, friends) {
+  renderFriends(className, friends, chats, activeConversationId) {
     return friends.map((friend) => {
+      const createdChat = PanelFriends.getCreatedChat(chats, friend.getEmail());
+      const isActive = createdChat.getId() === activeConversationId;
       const key = uniqueId('friend_');
       return (
         <PanelFriendsItem
           className={className}
           user={friend}
+          isActive={isActive}
           onSelect={this.createChat}
           key={key}
         />
@@ -122,8 +139,7 @@ export default class PanelFriends extends React.PureComponent {
   }
 
   render() {
-    const { className, itemClassName, searchInputClassName, friends } = this.props;
-
+    const { className, itemClassName, searchInputClassName, friends, chats, activeConversationId } = this.props;
     return (
       <ul className={className}>
         <SearchInput
@@ -132,7 +148,7 @@ export default class PanelFriends extends React.PureComponent {
           onChange={this.filterFriends}
         />
         <div className={panelFriendsClassNames['panel-friends__friends']}>
-          { this.renderFriends(itemClassName, friends) }
+          { this.renderFriends(itemClassName, friends, chats, activeConversationId) }
         </div>
       </ul>
     );
