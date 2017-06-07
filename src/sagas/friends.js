@@ -81,6 +81,9 @@ export function* fetchDeclineFriendRequest(action) {
   }
 }
 
+/**
+ * @returns {Object}
+ */
 export function* friendsSaga() {
   yield takeEvery(GET_FRIENDS, fetchFriends);
   yield takeEvery(GET_FRIEND_REQUESTS, fetchFriendRequests);
