@@ -24,4 +24,12 @@ export default class Chats extends Structure {
   setChats(chats) {
     return this.set('chats', chats);
   }
+
+  /**
+   * @param {String} email
+   * @returns {Object}
+   */
+  getChatsByMemberEmail(email) {
+    return this.getChats().filter(chat => chat.getMembers().find(member => member.getEmail() === email));
+  }
 }

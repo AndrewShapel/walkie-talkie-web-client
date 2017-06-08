@@ -27,7 +27,7 @@ import panelFriendsClassNames from './panel-friends.css';
  */
 const mapStateToProps = ({ Friends, Chats, Conversations }) => ({
   friends: Friends.getFriends(),
-  chats: Chats.getChats(),
+  chats: Chats,
   activeConversationId: Conversations.getActiveId(),
 });
 
@@ -71,8 +71,8 @@ export default class PanelFriends extends React.PureComponent {
    */
   static getCreatedChat(chats, email) {
     return chats
-      .filter(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL)
-      .find(chat => chat.getMembers().find(member => member.getEmail() === email));
+      .getChatsByMemberEmail(email)
+      .find(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL);
   }
 
   componentWillMount() {
@@ -124,8 +124,9 @@ export default class PanelFriends extends React.PureComponent {
   renderFriends(className, friends, chats, activeConversationId) {
     return friends.map((friend) => {
       const createdChat = PanelFriends.getCreatedChat(chats, friend.getEmail());
-      const isActive = createdChat.getId() === activeConversationId;
+      const isActive = createdChat && createdChat.getId() === activeConversationId;
       const key = uniqueId('friend_');
+
       return (
         <PanelFriendsItem
           className={className}
@@ -140,6 +141,7 @@ export default class PanelFriends extends React.PureComponent {
 
   render() {
     const { className, itemClassName, searchInputClassName, friends, chats, activeConversationId } = this.props;
+
     return (
       <ul className={className}>
         <SearchInput

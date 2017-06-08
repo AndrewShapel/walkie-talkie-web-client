@@ -105,6 +105,7 @@ export default class PanelRequests extends React.Component {
     }).map((friendRequest) => {
       const from = friendRequest.getFrom();
       const key = uniqueId('friendRequest_');
+
       return (
         <PanelRequestsItem
           className={className}
