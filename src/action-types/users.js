@@ -38,16 +38,22 @@ export const signOut = () => ({
   type: SIGN_OUT,
 });
 
+export const GET_ACCOUNT = 'users:GET_ACCOUNT';
+/**
+ * @returns {Object}
+ */
+export const getAccount = () => ({
+  type: GET_ACCOUNT,
+});
+
 export const SET_ACCOUNT = 'users:SET_ACCOUNT';
 /**
- * @param {String} id
  * @param {String} email
  * @returns {Object}
  */
-export const setAccount = (id, email) => ({
+export const setAccount = email => ({
   type: SET_ACCOUNT,
   payload: {
-    id,
     email,
   },
 });

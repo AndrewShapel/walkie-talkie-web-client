@@ -5,13 +5,13 @@ import logger from '../logger/logger';
 import Token from '../utils/token';
 
 import { verificationSignIn, verificationSignUp, verificationSignOut } from '../api/verification';
-import { getUsers } from '../api/graphql/users';
+import { getAccount, getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, SIGN_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, SIGN_OUT, GET_ACCOUNT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -78,6 +78,21 @@ export function* signOut() {
 /**
  * @returns {Object}
  */
+export function* fetchAccount() {
+  const accountResponse = yield call(getAccount);
+  const responseData = accountResponse.data;
+
+  try {
+    yield put(setAccount(responseData.data.me.email));
+    yield put(setAccountPermission(USER_PERMISSION.BASIC));
+  } catch (exception) {
+    logger.error(exception);
+  }
+}
+
+/**
+ * @returns {Object}
+ */
 export function* fetchUsers() {
   const usersResponse = yield call(getUsers);
   const responseData = usersResponse.data;
@@ -96,5 +111,6 @@ export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
   yield takeEvery(SIGN_OUT, signOut);
+  yield takeEvery(GET_ACCOUNT, fetchAccount);
   yield takeEvery(GET_USERS, fetchUsers);
 }

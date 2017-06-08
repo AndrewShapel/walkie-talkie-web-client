@@ -1,6 +1,5 @@
 query getFriends {
   me {
-    email,
     friends {
       ...userFields
     }
