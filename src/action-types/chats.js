@@ -32,3 +32,16 @@ export const createChat = (title, type, members) => ({
     members,
   },
 });
+
+export const OPEN_CHAT = 'chats:OPEN_CHAT';
+/**
+ * @param {Array} members
+ * @param {String} type
+ */
+export const openChat = (members, type) => ({
+  type: OPEN_CHAT,
+  payload: {
+    members,
+    type,
+  },
+});

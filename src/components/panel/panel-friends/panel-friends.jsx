@@ -4,15 +4,12 @@ import autobind from 'autobind-decorator';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { push } from 'react-router-redux';
-
 import { uniqueId } from 'lodash';
 
-import routes from '../../../constants/routes/routes';
 import { CHAT_TYPES } from '../../../constants/chat';
 
 import { getFriends } from '../../../action-types/friends';
-import { createChat } from '../../../action-types/chats';
+import { openChat } from '../../../action-types/chats';
 
 import SearchInput from '../../search/search-input/search-input';
 import PanelFriendsItem from './panel-friends-item/panel-friends-item';
@@ -38,8 +35,7 @@ const mapStateToProps = ({ Friends, Chats, Conversations }) => ({
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     getFriendsAction: getFriends,
-    createChatAction: createChat,
-    pushAction: push,
+    openChatAction: openChat,
   }, dispatch)
 );
 
@@ -54,8 +50,7 @@ export default class PanelFriends extends React.PureComponent {
     chats: React.PropTypes.object.isRequired,
     activeConversationId: React.PropTypes.string.isRequired,
     getFriendsAction: React.PropTypes.func.isRequired,
-    createChatAction: React.PropTypes.func.isRequired,
-    pushAction: React.PropTypes.func.isRequired,
+    openChatAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -85,24 +80,12 @@ export default class PanelFriends extends React.PureComponent {
    * @param {Object} user
    */
   @autobind
-  createOrOpenChat(user) {
-    const { chats, createChatAction, pushAction } = this.props;
+  openChat(user) {
+    const { openChatAction } = this.props;
 
-    const email = user.getEmail();
     if (user) {
-      const members = {
-        email,
-      };
-
-      const createdChat = PanelFriends.getCreatedChat(chats, email);
-      if (createdChat) {
-        const chatId = createdChat.getId();
-        const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, chatId)}`;
-
-        pushAction(redirectTo);
-      } else {
-        createChatAction('', CHAT_TYPES.INDIVIDUAL, [members]);
-      }
+      const email = user.getEmail();
+      openChatAction([email], CHAT_TYPES.INDIVIDUAL);
     }
   }
 
@@ -132,7 +115,7 @@ export default class PanelFriends extends React.PureComponent {
           className={className}
           user={friend}
           isActive={isActive}
-          onSelect={this.createOrOpenChat}
+          onSelect={this.openChat}
           key={key}
         />
       );
