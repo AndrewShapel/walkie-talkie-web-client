@@ -85,7 +85,7 @@ export default class PanelFriends extends React.PureComponent {
    * @param {Object} user
    */
   @autobind
-  createChat(user) {
+  createOrOpenChat(user) {
     const { chats, createChatAction, pushAction } = this.props;
 
     const email = user.getEmail();
@@ -132,7 +132,7 @@ export default class PanelFriends extends React.PureComponent {
           className={className}
           user={friend}
           isActive={isActive}
-          onSelect={this.createChat}
+          onSelect={this.createOrOpenChat}
           key={key}
         />
       );

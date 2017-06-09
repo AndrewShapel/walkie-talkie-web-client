@@ -42,10 +42,10 @@ export default class Permit extends React.PureComponent {
    * @returns {Boolean}
    */
   static isAllow(permission, accountPermission) {
-    const isPermissionHighter = accountPermission === USER_PERMISSION.BASIC && permission === USER_PERMISSION.VIEW_ONLY;
+    const isPermissionHigher = accountPermission === USER_PERMISSION.BASIC && permission === USER_PERMISSION.VIEW_ONLY;
     const isPermissionAdvanced = accountPermission === USER_PERMISSION.ADVANCED;
 
-    return accountPermission === permission || isPermissionHighter || isPermissionAdvanced;
+    return accountPermission === permission || isPermissionHigher || isPermissionAdvanced;
   }
 
   render() {
