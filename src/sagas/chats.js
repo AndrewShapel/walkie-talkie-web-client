@@ -33,9 +33,11 @@ export function* fetchCreateChat(action) {
   const { title, type, members } = action.payload;
 
   try {
-    yield call(createChat, title, type, members);
+    return yield call(createChat, title, type, members);
   } catch (exception) {
     logger.error(exception);
+
+    return null;
   }
 }
 
@@ -65,10 +67,10 @@ export function* fetchOpenChat(action) {
     const newAction = createChatAction('', CHAT_TYPES.INDIVIDUAL, convertedMember);
 
     try {
-      const chatResponse = yield call(fetchCreateChat, newAction);
+      const chatResponse = yield fetchCreateChat(newAction);
       const responseData = chatResponse.data;
 
-      const createdChatId = responseData.createChat.id;
+      const createdChatId = responseData.data.createChat.id;
       const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, createdChatId)}`;
 
       yield put(push(redirectTo));
