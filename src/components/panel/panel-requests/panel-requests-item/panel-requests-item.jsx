@@ -2,8 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import autobind from 'autobind-decorator';
 
-import User from '../../../../models/users/user';
-
 import { ICONS } from '../../../../constants/icons';
 
 import Svg from '../../../svg/svg';
@@ -15,14 +13,13 @@ export default class PanelRequestsItem extends React.PureComponent {
 
   static propTypes = {
     className: React.PropTypes.string,
-    user: React.PropTypes.instanceOf(User),
+    user: React.PropTypes.object.isRequired,
     onDecline: React.PropTypes.func,
     onAccept: React.PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
-    user: new User(),
     onDecline: null,
     onAccept: null,
   };
@@ -46,7 +43,7 @@ export default class PanelRequestsItem extends React.PureComponent {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, user } = this.props;
 
     const iconClassName = panelRequestsClassNames['panel-requests-item__icon'];
     const iconBlockedClassName = classnames(iconClassName, panelRequestsClassNames['panel-requests-item__icon_block']);
@@ -54,7 +51,7 @@ export default class PanelRequestsItem extends React.PureComponent {
 
     return (
       <li className={className}>
-        <PanelContentUser />
+        <PanelContentUser user={user} />
         <div className={panelRequestsClassNames['panel-requests-item__icons']}>
           <Svg
             className={iconBlockedClassName}

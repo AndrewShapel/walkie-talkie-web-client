@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ICONS } from '../../../constants/icons';
-import { USER_STATUS } from '../../../constants/user';
 
 import { signOut } from '../../../action-types/users';
 import { makeFriendRequest } from '../../../action-types/friends';
@@ -18,6 +17,14 @@ import DropdownSettings from '../../dropdown/dropdown-settings/dropdown-settings
 import panelHeaderClassNames from './panel-header.css';
 
 /**
+ * @param {Object} Users
+ * @returns {Object}
+ */
+const mapStateToProps = ({ Users }) => ({
+  account: Users.getAccount(),
+});
+
+/**
  * @param {Function} dispatch
  * @returns {Object}
  */
@@ -28,10 +35,11 @@ const mapDispatchToProps = dispatch => (
   }, dispatch)
 );
 
-@connect(null, mapDispatchToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class PanelHeader extends React.Component {
 
   static propTypes = {
+    account: React.PropTypes.object.isRequired,
     signOutAction: React.PropTypes.func.isRequired,
     makeFriendRequestAction: React.PropTypes.func.isRequired,
   };
@@ -54,15 +62,15 @@ export default class PanelHeader extends React.Component {
   }
 
   render() {
+    const { account } = this.props;
+
     return (
       <div className={panelHeaderClassNames['panel-header']}>
         <User
           className={panelHeaderClassNames['panel-header__user']}
           userNameClassName={panelHeaderClassNames['panel-header__user-name']}
           userStatusClassName={panelHeaderClassNames['panel-header__user-status']}
-          userStatus={USER_STATUS.ONLINE}
-          userName="Andrew Shapel"
-          userStatusName="Online"
+          user={account}
         />
         <div className={panelHeaderClassNames['panel-header__icons']}>
           <DropdownSearchUser
