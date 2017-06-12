@@ -59,17 +59,6 @@ export default class PanelFriends extends React.PureComponent {
     searchInputClassName: '',
   };
 
-  /**
-   * @param {Object} chats
-   * @param {String} email
-   * @returns {Object}
-   */
-  static getCreatedChat(chats, email) {
-    return chats
-      .getChatsByMemberEmail(email)
-      .find(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL);
-  }
-
   componentWillMount() {
     const { getFriendsAction } = this.props;
 
@@ -106,7 +95,9 @@ export default class PanelFriends extends React.PureComponent {
    */
   renderFriends(className, friends, chats, activeConversationId) {
     return friends.map((friend) => {
-      const createdChat = PanelFriends.getCreatedChat(chats, friend.getEmail());
+      const createdChat = chats
+        .getChatsByMemberEmail(friend.getEmail())
+        .find(chat => chat.getType() === CHAT_TYPES.INDIVIDUAL);
       const isActive = createdChat && createdChat.getId() === activeConversationId;
       const key = uniqueId('friend_');
 

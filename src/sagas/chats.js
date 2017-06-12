@@ -9,7 +9,7 @@ import { CHAT_TYPES } from '../constants/chat';
 
 import { getChats, createChat } from '../api/graphql/chats';
 
-import { GET_CHATS, CREATE_CHAT, OPEN_CHAT, setChats } from '../action-types/chats';
+import { GET_CHATS, CREATE_CHAT, OPEN_CHAT, setChats, createChat as createChatAction } from '../action-types/chats';
 
 /**
  * @returns {Object}
@@ -62,15 +62,19 @@ export function* fetchOpenChat(action) {
     const convertedMember = {
       email: firstMemberEmail,
     };
-    const newAction = {
-      title: '',
-      type,
-      members: convertedMember,
-    };
+    const newAction = createChatAction('', CHAT_TYPES.INDIVIDUAL, convertedMember);
 
-    const chatResponse = yield call(fetchCreateChat(newAction));
-    const responseData = chatResponse.data;
-    console.log(responseData);
+    try {
+      const chatResponse = yield call(fetchCreateChat, newAction);
+      const responseData = chatResponse.data;
+
+      const createdChatId = responseData.createChat.id;
+      const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, createdChatId)}`;
+
+      yield put(push(redirectTo));
+    } catch (exception) {
+      logger.error(exception);
+    }
   }
 }
 
