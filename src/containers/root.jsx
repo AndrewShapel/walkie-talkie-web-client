@@ -9,7 +9,7 @@ import { bindActionCreators } from 'redux';
 import routes from '../constants/routes/routes';
 import { USER_PERMISSION } from '../constants/user';
 
-import { setAccountPermission } from '../action-types/users';
+import { getAccount, setAccountPermission } from '../action-types/users';
 
 import Token from '../utils/token';
 
@@ -35,6 +35,7 @@ const mapStateToProps = ({ Users }) => ({
  */
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
+    getAccountAction: getAccount,
     setAccountPermissionAction: setAccountPermission,
   }, dispatch)
 );
@@ -45,6 +46,7 @@ export default class Root extends React.Component {
   static propTypes = {
     history: React.PropTypes.object,
     accountPermission: React.PropTypes.string,
+    getAccountAction: React.PropTypes.func.isRequired,
     setAccountPermissionAction: React.PropTypes.func.isRequired,
   };
 
@@ -54,9 +56,10 @@ export default class Root extends React.Component {
   };
 
   componentWillMount() {
-    const { accountPermission, setAccountPermissionAction } = this.props;
+    const { accountPermission, getAccountAction, setAccountPermissionAction } = this.props;
     if (accountPermission === USER_PERMISSION.VIEW_ONLY && Token.getToken()) {
       setAccountPermissionAction(USER_PERMISSION.BASIC);
+      getAccountAction();
     }
   }
 
