@@ -73,6 +73,7 @@ export function* fetchOpenChat(action) {
       const createdChatId = responseData.data.createChat.id;
       const redirectTo = `${routes.conversation.url.base}${routes.conversation.url.specific.replace(/:id\?/, createdChatId)}`;
 
+      yield call(fetchChats);
       yield put(push(redirectTo));
     } catch (exception) {
       logger.error(exception);
