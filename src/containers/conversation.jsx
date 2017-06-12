@@ -8,6 +8,7 @@ import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
 import { getChats } from '../action-types/chats';
+import { open } from '../action-types/connections';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
@@ -32,6 +33,7 @@ const mapDispatchToProps = dispatch => (
     setActiveConversationIdAction: setActiveId,
     resetActiveConversationIdAction: resetActiveId,
     getChatsAction: getChats,
+    openConnectionsAction: open,
   }, dispatch)
 );
 
@@ -45,6 +47,7 @@ export default class Conversation extends React.Component {
     setActiveConversationIdAction: React.PropTypes.func.isRequired,
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
+    openConnectionsAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -53,7 +56,14 @@ export default class Conversation extends React.Component {
   };
 
   componentWillMount() {
-    const { match, activeConversationId, setActiveConversationIdAction, resetActiveConversationIdAction, getChatsAction } = this.props;
+    const {
+      match,
+      activeConversationId,
+      setActiveConversationIdAction,
+      resetActiveConversationIdAction,
+      getChatsAction,
+      openConnectionsAction,
+    } = this.props;
 
     if (match) {
       const conversationId = match.params.id;
@@ -65,6 +75,7 @@ export default class Conversation extends React.Component {
     }
 
     getChatsAction();
+    openConnectionsAction();
   }
 
   componentWillUpdate(nextProps) {
