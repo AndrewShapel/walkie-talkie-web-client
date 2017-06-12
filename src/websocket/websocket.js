@@ -14,8 +14,10 @@ class WS {
 
   open() {
     /* eslint-disable no-underscore-dangle, no-undef */
-    this.instance = new WebSocket(`ws://${__ENDPOINT__}`);
+    const location = `${window.location.host}${__SIGNAL__}`;
     /* eslint-enable no-underscore-dangle, no-undef */
+
+    this.instance = new WebSocket(`ws://${location}`);
   }
 
   close() {

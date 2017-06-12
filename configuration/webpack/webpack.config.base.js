@@ -88,7 +88,8 @@ module.exports = {
       },
       __DEV__: process.env.NODE_ENV === 'development',
       __PROD__: process.env.NODE_ENV === 'production',
-      __ENDPOINT__: JSON.stringify(process.env.ENDPOINT || '/api')
+      __ENDPOINT__: JSON.stringify(process.env.ENDPOINT || '/api'),
+      __SIGNAL__: JSON.stringify(process.env.SIGNAL || '/signal'),
     }),
     new webpack.NamedModulesPlugin(),
   ],

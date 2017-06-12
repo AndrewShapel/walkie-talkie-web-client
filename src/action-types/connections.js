@@ -13,3 +13,25 @@ export const CLOSE = 'connections:CLOSE';
 export const close = () => ({
   type: CLOSE,
 });
+
+export const JOIN_CHAT = 'connections:JOIN_CHAT';
+/**
+ * @param {String} chatId
+ * @param {String} email
+ * @returns {Object}
+ */
+export const joinChat = (chatId, email) => ({
+  type: JOIN_CHAT,
+  payload: {
+    chatId,
+    email,
+  },
+});
+
+export const JOIN_CHATS = 'connections:JOIN_CHATS';
+/**
+ * @returns {Object}
+ */
+export const joinChats = () => ({
+  type: JOIN_CHATS,
+});

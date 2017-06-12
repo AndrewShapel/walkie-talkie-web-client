@@ -8,7 +8,7 @@ import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
 import { getChats } from '../action-types/chats';
-import { open } from '../action-types/connections';
+import { open, joinChats } from '../action-types/connections';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
@@ -18,10 +18,12 @@ import chatClassNames from '../assets/css/containers/conversation/conversation.c
 
 /**
  * @param {Object} Conversations
+ * @param {Object} Chats
  * @returns {Object}
  */
-const mapStateToProps = ({ Conversations }) => ({
+const mapStateToProps = ({ Conversations, Chats }) => ({
   activeConversationId: Conversations.getActiveId(),
+  chats: Chats.getChats(),
 });
 
 /**
@@ -34,6 +36,7 @@ const mapDispatchToProps = dispatch => (
     resetActiveConversationIdAction: resetActiveId,
     getChatsAction: getChats,
     openConnectionsAction: open,
+    joinChatsAction: joinChats,
   }, dispatch)
 );
 
@@ -44,10 +47,12 @@ export default class Conversation extends React.Component {
     match: React.PropTypes.object,
     history: React.PropTypes.object,
     activeConversationId: React.PropTypes.string.isRequired,
+    chats: React.PropTypes.object.isRequired,
     setActiveConversationIdAction: React.PropTypes.func.isRequired,
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
     openConnectionsAction: React.PropTypes.func.isRequired,
+    joinChatsAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -79,10 +84,10 @@ export default class Conversation extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { match, activeConversationId, setActiveConversationIdAction } = this.props;
+    const { match, chats, setActiveConversationIdAction, joinChatsAction } = this.props;
 
     const nextMatch = nextProps.match;
-    const nextActiveConversationId = nextProps.activeConversationId;
+    const nextChats = nextProps.chats;
 
     if (match && nextMatch) {
       const conversationId = match.params.id;
@@ -93,8 +98,8 @@ export default class Conversation extends React.Component {
       }
     }
 
-    if (activeConversationId !== nextActiveConversationId) {
-      // getChatsAction();
+    if (chats.size !== nextChats.size) {
+      joinChatsAction();
     }
   }
 
