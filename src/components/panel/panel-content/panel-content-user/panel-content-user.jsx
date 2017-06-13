@@ -6,17 +6,12 @@ import panelContentUserClassNames from './panel-content-user.css';
 
 export default class PanelContentUser extends React.PureComponent {
 
-  static propTypes = {
-    className: React.PropTypes.string,
-    user: React.PropTypes.object.isRequired,
-  };
+  static propTypes = Object.assign({}, User.propTypes);
 
-  static defaultProps = {
-    className: '',
-  };
+  static defaultProps = Object.assign({}, User.defaultProps);
 
   render() {
-    const { className, user } = this.props;
+    const { className, user, isShort } = this.props;
 
     return (
       <User
@@ -24,6 +19,7 @@ export default class PanelContentUser extends React.PureComponent {
         userNameClassName={panelContentUserClassNames['panel-content-user__name']}
         userStatusClassName={panelContentUserClassNames['panel-content-user__status']}
         user={user}
+        isShort={isShort}
       />
     );
   }

@@ -98,12 +98,13 @@ export default class PanelRequests extends React.Component {
     const { accountEmail } = this.props;
 
     return friendRequests.filter((friendRequest) => {
-      const email = friendRequest.getFrom().getEmail();
       const status = friendRequest.getStatus();
-
-      return email !== accountEmail && status === FRIEND_REQUEST_STATUS.PENDING;
+      return status === FRIEND_REQUEST_STATUS.PENDING;
     }).map((friendRequest) => {
       const from = friendRequest.getFrom();
+      const email = from.getEmail();
+
+      const isDisabled = email === accountEmail;
       const key = uniqueId('friendRequest_');
 
       return (
@@ -112,6 +113,7 @@ export default class PanelRequests extends React.Component {
           user={from}
           onDecline={this.decline}
           onAccept={this.accept}
+          isDisabled={isDisabled}
           key={key}
         />
       );
