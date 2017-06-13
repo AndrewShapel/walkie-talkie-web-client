@@ -2,6 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+import { uniqueId } from 'lodash';
+
 import User from '../../user/user';
 import SearchInputExpand from '../../search/search-input-expand/search-input-expand';
 import CallActions from '../../call/call-actions/call-actions';
@@ -27,7 +29,7 @@ export default class ChatHeader extends React.Component {
   };
 
   static defaultProps = {
-    activeChat: {},
+    activeChat: null,
   };
 
   /**
@@ -35,12 +37,17 @@ export default class ChatHeader extends React.Component {
    * @returns {Object}
    */
   static renderMembers(members) {
-    return members.map(member => (
-      <User
-        className={chatHeaderClassNames['chat-header__user']}
-        user={member}
-      />
-    ));
+    return members.map((member) => {
+      const key = uniqueId('member_');
+
+      return (
+        <User
+          className={chatHeaderClassNames['chat-header__user']}
+          user={member}
+          key={key}
+        />
+      );
+    });
   }
 
   render() {
