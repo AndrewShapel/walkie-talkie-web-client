@@ -26,6 +26,14 @@ export default class Chats extends Structure {
   }
 
   /**
+   * @param {String} id
+   * @returns {Object}
+   */
+  getChatById(id) {
+    return this.getChats().find(chat => chat.getId() === id);
+  }
+
+  /**
    * @param {String} email
    * @returns {Object}
    */

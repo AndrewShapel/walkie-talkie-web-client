@@ -9,6 +9,10 @@
   background-color: var(--color-white);
   box-shadow: 0 4px 6px -6px var(--color-black);
 
+  &__members {
+    display: flex;
+  }
+
   &__user {
     margin: 13px 13px 13px 28px;
   }
