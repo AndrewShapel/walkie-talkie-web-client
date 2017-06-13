@@ -13,10 +13,12 @@ export default class User extends React.PureComponent {
   static propTypes = Object.assign({}, UserAvatar.propTypes, UserInformation.propTypes, {
     className: React.PropTypes.string,
     user: React.PropTypes.object.isRequired,
+    isShort: React.PropTypes.bool,
   });
 
   static defaultProps = Object.assign({}, UserAvatar.defaultProps, UserInformation.defaultProps, {
     className: '',
+    isShort: false,
   });
 
   /**
@@ -37,13 +39,13 @@ export default class User extends React.PureComponent {
   }
 
   render() {
-    const { className, userNameClassName, userStatusClassName, user } = this.props;
+    const { className, userNameClassName, userStatusClassName, user, isShort } = this.props;
 
     const userClassName = classnames(userClassNames.user, className);
 
-    const userStatus = user.getStatus();
+    const userStatus = (!isShort) ? user.getStatus() : null;
+    const userStatusName = (!isShort) ? User.getStatusName(userStatus) : null;
     const userName = user.getFullName();
-    const userStatusName = User.getStatusName(userStatus);
 
     return (
       <div className={userClassName}>

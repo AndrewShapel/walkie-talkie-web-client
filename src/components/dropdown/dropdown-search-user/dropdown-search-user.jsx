@@ -63,7 +63,7 @@ class DropdownSearchUser extends React.Component {
         className: itemClassName,
         id: email,
         content: (
-          <User user={user} />
+          <User user={user} isShort />
         ),
       };
     }).toArray();
