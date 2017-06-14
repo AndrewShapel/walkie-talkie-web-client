@@ -104,13 +104,13 @@ export default class Conversation extends React.Component {
       }
     }
 
-    if (chats.size !== nextChats.size) {
-      joinChatsAction();
-    }
-
-    if (nextFriends.size > friends.size) {
+    if (nextFriends.size > friends.size && !friends.size) {
       const friendsEmails = nextFriends.map(friend => friend.getEmail()).toArray();
       signInAction(friendsEmails);
+    }
+
+    if (chats.size !== nextChats.size && (nextFriends.size || friends.size)) {
+      joinChatsAction();
     }
   }
 

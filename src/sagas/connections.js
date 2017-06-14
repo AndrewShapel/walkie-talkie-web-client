@@ -1,4 +1,4 @@
-import { takeEvery, call, select } from 'redux-saga/effects';
+import { takeEvery, select } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 import webSocket from '../websocket/websocket';
@@ -18,9 +18,9 @@ export function* open() {
 
       const webSocketInstance = webSocket.getInstance();
       if (webSocketInstance) {
-        webSocketInstance.onmessage = (message) => {
+        webSocketInstance.addEventListener('message', (message) => {
           console.log(message);
-        };
+        });
       }
     } catch (exception) {
       logger.error(exception);
@@ -50,11 +50,11 @@ export function* close() {
  * @param {Object} action
  * @returns {Object}
  */
-export function* signIn(action) {
+export function signIn(action) {
   const { friendsEmails } = action.payload;
 
-  const webSockerInstance = webSocket.getInstance();
-  if (webSockerInstance) {
+  const webSocketServer = webSocket.getInstance();
+  if (webSocketServer) {
     const token = Token.getToken();
 
     try {
@@ -64,12 +64,10 @@ export function* signIn(action) {
         friends: friendsEmails,
       });
 
-      webSockerInstance.send(data);
+      webSocketServer.send(data);
     } catch (exception) {
       logger.error(exception);
     }
-
-    yield webSockerInstance;
   }
 }
 
@@ -77,7 +75,7 @@ export function* signIn(action) {
  * @param {Object} action
  * @returns {Object}
  */
-export function* fetchJoinChat(action) {
+export function fetchJoinChat(action) {
   const { chatId, email } = action.payload;
 
   const webSocketInstance = webSocket.getInstance();
@@ -93,8 +91,6 @@ export function* fetchJoinChat(action) {
     } catch (exception) {
       logger.error(exception);
     }
-
-    yield webSocketInstance;
   }
 }
 
@@ -107,12 +103,14 @@ export function* fetchJoinChats() {
   const chats = Chats.getChats();
   const accountEmail = Users.getAccount().getEmail();
 
-  yield chats.map((chat) => {
+  chats.forEach((chat) => {
     const chatId = chat.getId();
     const newAction = joinChat(chatId, accountEmail);
 
-    return call(fetchJoinChat, newAction);
+    return fetchJoinChat(newAction);
   });
+
+  yield null;
 }
 
 /**
