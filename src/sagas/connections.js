@@ -1,10 +1,11 @@
 import { takeEvery, call, select } from 'redux-saga/effects';
 
 import webSocket from '../websocket/websocket';
+import Token from '../utils/token';
 
 import { CONNECTIONS_ACTION_TYPES } from '../constants/connections';
 
-import { OPEN, CLOSE, JOIN_CHAT, JOIN_CHATS, joinChat } from '../action-types/connections';
+import { OPEN, CLOSE, SIGN_IN, JOIN_CHAT, JOIN_CHATS, joinChat } from '../action-types/connections';
 
 /**
  * @returns {Object}
@@ -12,7 +13,6 @@ import { OPEN, CLOSE, JOIN_CHAT, JOIN_CHATS, joinChat } from '../action-types/co
 export function* open() {
   if (!webSocket.getInstance()) {
     webSocket.open();
-
     yield webSocket.getInstance();
   }
 }
@@ -24,8 +24,29 @@ export function* close() {
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
     webSocketInstance.close();
-
     yield webSocketInstance;
+  }
+}
+
+/**
+ * @param {Object} action
+ * @returns {Object}
+ */
+export function* signIn(action) {
+  const { friendsEmails } = action;
+
+  const websocketInstance = webSocket.getInstance();
+  if (websocketInstance) {
+    const token = Token.getToken();
+    const data = JSON.stringify({
+      token,
+      data: {
+        friends: friendsEmails,
+      },
+    });
+
+    websocketInstance.send(data);
+    yield websocketInstance;
   }
 }
 
@@ -47,7 +68,6 @@ export function* fetchJoinChat(action) {
     });
 
     webSocketInstance.send(payload);
-
     yield webSocketInstance;
   }
 }
@@ -75,6 +95,7 @@ export function* fetchJoinChats() {
 export function* connectionsSaga() {
   yield takeEvery(OPEN, open);
   yield takeEvery(CLOSE, close);
+  yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(JOIN_CHAT, fetchJoinChat);
   yield takeEvery(JOIN_CHATS, fetchJoinChats);
 }

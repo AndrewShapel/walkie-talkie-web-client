@@ -14,6 +14,17 @@ export const close = () => ({
   type: CLOSE,
 });
 
+export const SIGN_IN = 'connections:SIGN_IN';
+/**
+ * @returns {Object}
+ */
+export const signIn = friendsEmails => ({
+  type: SIGN_IN,
+  payload: {
+    friendsEmails,
+  },
+});
+
 export const JOIN_CHAT = 'connections:JOIN_CHAT';
 /**
  * @param {String} chatId

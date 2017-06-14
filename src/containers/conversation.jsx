@@ -8,7 +8,7 @@ import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
 import { getChats } from '../action-types/chats';
-import { open, joinChats } from '../action-types/connections';
+import { open, signIn, joinChats } from '../action-types/connections';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
@@ -36,6 +36,7 @@ const mapDispatchToProps = dispatch => (
     resetActiveConversationIdAction: resetActiveId,
     getChatsAction: getChats,
     openConnectionsAction: open,
+    signInAction: signIn,
     joinChatsAction: joinChats,
   }, dispatch)
 );
@@ -52,6 +53,7 @@ export default class Conversation extends React.Component {
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
     openConnectionsAction: React.PropTypes.func.isRequired,
+    signInAction: React.PropTypes.func.isRequired,
     joinChatsAction: React.PropTypes.func.isRequired,
   };
 
@@ -68,6 +70,7 @@ export default class Conversation extends React.Component {
       resetActiveConversationIdAction,
       getChatsAction,
       openConnectionsAction,
+      signInAction,
     } = this.props;
 
     if (match) {
@@ -81,6 +84,7 @@ export default class Conversation extends React.Component {
 
     getChatsAction();
     openConnectionsAction();
+    signInAction();
   }
 
   componentWillUpdate(nextProps) {
