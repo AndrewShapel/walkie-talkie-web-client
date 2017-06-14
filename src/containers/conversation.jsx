@@ -19,11 +19,13 @@ import chatClassNames from '../assets/css/containers/conversation/conversation.c
 /**
  * @param {Object} Conversations
  * @param {Object} Chats
+ * @param {Object} Friends
  * @returns {Object}
  */
-const mapStateToProps = ({ Conversations, Chats }) => ({
+const mapStateToProps = ({ Conversations, Chats, Friends }) => ({
   activeConversationId: Conversations.getActiveId(),
   chats: Chats.getChats(),
+  friends: Friends.getFriends(),
 });
 
 /**
@@ -49,6 +51,7 @@ export default class Conversation extends React.Component {
     history: React.PropTypes.object,
     activeConversationId: React.PropTypes.string.isRequired,
     chats: React.PropTypes.object.isRequired,
+    friends: React.PropTypes.object.isRequired,
     setActiveConversationIdAction: React.PropTypes.func.isRequired,
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
@@ -70,7 +73,6 @@ export default class Conversation extends React.Component {
       resetActiveConversationIdAction,
       getChatsAction,
       openConnectionsAction,
-      signInAction,
     } = this.props;
 
     if (match) {
@@ -84,14 +86,14 @@ export default class Conversation extends React.Component {
 
     getChatsAction();
     openConnectionsAction();
-    signInAction();
   }
 
   componentWillUpdate(nextProps) {
-    const { match, chats, setActiveConversationIdAction, joinChatsAction } = this.props;
+    const { match, chats, friends, setActiveConversationIdAction, signInAction, joinChatsAction } = this.props;
 
     const nextMatch = nextProps.match;
     const nextChats = nextProps.chats;
+    const nextFriends = nextProps.friends;
 
     if (match && nextMatch) {
       const conversationId = match.params.id;
@@ -104,6 +106,11 @@ export default class Conversation extends React.Component {
 
     if (chats.size !== nextChats.size) {
       joinChatsAction();
+    }
+
+    if (nextFriends.size > friends.size) {
+      const friendsEmails = nextFriends.map(friend => friend.getEmail()).toArray();
+      signInAction(friendsEmails);
     }
   }
 

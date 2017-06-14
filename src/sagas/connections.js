@@ -1,5 +1,6 @@
 import { takeEvery, call, select } from 'redux-saga/effects';
 
+import logger from '../logger/logger';
 import webSocket from '../websocket/websocket';
 import Token from '../utils/token';
 
@@ -12,7 +13,19 @@ import { OPEN, CLOSE, SIGN_IN, JOIN_CHAT, JOIN_CHATS, joinChat } from '../action
  */
 export function* open() {
   if (!webSocket.getInstance()) {
-    webSocket.open();
+    try {
+      webSocket.open();
+
+      const webSocketInstance = webSocket.getInstance();
+      if (webSocketInstance) {
+        webSocketInstance.onmessage = (message) => {
+          console.log(message);
+        };
+      }
+    } catch (exception) {
+      logger.error(exception);
+    }
+
     yield webSocket.getInstance();
   }
 }
@@ -23,7 +36,12 @@ export function* open() {
 export function* close() {
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
-    webSocketInstance.close();
+    try {
+      webSocketInstance.close();
+    } catch (exception) {
+      logger.error(exception);
+    }
+
     yield webSocketInstance;
   }
 }
@@ -33,20 +51,25 @@ export function* close() {
  * @returns {Object}
  */
 export function* signIn(action) {
-  const { friendsEmails } = action;
+  const { friendsEmails } = action.payload;
 
-  const websocketInstance = webSocket.getInstance();
-  if (websocketInstance) {
+  const webSockerInstance = webSocket.getInstance();
+  if (webSockerInstance) {
     const token = Token.getToken();
-    const data = JSON.stringify({
-      token,
-      data: {
-        friends: friendsEmails,
-      },
-    });
 
-    websocketInstance.send(data);
-    yield websocketInstance;
+    try {
+      const data = JSON.stringify({
+        type: CONNECTIONS_ACTION_TYPES.SIGNIN,
+        token,
+        friends: friendsEmails,
+      });
+
+      webSockerInstance.send(data);
+    } catch (exception) {
+      logger.error(exception);
+    }
+
+    yield webSockerInstance;
   }
 }
 
@@ -59,15 +82,18 @@ export function* fetchJoinChat(action) {
 
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
-    const payload = JSON.stringify({
-      type: CONNECTIONS_ACTION_TYPES.JOIN_CHAT,
-      data: {
+    try {
+      const data = JSON.stringify({
+        type: CONNECTIONS_ACTION_TYPES.JOIN_CHAT,
         chatId,
         email,
-      },
-    });
+      });
 
-    webSocketInstance.send(payload);
+      webSocketInstance.send(data);
+    } catch (exception) {
+      logger.error(exception);
+    }
+
     yield webSocketInstance;
   }
 }
