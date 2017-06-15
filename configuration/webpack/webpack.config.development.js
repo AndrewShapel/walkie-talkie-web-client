@@ -24,6 +24,10 @@ module.exports = merge(baseConfig, {
       '/api': {
         target: 'http://localhost:4000',
       },
+      '/signal': {
+        target: 'ws://localhost:4000',
+        ws: true,
+      },
     },
   },
 });
