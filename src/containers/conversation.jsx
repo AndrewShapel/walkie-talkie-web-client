@@ -7,6 +7,7 @@ import routes from '../constants/routes/routes';
 import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
+import { getChats } from '../action-types/chats';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
@@ -30,6 +31,7 @@ const mapDispatchToProps = dispatch => (
   bindActionCreators({
     setActiveConversationIdAction: setActiveId,
     resetActiveConversationIdAction: resetActiveId,
+    getChatsAction: getChats,
   }, dispatch)
 );
 
@@ -39,21 +41,19 @@ export default class Conversation extends React.Component {
   static propTypes = {
     match: React.PropTypes.object,
     history: React.PropTypes.object,
-    activeConversationId: React.PropTypes.string,
-    setActiveConversationIdAction: React.PropTypes.func,
-    resetActiveConversationIdAction: React.PropTypes.func,
+    activeConversationId: React.PropTypes.string.isRequired,
+    setActiveConversationIdAction: React.PropTypes.func.isRequired,
+    resetActiveConversationIdAction: React.PropTypes.func.isRequired,
+    getChatsAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     match: {},
     history: {},
-    activeConversationId: '',
-    setActiveConversationIdAction: null,
-    resetActiveConversationIdAction: null,
   };
 
   componentWillMount() {
-    const { match, activeConversationId, setActiveConversationIdAction, resetActiveConversationIdAction } = this.props;
+    const { match, activeConversationId, setActiveConversationIdAction, resetActiveConversationIdAction, getChatsAction } = this.props;
 
     if (match) {
       const conversationId = match.params.id;
@@ -62,6 +62,28 @@ export default class Conversation extends React.Component {
       } else {
         resetActiveConversationIdAction();
       }
+    }
+
+    getChatsAction();
+  }
+
+  componentWillUpdate(nextProps) {
+    const { match, activeConversationId, setActiveConversationIdAction } = this.props;
+
+    const nextMatch = nextProps.match;
+    const nextActiveConversationId = nextProps.activeConversationId;
+
+    if (match && nextMatch) {
+      const conversationId = match.params.id;
+      const nextConversationId = nextMatch.params.id;
+
+      if (nextConversationId !== conversationId) {
+        setActiveConversationIdAction(nextConversationId);
+      }
+    }
+
+    if (activeConversationId !== nextActiveConversationId) {
+      // getChatsAction();
     }
   }
 

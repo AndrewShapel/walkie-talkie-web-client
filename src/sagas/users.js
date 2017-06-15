@@ -4,14 +4,14 @@ import { push } from 'react-router-redux';
 import logger from '../logger/logger';
 import Token from '../utils/token';
 
-import { verificationSignIn, verificationSignUp } from '../api/verification';
-import { getUsers } from '../api/graphql/users';
+import { verificationSignIn, verificationSignUp, verificationSignOut } from '../api/verification';
+import { getAccount, getUsers } from '../api/graphql/users';
 
 import routes from '../constants/routes/routes';
 import { MESSAGE_TYPES, MESSAGE_TARGETS } from '../constants/messages';
 import { USER_PERMISSION } from '../constants/user';
 
-import { SIGN_IN, SIGN_UP, LOG_OUT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
+import { SIGN_IN, SIGN_UP, SIGN_OUT, GET_ACCOUNT, GET_USERS, setAccount, setAccountPermission, setUsers } from '../action-types/users';
 import { addMessage } from '../action-types/messages';
 
 /**
@@ -59,13 +59,34 @@ export function* signUp(action) {
 /**
  * @returns {Object}
  */
-export function* logOut() {
+export function* signOut() {
   const token = Token.getToken();
   if (token) {
-    const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
-    Token.removeToken();
+    try {
+      const redirectTo = `${routes.userVerification.url.base}${routes.userVerification.url.signin}`;
 
-    yield put(push(redirectTo));
+      yield call(verificationSignOut);
+      yield put(push(redirectTo));
+
+      Token.removeToken();
+    } catch (exception) {
+      logger.error(exception);
+    }
+  }
+}
+
+/**
+ * @returns {Object}
+ */
+export function* fetchAccount() {
+  const accountResponse = yield call(getAccount);
+  const responseData = accountResponse.data;
+
+  try {
+    yield put(setAccount(responseData.data.me.email));
+    yield put(setAccountPermission(USER_PERMISSION.BASIC));
+  } catch (exception) {
+    logger.error(exception);
   }
 }
 
@@ -89,6 +110,7 @@ export function* fetchUsers() {
 export function* usersSaga() {
   yield takeEvery(SIGN_IN, signIn);
   yield takeEvery(SIGN_UP, signUp);
-  yield takeEvery(LOG_OUT, logOut);
+  yield takeEvery(SIGN_OUT, signOut);
+  yield takeEvery(GET_ACCOUNT, fetchAccount);
   yield takeEvery(GET_USERS, fetchUsers);
 }

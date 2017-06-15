@@ -7,5 +7,3 @@ export const KEYBOARD_KEYS = {
   ARROW_UP: 'ARROW_UP',
   ARROW_DOWN: 'ARROW_DOWN',
 };
-
-export const KEYBOARD = {};

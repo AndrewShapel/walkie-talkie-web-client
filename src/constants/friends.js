@@ -7,5 +7,3 @@ export const FRIEND_REQUEST_STATUS = {
   ACCEPTED: 'ACCEPTED',
   DECLINED: 'DECLINED',
 };
-
-export const TO = {};

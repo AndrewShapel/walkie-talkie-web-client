@@ -7,5 +7,3 @@ export const TABS = {
   REQUESTS: 'REQUESTS',
   ROOMS: 'ROOMS',
 };
-
-export const TAB = {};

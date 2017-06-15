@@ -30,24 +30,30 @@ export const signUp = (email, firstName, lastName, password) => ({
   },
 });
 
-export const LOG_OUT = 'users:LOG_OUT';
+export const SIGN_OUT = 'users:SIGN_OUT';
 /**
  * @returns {Object}
  */
-export const logOut = () => ({
-  type: LOG_OUT,
+export const signOut = () => ({
+  type: SIGN_OUT,
+});
+
+export const GET_ACCOUNT = 'users:GET_ACCOUNT';
+/**
+ * @returns {Object}
+ */
+export const getAccount = () => ({
+  type: GET_ACCOUNT,
 });
 
 export const SET_ACCOUNT = 'users:SET_ACCOUNT';
 /**
- * @param {String} id
  * @param {String} email
  * @returns {Object}
  */
-export const setAccount = (id, email) => ({
+export const setAccount = email => ({
   type: SET_ACCOUNT,
   payload: {
-    id,
     email,
   },
 });

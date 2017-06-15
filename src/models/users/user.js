@@ -5,11 +5,6 @@ const Structure = Record({
   /**
    * @type {String}
    */
-  id: '',
-
-  /**
-   * @type {String}
-   */
   email: '',
 
   /**
@@ -34,21 +29,6 @@ const Structure = Record({
 });
 
 export default class User extends Structure {
-
-  /**
-   * @returns {String}
-   */
-  getId() {
-    return this.get('id');
-  }
-
-  /**
-   * @param {String} id
-   * @returns {Object}
-   */
-  setId(id) {
-    return this.set('id', id);
-  }
 
   /**
    * @returns {String}

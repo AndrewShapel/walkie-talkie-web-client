@@ -37,6 +37,3 @@ export const ICONS = {
   VOLUME_HIGH: volumeHigh,
   VOLUME_MUTE: volumeMute,
 };
-
-export const ICO = {};
-

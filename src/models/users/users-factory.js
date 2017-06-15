@@ -6,13 +6,11 @@ import Account from './account';
 export default class UsersFactory {
 
   /**
-   * @param {String} id
    * @param {String} email
    * @returns {Account}
    */
-  static createAccount(id, email) {
+  static createAccount(email) {
     return new Account({
-      id,
       email,
     });
   }
@@ -22,10 +20,9 @@ export default class UsersFactory {
    * @returns {Object}
    */
   static createUser(user) {
-    const { id, email, firstName, lastName, password } = user;
+    const { email, firstName, lastName, password } = user;
 
     return new User({
-      id,
       email,
       firstName,
       lastName,

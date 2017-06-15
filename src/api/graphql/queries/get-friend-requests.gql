@@ -3,7 +3,7 @@ query getFriendRequests {
     email
     friendRequests {
       from {
-        email
+        ...userFields
       }
       status
     }
