@@ -17,12 +17,10 @@ const SessionDescription = window.mozRTCSessionDescription || window.RTCSessionD
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 
 export function* rtcSignIn() {
-  const { Chats } = yield select();
+  const { Chats, Connections } = yield select();
 
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
-    window.peers = {};
-
     const joinChatsAction = joinChats();
     yield call(fetchJoinChats, joinChatsAction);
 
@@ -40,7 +38,7 @@ export function* rtcSignIn() {
        * @param {Object} event
        */
       peer.ondatachannel = (event) => {
-        window.peers[chatId].dc = event.channel;
+        setDataChannel(chatId, event.channel);
       };
 
       /**
@@ -59,13 +57,13 @@ export function* rtcSignIn() {
 
       switch (data.type) {
         case CONNECTIONS_ACTION_TYPES.OFFER:
-          handleOffer(data);
+          handleOffer(data, Connections);
           break;
         case CONNECTIONS_ACTION_TYPES.ANSWER:
-          handleAnswer(data);
+          handleAnswer(data, Connections);
           break;
         case CONNECTIONS_ACTION_TYPES.CANDIDATE:
-          handleCandidate(data);
+          handleCandidate(data, Connections);
           break;
         default:
           break;
@@ -115,8 +113,8 @@ export function* close() {
 export function* signIn(action) {
   const { friendsEmails } = action.payload;
 
-  const webSocketServer = webSocket.getInstance();
-  if (webSocketServer) {
+  const webSockerInstance = webSocket.getInstance();
+  if (webSockerInstance) {
     const token = Token.getToken();
 
     try {
@@ -126,7 +124,7 @@ export function* signIn(action) {
         friends: friendsEmails,
       });
 
-      webSocketServer.send(data);
+      webSockerInstance.send(data);
     } catch (exception) {
       logger.error(exception);
     }
@@ -135,45 +133,72 @@ export function* signIn(action) {
   }
 }
 
-function handleOffer(data) {
-  console.log('HandleOffer');
-  const ws = webSocket.getInstance();
-  const token = Token.getToken();
-  const { email, chatId, type, offer } = data;
-  const { peer } = window.peers[chatId];
+/**
+ * @param {Object} information
+ * @param {Object} connections
+ */
+function handleOffer(information, connections) {
+  const { chatId, offer } = information;
 
-  peer.setRemoteDescription(new SessionDescription(offer), () => {
-    peer.createAnswer((answer) => {
-      peer.setLocalDescription(answer, () => {
-        console.log('SendAnswer');
-        const answerData = JSON.stringify({
-          type: 'ANSWER',
-          answer,
-          chatId,
-          token,
+  const webSocketInstance = webSocket.getInstance();
+  if (webSocketInstance) {
+    const token = Token.getToken();
+    const peer = connections.getPeerByChatId(chatId);
+
+    if (peer) {
+      peer.setRemoteDescription(new SessionDescription(offer), () => {
+        peer.createAnswer((answer) => {
+          peer.setLocalDescription(answer, () => {
+            try {
+              const data = JSON.stringify({
+                type: CONNECTIONS_ACTION_TYPES.ANSWER,
+                answer,
+                chatId,
+                token,
+              });
+
+              webSocketInstance.send(data);
+            } catch (exception) {
+              logger.error(exception);
+            }
+          });
+        }, (error) => {
+          logger.error(error);
         });
-        ws.send(answerData);
       });
-    }, (error) => {
-      console.log('Error when creating an answer', error);
-    });
-  });
+    }
+  }
 }
 
-function handleAnswer(data) {
-  console.log('tre');
-  const { email, chatId, type, answer } = data;
-  const { peer, dc } = window.peers[chatId];
-  console.log('HandleAnswer');
-  peer.setRemoteDescription(new RTCSessionDescription(answer));
+/**
+ * @param {Object} information
+ * @param {Object} connections
+ */
+function handleAnswer(information, connections) {
+  const { chatId, answer } = information;
+
+  const peer = connections.getPeerByChatId(chatId);
+  if (peer) {
+    const connection = peer.getConnection();
+    if (connection) {
+      connection.setRemoteDescription(new RTCSessionDescription(answer));
+    }
+  }
 }
 
-function handleCandidate(data) {
-  console.log('HandleICE');
-  const { chatId, type, ice } = data;
-  const { peer } = window.peers[chatId];
-  if (ice) {
-    peer.addIceCandidate(new IceCandidate(ice));
+/**
+ * @param {Object} information
+ * @param {Object} connections
+ */
+function handleCandidate(information, connections) {
+  const { chatId, ice } = information;
+
+  const peer = connections.getPeerByChatId(chatId);
+  if (peer && ice) {
+    const connection = peer.getConnection();
+    if (connection) {
+      peer.addIceCandidate(new IceCandidate(ice));
+    }
   }
 }
 
@@ -211,11 +236,8 @@ export function* offerChat(action) {
       console.log('data channel is closed');
     };
 
-    yield put(setDataChannel(chatId, dataChannel));
-
     peerConnection.createOffer((offer) => {
       peerConnection.setLocalDescription(offer, () => {
-        console.log('SendOffer');
         try {
           const data = JSON.stringify({
             type: CONNECTIONS_ACTION_TYPES.OFFER,
@@ -234,6 +256,8 @@ export function* offerChat(action) {
     }, (error) => {
       logger.error(error);
     });
+
+    yield put(setDataChannel(chatId, dataChannel));
   }
 }
 
