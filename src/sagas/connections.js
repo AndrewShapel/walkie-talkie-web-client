@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga';
-import { takeEvery, take, call, put, select } from 'redux-saga/effects';
+import { takeEvery, take, call, put, select, fork } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 import webSocket from '../websocket/websocket';
@@ -173,7 +173,9 @@ function getDataChannel(peer) {
   return eventChannel((emit) => {
     peer.ondatachannel = (event) => {
       const channel = event.channel;
-      emit(channel);
+      if (channel) {
+        emit(channel);
+      }
     };
 
     return () => {
@@ -190,7 +192,6 @@ function* watchDataChannelEvents(chatId, peer) {
   const dataChannel = yield call(getDataChannel, peer);
   while (true) {
     const channel = yield take(dataChannel);
-
     yield put(setDataChannel(chatId, channel));
   }
 }
@@ -203,7 +204,9 @@ function getIceCandidate(peer) {
   return eventChannel((emit) => {
     peer.onicecandidate = (event) => {
       const candidate = event.candidate;
-      emit(candidate);
+      if (candidate) {
+        emit(candidate);
+      }
     };
 
     return () => {
@@ -331,17 +334,23 @@ export function* initialize() {
       iceServers: RTC.getICEServers(),
     };
 
+    const forks = [];
+
     const RTCPeerConnection = RTC.getRTCPeerConnection();
     const chatsIds = chats.map(chat => chat.getId()).toArray();
     for (const chatId of chatsIds) {
       const peer = new RTCPeerConnection(configuration);
 
-      yield watchDataChannelEvents(chatId, peer);
-      yield watchIceCandidateEvents(chatId, peer);
       yield put(addPeerConnection(chatId, peer));
+
+      forks.push(fork(watchDataChannelEvents, chatId, peer));
+      forks.push(fork(watchIceCandidateEvents, chatId, peer));
     }
 
-    yield watchSocketEvents();
+    yield [
+      ...forks,
+      watchSocketEvents(),
+    ];
   }
 }
 
