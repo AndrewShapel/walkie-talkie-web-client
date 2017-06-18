@@ -25,17 +25,29 @@ export const signIn = friendsEmails => ({
   },
 });
 
+export const OFFER_CHAT = 'connections:OFFER_CHAT';
+/**
+ * @param {String} chatId
+ * @returns {Object}
+ */
+export const offerChat = chatId => ({
+  type: OFFER_CHAT,
+  payload: {
+    chatId,
+  },
+});
+
 export const JOIN_CHAT = 'connections:JOIN_CHAT';
 /**
  * @param {String} chatId
- * @param {String} email
+ * @param {String} token
  * @returns {Object}
  */
-export const joinChat = (chatId, email) => ({
+export const joinChat = (chatId, token) => ({
   type: JOIN_CHAT,
   payload: {
     chatId,
-    email,
+    token,
   },
 });
 
@@ -45,4 +57,43 @@ export const JOIN_CHATS = 'connections:JOIN_CHATS';
  */
 export const joinChats = () => ({
   type: JOIN_CHATS,
+});
+
+export const ADD_PEER_CONNECTION = 'connections:ADD_PEER_CONNECTION';
+/**
+ * @param {String} chatId
+ * @param {Object} peer
+ */
+export const addPeerConnection = (chatId, peer) => ({
+  type: ADD_PEER_CONNECTION,
+  payload: {
+    chatId,
+    peer,
+  },
+});
+
+export const ADD_CANDIDATE = 'connections:ADD_CANDIDATE';
+/**
+ * @param {String} chatId
+ * @param {Object} candidate
+ */
+export const addCandidate = (chatId, candidate) => ({
+  type: ADD_CANDIDATE,
+  payload: {
+    chatId,
+    candidate,
+  },
+});
+
+export const SET_DATA_CHANNEL = 'connections:SET_DATA_CHANNEL';
+/**
+ * @param {String} chatId
+ * @param {Object} dataChannel
+ */
+export const setDataChannel = (chatId, dataChannel) => ({
+  type: SET_DATA_CHANNEL,
+  payload: {
+    chatId,
+    dataChannel,
+  },
 });

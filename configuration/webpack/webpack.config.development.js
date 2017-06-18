@@ -9,7 +9,7 @@ module.exports = merge(baseConfig, {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     'react-hot-loader/patch',
-    'webpack-dev-server/client?http://localhost:8080',
+    'webpack-dev-server/client?http://localhost:8082',
     'webpack/hot/only-dev-server',
     './index',
   ],
@@ -22,10 +22,10 @@ module.exports = merge(baseConfig, {
     hot: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:4000',
+        target: 'http://localhost:8081',
       },
       '/signal': {
-        target: 'ws://localhost:4000',
+        target: 'ws://localhost:8081',
         ws: true,
       },
     },

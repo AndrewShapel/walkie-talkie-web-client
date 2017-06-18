@@ -8,7 +8,7 @@ import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
 import { getChats } from '../action-types/chats';
-import { open, signIn, joinChats } from '../action-types/connections';
+import { open, signIn, joinChats, offerChat } from '../action-types/connections';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
@@ -40,6 +40,7 @@ const mapDispatchToProps = dispatch => (
     openConnectionsAction: open,
     signInAction: signIn,
     joinChatsAction: joinChats,
+    offerChatAction: offerChat,
   }, dispatch)
 );
 
@@ -58,6 +59,7 @@ export default class Conversation extends React.Component {
     openConnectionsAction: React.PropTypes.func.isRequired,
     signInAction: React.PropTypes.func.isRequired,
     joinChatsAction: React.PropTypes.func.isRequired,
+    offerChatAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -89,7 +91,7 @@ export default class Conversation extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { match, chats, friends, setActiveConversationIdAction, signInAction, joinChatsAction } = this.props;
+    const { match, chats, friends, setActiveConversationIdAction, signInAction, joinChatsAction, offerChatAction } = this.props;
 
     const nextMatch = nextProps.match;
     const nextChats = nextProps.chats;
@@ -108,6 +110,8 @@ export default class Conversation extends React.Component {
       const friendsEmails = nextFriends.map(friend => friend.getEmail()).toArray();
       signInAction(friendsEmails);
     }
+
+    setTimeout(() => offerChatAction('1'), 1000);
 
     if (chats.size !== nextChats.size && (nextFriends.size || friends.size)) {
       joinChatsAction();
