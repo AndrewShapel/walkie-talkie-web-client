@@ -24,8 +24,8 @@ export default class RTC {
   /**
    * @returns {Object}
    */
-  static setUserMedia() {
-    navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+  static getUserMedia() {
+    return navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
   }
 
   /**

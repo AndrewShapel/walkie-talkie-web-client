@@ -13,271 +13,11 @@ import {
   joinChat, joinChats, addPeerConnection, addCandidate, setDataChannel,
 } from '../action-types/connections';
 
-const IceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
-const SessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
-navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
-
-/**
- * @param {Object} peer
- * @returns {Object}
- */
-function getDataChannel(peer) {
-  return eventChannel((emit) => {
-    peer.ondatachannel = (event) => {
-      const channel = event.channel;
-      emit(channel);
-    };
-
-    return () => {
-      peer.ondatachannel = null;
-    };
-  });
-}
-
-/**
- * @param {String} chatId
- * @param {Object} peer
- */
-function* watchDataChannelEvents(chatId, peer) {
-  const dataChannel = yield call(getDataChannel, peer);
-  while (true) {
-    const channel = yield take(dataChannel);
-
-    yield put(setDataChannel(chatId, channel));
-  }
-}
-
-/**
- * @param {Object} peer
- * @returns {Channel<T>}
- */
-function getIceCandidate(peer) {
-  return eventChannel((emit) => {
-    peer.onicecandidate = (event) => {
-      const candidate = event.candidate;
-      emit(candidate);
-    };
-
-    return () => {
-      peer.onicecandidate = null;
-    };
-  });
-}
-
-/**
- * @param {String} chatId
- * @param {Object} peer
- */
-function* watchIceCandidateEvents(chatId, peer) {
-  const candidate = yield call(getIceCandidate, peer);
-  while (true) {
-    const candidate = yield take(candidate);
-    const newAction = addCandidate(chatId, candidate);
-
-    yield call(fetchCandidate, newAction);
-  }
-}
-
-/**
- * @param {Object} webSocketInstance
- * @returns {Object}
- */
-function getSocketChannel(webSocketInstance) {
-  return eventChannel((emit) => {
-    const onMessage = (message) => {
-      const data = JSON.parse(message.data);
-      emit(data);
-    };
-
-    webSocketInstance.addEventListener('message', onMessage);
-
-    return () => {
-      webSocketInstance.removeEventListener('message', onMessage);
-    };
-  });
-}
-
-function* watchSocketEvents() {
-  const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
-    const socketChannel = yield call(getSocketChannel, webSocketInstance);
-    while (true) {
-      const { Connections } = yield select();
-      const message = yield take(socketChannel);
-
-      const peer = Connections.getPeerByChatId(message.chatId);
-      if (peer) {
-        const connection = peer.getConnection();
-        switch (message.type) {
-          case CONNECTIONS_ACTION_TYPES.OFFER:
-            handleOffer(message, connection);
-            break;
-          case CONNECTIONS_ACTION_TYPES.ANSWER:
-            handleAnswer(message, connection);
-            break;
-          case CONNECTIONS_ACTION_TYPES.CANDIDATE:
-            handleCandidate(message, connection);
-            break;
-          default:
-            break;
-        }
-      }
-    }
-  }
-}
-
-export function* rtcSignIn() {
-  const { Chats } = yield select();
-
-  const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
-    const joinChatsAction = joinChats();
-    yield call(fetchJoinChats, joinChatsAction);
-
-    const chats = Chats.getChats();
-    const configuration = {
-      iceServers: RTC.getICEServers(),
-    };
-
-    const RTCPeerConnection = RTC.getRTCPeerConnection();
-    const chatsIds = chats.map(chat => chat.getId()).toArray();
-    for (const chatId of chatsIds) {
-      const peer = new RTCPeerConnection(configuration);
-
-      yield watchDataChannelEvents(chatId, peer);
-      yield watchIceCandidateEvents(chatId, peer);
-      yield put(addPeerConnection(chatId, peer));
-    }
-
-    yield watchSocketEvents();
-  }
-}
-
-/**
- * @returns {Object}
- */
-export function* open() {
-  if (!webSocket.getInstance()) {
-    try {
-      const webSocketInstance = webSocket.getInstance();
-      if (!webSocketInstance) {
-        webSocket.open();
-      }
-    } catch (exception) {
-      logger.error(exception);
-    }
-
-    yield webSocket.getInstance();
-  }
-}
-
-/**
- * @returns {Object}
- */
-export function* close() {
-  const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
-    try {
-      webSocketInstance.close();
-    } catch (exception) {
-      logger.error(exception);
-    }
-
-    yield webSocketInstance;
-  }
-}
-
 /**
  * @param {Object} action
  * @returns {Object}
  */
-export function* signIn(action) {
-  const { friendsEmails } = action.payload;
-
-  const webSockerInstance = webSocket.getInstance();
-  if (webSockerInstance) {
-    const token = Token.getToken();
-
-    try {
-      const data = JSON.stringify({
-        type: CONNECTIONS_ACTION_TYPES.SIGNIN,
-        token,
-        friends: friendsEmails,
-      });
-
-      webSockerInstance.send(data);
-    } catch (exception) {
-      logger.error(exception);
-    }
-
-    yield call(rtcSignIn);
-  }
-}
-
-/**
- * @param {Object} information
- * @param {Object} peer
- */
-function handleOffer(information, peer) {
-  const { chatId, offer } = information;
-
-  const webSocketInstance = webSocket.getInstance();
-  if (peer && webSocketInstance) {
-    const token = Token.getToken();
-
-    peer.setRemoteDescription(new SessionDescription(offer), () => {
-      peer.createAnswer((answer) => {
-        peer.setLocalDescription(answer, () => {
-          try {
-            const data = JSON.stringify({
-              type: CONNECTIONS_ACTION_TYPES.ANSWER,
-              answer,
-              chatId,
-              token,
-            });
-
-            webSocketInstance.send(data);
-          } catch (exception) {
-            logger.error(exception);
-          }
-        });
-      }, (error) => {
-        logger.error(error);
-      });
-    });
-  }
-}
-
-/**
- * @param {Object} information
- * @param {Object} peer
- */
-function handleAnswer(information, peer) {
-  const answer = information.answer;
-  if (peer && answer) {
-    peer.setRemoteDescription(new RTCSessionDescription(answer));
-  }
-}
-
-/**
- * @param {Object} information
- * @param {Object} peer
- */
-function handleCandidate(information, peer) {
-  const ice = information.ice;
-  if (peer && ice) {
-    const connection = peer.getConnection();
-    if (connection) {
-      peer.addIceCandidate(new IceCandidate(ice));
-    }
-  }
-}
-
-/**
- * @param {Object} action
- * @returns {Object}
- */
-export function* offerChat(action) {
+export function* fetchOfferChat(action) {
   const { chatId } = action.payload;
   const { Connections } = yield select();
 
@@ -363,6 +103,178 @@ export function fetchCandidate(action) {
 }
 
 /**
+ * @param {Object} information
+ * @param {Object} peer
+ */
+function handleOffer(information, peer) {
+  const { chatId, offer } = information;
+
+  const webSocketInstance = webSocket.getInstance();
+  if (peer && webSocketInstance) {
+    const token = Token.getToken();
+
+    const SessionDescription = RTC.getSessionDescription();
+
+    peer.setRemoteDescription(new SessionDescription(offer), () => {
+      peer.createAnswer((answer) => {
+        peer.setLocalDescription(answer, () => {
+          try {
+            const data = JSON.stringify({
+              type: CONNECTIONS_ACTION_TYPES.ANSWER,
+              answer,
+              chatId,
+              token,
+            });
+
+            webSocketInstance.send(data);
+          } catch (exception) {
+            logger.error(exception);
+          }
+        });
+      }, (error) => {
+        logger.error(error);
+      });
+    });
+  }
+}
+
+/**
+ * @param {Object} information
+ * @param {Object} peer
+ */
+function handleAnswer(information, peer) {
+  const answer = information.answer;
+  if (peer && answer) {
+    peer.setRemoteDescription(new RTCSessionDescription(answer));
+  }
+}
+
+/**
+ * @param {Object} information
+ * @param {Object} peer
+ */
+function handleCandidate(information, peer) {
+  const IceCandidate = RTC.getICECandidate();
+
+  const ice = information.ice;
+  if (peer && ice) {
+    const connection = peer.getConnection();
+    if (connection) {
+      peer.addIceCandidate(new IceCandidate(ice));
+    }
+  }
+}
+
+/**
+ * @param {Object} peer
+ * @returns {Object}
+ */
+function getDataChannel(peer) {
+  return eventChannel((emit) => {
+    peer.ondatachannel = (event) => {
+      const channel = event.channel;
+      emit(channel);
+    };
+
+    return () => {
+      peer.ondatachannel = null;
+    };
+  });
+}
+
+/**
+ * @param {String} chatId
+ * @param {Object} peer
+ */
+function* watchDataChannelEvents(chatId, peer) {
+  const dataChannel = yield call(getDataChannel, peer);
+  while (true) {
+    const channel = yield take(dataChannel);
+
+    yield put(setDataChannel(chatId, channel));
+  }
+}
+
+/**
+ * @param {Object} peer
+ * @returns {Channel<T>}
+ */
+function getIceCandidate(peer) {
+  return eventChannel((emit) => {
+    peer.onicecandidate = (event) => {
+      const candidate = event.candidate;
+      emit(candidate);
+    };
+
+    return () => {
+      peer.onicecandidate = null;
+    };
+  });
+}
+
+/**
+ * @param {String} chatId
+ * @param {Object} peer
+ */
+function* watchIceCandidateEvents(chatId, peer) {
+  const iceCandidate = yield call(getIceCandidate, peer);
+  while (true) {
+    const candidate = yield take(iceCandidate);
+    const newAction = addCandidate(chatId, candidate);
+
+    yield call(fetchCandidate, newAction);
+  }
+}
+
+/**
+ * @param {Object} webSocketInstance
+ * @returns {Object}
+ */
+function getSocketChannel(webSocketInstance) {
+  return eventChannel((emit) => {
+    const onMessage = (message) => {
+      const data = JSON.parse(message.data);
+      emit(data);
+    };
+
+    webSocketInstance.addEventListener('message', onMessage);
+
+    return () => {
+      webSocketInstance.removeEventListener('message', onMessage);
+    };
+  });
+}
+
+function* watchSocketEvents() {
+  const webSocketInstance = webSocket.getInstance();
+  if (webSocketInstance) {
+    const socketChannel = yield call(getSocketChannel, webSocketInstance);
+    while (true) {
+      const { Connections } = yield select();
+      const message = yield take(socketChannel);
+
+      const peer = Connections.getPeerByChatId(message.chatId);
+      if (peer) {
+        const connection = peer.getConnection();
+        switch (message.type) {
+          case CONNECTIONS_ACTION_TYPES.OFFER:
+            handleOffer(message, connection);
+            break;
+          case CONNECTIONS_ACTION_TYPES.ANSWER:
+            handleAnswer(message, connection);
+            break;
+          case CONNECTIONS_ACTION_TYPES.CANDIDATE:
+            handleCandidate(message, connection);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+}
+
+/**
  * @param {Object} action
  * @returns {Object}
  */
@@ -404,14 +316,104 @@ export function* fetchJoinChats() {
   yield null;
 }
 
+export function* initialize() {
+  navigator.getUserMedia = RTC.getUserMedia();
+
+  const { Chats } = yield select();
+
+  const webSocketInstance = webSocket.getInstance();
+  if (webSocketInstance) {
+    const joinChatsAction = joinChats();
+    yield call(fetchJoinChats, joinChatsAction);
+
+    const chats = Chats.getChats();
+    const configuration = {
+      iceServers: RTC.getICEServers(),
+    };
+
+    const RTCPeerConnection = RTC.getRTCPeerConnection();
+    const chatsIds = chats.map(chat => chat.getId()).toArray();
+    for (const chatId of chatsIds) {
+      const peer = new RTCPeerConnection(configuration);
+
+      yield watchDataChannelEvents(chatId, peer);
+      yield watchIceCandidateEvents(chatId, peer);
+      yield put(addPeerConnection(chatId, peer));
+    }
+
+    yield watchSocketEvents();
+  }
+}
+
+/**
+ * @returns {Object}
+ */
+export function* open() {
+  if (!webSocket.getInstance()) {
+    try {
+      const webSocketInstance = webSocket.getInstance();
+      if (!webSocketInstance) {
+        webSocket.open();
+      }
+    } catch (exception) {
+      logger.error(exception);
+    }
+
+    yield webSocket.getInstance();
+  }
+}
+
+/**
+ * @returns {Object}
+ */
+export function* close() {
+  const webSocketInstance = webSocket.getInstance();
+  if (webSocketInstance) {
+    try {
+      webSocketInstance.close();
+    } catch (exception) {
+      logger.error(exception);
+    }
+
+    yield webSocketInstance;
+  }
+}
+
+/**
+ * @param {Object} action
+ * @returns {Object}
+ */
+export function* signIn(action) {
+  const { friendsEmails } = action.payload;
+
+  const webSockerInstance = webSocket.getInstance();
+  if (webSockerInstance) {
+    const token = Token.getToken();
+
+    try {
+      const data = JSON.stringify({
+        type: CONNECTIONS_ACTION_TYPES.SIGNIN,
+        token,
+        friends: friendsEmails,
+      });
+
+      webSockerInstance.send(data);
+    } catch (exception) {
+      logger.error(exception);
+    }
+
+    yield call(initialize);
+  }
+}
+
 /**
  * @returns {Object}
  */
 export function* connectionsSaga() {
+  yield takeEvery(OFFER_CHAT, fetchOfferChat);
+  yield takeEvery(JOIN_CHAT, fetchJoinChat);
+  yield takeEvery(JOIN_CHATS, fetchJoinChats);
   yield takeEvery(OPEN, open);
   yield takeEvery(CLOSE, close);
   yield takeEvery(SIGN_IN, signIn);
-  yield takeEvery(OFFER_CHAT, offerChat);
-  yield takeEvery(JOIN_CHAT, fetchJoinChat);
-  yield takeEvery(JOIN_CHATS, fetchJoinChats);
 }
