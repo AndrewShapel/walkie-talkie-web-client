@@ -1,4 +1,5 @@
-import { takeEvery, call, put, select } from 'redux-saga/effects';
+import { eventChannel } from 'redux-saga';
+import { takeEvery, take, call, put, select } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 import webSocket from '../websocket/websocket';
@@ -15,6 +16,49 @@ import {
 const IceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
 const SessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
+
+
+function getSocketChannel(webSocketInstance) {
+  return eventChannel((emit) => {
+    webSocketInstance.onmessage = (message) => {
+      const data = JSON.parse(message.data);
+      emit(data);
+    };
+
+    return () => {
+      webSocketInstance.onmessage = null;
+    };
+  });
+}
+
+function* watchSocketEvents() {
+  const webSocketInstance = webSocket.getInstance();
+  if (webSocketInstance) {
+    const socketChannel = yield call(getSocketChannel, webSocketInstance);
+    while (true) {
+      const { Connections } = yield select();
+      const message = yield take(socketChannel);
+
+      const peer = Connections.getPeerByChatId(message.chatId);
+      if (peer) {
+        const connection = peer.getConnection();
+        switch (message.type) {
+          case CONNECTIONS_ACTION_TYPES.OFFER:
+            handleOffer(message, connection);
+            break;
+          case CONNECTIONS_ACTION_TYPES.ANSWER:
+            handleAnswer(message, connection);
+            break;
+          case CONNECTIONS_ACTION_TYPES.CANDIDATE:
+            handleCandidate(message, connection);
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+}
 
 export function* rtcSignIn() {
   const { Chats, Connections } = yield select();
@@ -52,23 +96,7 @@ export function* rtcSignIn() {
       yield put(addPeerConnection(chatId, peer));
     }
 
-    webSocketInstance.onmessage = (message) => {
-      const data = JSON.parse(message.data);
-
-      switch (data.type) {
-        case CONNECTIONS_ACTION_TYPES.OFFER:
-          handleOffer(data, Connections);
-          break;
-        case CONNECTIONS_ACTION_TYPES.ANSWER:
-          handleAnswer(data, Connections);
-          break;
-        case CONNECTIONS_ACTION_TYPES.CANDIDATE:
-          handleCandidate(data, Connections);
-          break;
-        default:
-          break;
-      }
-    };
+    yield watchSocketEvents();
   }
 }
 
@@ -135,65 +163,55 @@ export function* signIn(action) {
 
 /**
  * @param {Object} information
- * @param {Object} connections
+ * @param {Object} peer
  */
-function handleOffer(information, connections) {
+function handleOffer(information, peer) {
   const { chatId, offer } = information;
 
   const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
+  if (peer && webSocketInstance) {
     const token = Token.getToken();
-    const peer = connections.getPeerByChatId(chatId);
 
-    if (peer) {
-      peer.setRemoteDescription(new SessionDescription(offer), () => {
-        peer.createAnswer((answer) => {
-          peer.setLocalDescription(answer, () => {
-            try {
-              const data = JSON.stringify({
-                type: CONNECTIONS_ACTION_TYPES.ANSWER,
-                answer,
-                chatId,
-                token,
-              });
+    peer.setRemoteDescription(new SessionDescription(offer), () => {
+      peer.createAnswer((answer) => {
+        peer.setLocalDescription(answer, () => {
+          try {
+            const data = JSON.stringify({
+              type: CONNECTIONS_ACTION_TYPES.ANSWER,
+              answer,
+              chatId,
+              token,
+            });
 
-              webSocketInstance.send(data);
-            } catch (exception) {
-              logger.error(exception);
-            }
-          });
-        }, (error) => {
-          logger.error(error);
+            webSocketInstance.send(data);
+          } catch (exception) {
+            logger.error(exception);
+          }
         });
+      }, (error) => {
+        logger.error(error);
       });
-    }
+    });
   }
 }
 
 /**
  * @param {Object} information
- * @param {Object} connections
+ * @param {Object} peer
  */
-function handleAnswer(information, connections) {
-  const { chatId, answer } = information;
-
-  const peer = connections.getPeerByChatId(chatId);
-  if (peer) {
-    const connection = peer.getConnection();
-    if (connection) {
-      connection.setRemoteDescription(new RTCSessionDescription(answer));
-    }
+function handleAnswer(information, peer) {
+  const answer = information.answer;
+  if (peer && answer) {
+    peer.setRemoteDescription(new RTCSessionDescription(answer));
   }
 }
 
 /**
  * @param {Object} information
- * @param {Object} connections
+ * @param {Object} peer
  */
-function handleCandidate(information, connections) {
-  const { chatId, ice } = information;
-
-  const peer = connections.getPeerByChatId(chatId);
+function handleCandidate(information, peer) {
+  const ice = information.ice;
   if (peer && ice) {
     const connection = peer.getConnection();
     if (connection) {
