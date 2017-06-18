@@ -42,8 +42,8 @@ function* watchDataChannelEvents(chatId, peer) {
   const dataChannel = yield call(getDataChannel, peer);
   while (true) {
     const channel = yield take(dataChannel);
-    const newAction = setDataChannel(chatId, channel);
-    console.log(newAction);
+
+    yield put(setDataChannel(chatId, channel));
   }
 }
 
@@ -336,20 +336,6 @@ window.writeMessage = (chatId) => {
   const { peer, dc } = window.peers[chatId];
   dc.send('test');
 };
-
-// export function fetchDataChannel(action) {
-//   const { chatId, dataChannel } = action.payload;
-//
-//   const token = Token.getToken();
-//   const webSocketInstance = webSocket.getInstance();
-//   if (webSocketInstance) {
-//     try {
-//       const data = JSON.stringify({
-//         type: CONNECTIONS_ACTION_TYPES.
-//       })
-//     }
-//   }
-// }
 
 /**
  * @param {Object} action
