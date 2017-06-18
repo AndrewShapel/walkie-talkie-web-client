@@ -17,16 +17,82 @@ const IceCandidate = window.mozRTCIceCandidate || window.RTCIceCandidate;
 const SessionDescription = window.mozRTCSessionDescription || window.RTCSessionDescription;
 navigator.getUserMedia = navigator.getUserMedia || navigator.mozGetUserMedia || navigator.webkitGetUserMedia;
 
+/**
+ * @param {Object} peer
+ * @returns {Object}
+ */
+function getDataChannel(peer) {
+  return eventChannel((emit) => {
+    peer.ondatachannel = (event) => {
+      const channel = event.channel;
+      emit(channel);
+    };
 
+    return () => {
+      peer.ondatachannel = null;
+    };
+  });
+}
+
+/**
+ * @param {String} chatId
+ * @param {Object} peer
+ */
+function* watchDataChannelEvents(chatId, peer) {
+  const dataChannel = yield call(getDataChannel, peer);
+  while (true) {
+    const channel = yield take(dataChannel);
+    const newAction = setDataChannel(chatId, channel);
+    console.log(newAction);
+  }
+}
+
+/**
+ * @param {Object} peer
+ * @returns {Channel<T>}
+ */
+function getIceCandidate(peer) {
+  return eventChannel((emit) => {
+    peer.onicecandidate = (event) => {
+      const candidate = event.candidate;
+      emit(candidate);
+    };
+
+    return () => {
+      peer.onicecandidate = null;
+    };
+  });
+}
+
+/**
+ * @param {String} chatId
+ * @param {Object} peer
+ */
+function* watchIceCandidateEvents(chatId, peer) {
+  const candidate = yield call(getIceCandidate, peer);
+  while (true) {
+    const candidate = yield take(candidate);
+    const newAction = addCandidate(chatId, candidate);
+
+    yield call(fetchCandidate, newAction);
+  }
+}
+
+/**
+ * @param {Object} webSocketInstance
+ * @returns {Object}
+ */
 function getSocketChannel(webSocketInstance) {
   return eventChannel((emit) => {
-    webSocketInstance.onmessage = (message) => {
+    const onMessage = (message) => {
       const data = JSON.parse(message.data);
       emit(data);
     };
 
+    webSocketInstance.addEventListener('message', onMessage);
+
     return () => {
-      webSocketInstance.onmessage = null;
+      webSocketInstance.removeEventListener('message', onMessage);
     };
   });
 }
@@ -61,7 +127,7 @@ function* watchSocketEvents() {
 }
 
 export function* rtcSignIn() {
-  const { Chats, Connections } = yield select();
+  const { Chats } = yield select();
 
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
@@ -78,21 +144,8 @@ export function* rtcSignIn() {
     for (const chatId of chatsIds) {
       const peer = new RTCPeerConnection(configuration);
 
-      /**
-       * @param {Object} event
-       */
-      peer.ondatachannel = (event) => {
-        setDataChannel(chatId, event.channel);
-      };
-
-      /**
-       * @param {Object} event
-       */
-      peer.onicecandidate = (event) => {
-        const newAction = addCandidate(chatId, event.candidate);
-        fetchCandidate(newAction);
-      };
-
+      yield watchDataChannelEvents(chatId, peer);
+      yield watchIceCandidateEvents(chatId, peer);
       yield put(addPeerConnection(chatId, peer));
     }
 
@@ -283,6 +336,20 @@ window.writeMessage = (chatId) => {
   const { peer, dc } = window.peers[chatId];
   dc.send('test');
 };
+
+// export function fetchDataChannel(action) {
+//   const { chatId, dataChannel } = action.payload;
+//
+//   const token = Token.getToken();
+//   const webSocketInstance = webSocket.getInstance();
+//   if (webSocketInstance) {
+//     try {
+//       const data = JSON.stringify({
+//         type: CONNECTIONS_ACTION_TYPES.
+//       })
+//     }
+//   }
+// }
 
 /**
  * @param {Object} action
