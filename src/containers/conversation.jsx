@@ -114,7 +114,7 @@ export default class Conversation extends React.Component {
     }
 
     setTimeout(() => offerChatAction('1'), 1000);
-    setTimeout(() => sendMessageAction('message'), 3000);
+    setTimeout(() => sendMessageAction('message'), 5000);
 
     if (chats.size !== nextChats.size && (nextFriends.size || friends.size)) {
       joinChatsAction();

@@ -31,20 +31,8 @@ export function* fetchOfferChat(action) {
       reliable: true,
     });
 
-    dataChannel.onopen = function () {
-      console.log('data channel is opened');
-    };
-
-    dataChannel.onerror = function (error) {
-      console.log('Ooops...error:', error);
-    };
-
-    dataChannel.onmessage = function (event) {
-      console.log(event.data, 'tre');
-    };
-
-    dataChannel.onclose = function () {
-      console.log('data channel is closed');
+    dataChannel.onmessage = (event) => {
+      console.log(event.data);
     };
 
     peerConnection.createOffer((offer) => {
@@ -166,15 +154,16 @@ function handleCandidate(information, peer) {
  */
 function getDataChannel(peer) {
   return eventChannel((emit) => {
-    peer.ondatachannel = (event) => {
+    const onEvent = (event) => {
       const channel = event.channel;
       if (channel) {
         emit(channel);
       }
     };
 
+    peer.addEventListener('dataChannel', onEvent);
     return () => {
-      peer.ondatachannel = null;
+      peer.removeEventListener('dataChannel', onEvent);
     };
   });
 }
@@ -185,7 +174,7 @@ function getDataChannel(peer) {
  */
 function* watchDataChannelEvents(chatId, peer) {
   const dataChannel = yield call(getDataChannel, peer);
-  while (true) {
+  while (dataChannel) {
     const channel = yield take(dataChannel);
     yield put(setDataChannel(chatId, channel));
   }
@@ -197,15 +186,16 @@ function* watchDataChannelEvents(chatId, peer) {
  */
 function getIceCandidate(peer) {
   return eventChannel((emit) => {
-    peer.onicecandidate = (event) => {
+    const onEvent = (event) => {
       const candidate = event.candidate;
       if (candidate) {
         emit(candidate);
       }
     };
 
+    peer.addEventListener('candidate', onEvent);
     return () => {
-      peer.onicecandidate = null;
+      peer.removeEndEventListener('candidate', onEvent);
     };
   });
 }
@@ -216,7 +206,7 @@ function getIceCandidate(peer) {
  */
 function* watchIceCandidateEvents(chatId, peer) {
   const iceCandidate = yield call(getIceCandidate, peer);
-  while (true) {
+  while (iceCandidate) {
     const candidate = yield take(iceCandidate);
     const newAction = addCandidate(chatId, candidate);
 
@@ -236,7 +226,6 @@ function getSocketChannel(webSocketInstance) {
     };
 
     webSocketInstance.addEventListener('message', onMessage);
-
     return () => {
       webSocketInstance.removeEventListener('message', onMessage);
     };
@@ -247,7 +236,7 @@ function* watchSocketEvents() {
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
     const socketChannel = yield call(getSocketChannel, webSocketInstance);
-    while (true) {
+    while (socketChannel) {
       const { Connections } = yield select();
       const message = yield take(socketChannel);
 
@@ -346,6 +335,8 @@ export function* initialize() {
 
     const RTCPeerConnection = RTC.getRTCPeerConnection();
     const chatsIds = chats.map(chat => chat.getId()).toArray();
+
+    /* eslint-disable no-restricted-syntax */
     for (const chatId of chatsIds) {
       const peer = new RTCPeerConnection(configuration);
 
@@ -354,6 +345,7 @@ export function* initialize() {
       forks.push(fork(watchDataChannelEvents, chatId, peer));
       forks.push(fork(watchIceCandidateEvents, chatId, peer));
     }
+    /* eslint-enable no-restricted-syntax */
 
     yield [
       ...forks,
