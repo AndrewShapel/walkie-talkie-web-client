@@ -1,30 +1,3 @@
-export const OPEN = 'connections:OPEN';
-/**
- * @returns {Object}
- */
-export const open = () => ({
-  type: OPEN,
-});
-
-export const CLOSE = 'connections:CLOSE';
-/**
- * @returns {Object}
- */
-export const close = () => ({
-  type: CLOSE,
-});
-
-export const SIGN_IN = 'connections:SIGN_IN';
-/**
- * @returns {Object}
- */
-export const signIn = friendsEmails => ({
-  type: SIGN_IN,
-  payload: {
-    friendsEmails,
-  },
-});
-
 export const OFFER_CHAT = 'connections:OFFER_CHAT';
 /**
  * @param {String} chatId
@@ -57,6 +30,45 @@ export const JOIN_CHATS = 'connections:JOIN_CHATS';
  */
 export const joinChats = () => ({
   type: JOIN_CHATS,
+});
+
+export const SEND_MESSAGE = 'connections:SET_MESSAGE';
+/**
+ * @param {String} message
+ * @returns {Object}
+ */
+export const sendMessage = message => ({
+  type: SEND_MESSAGE,
+  payload: {
+    message,
+  },
+});
+
+export const OPEN = 'connections:OPEN';
+/**
+ * @returns {Object}
+ */
+export const open = () => ({
+  type: OPEN,
+});
+
+export const CLOSE = 'connections:CLOSE';
+/**
+ * @returns {Object}
+ */
+export const close = () => ({
+  type: CLOSE,
+});
+
+export const SIGN_IN = 'connections:SIGN_IN';
+/**
+ * @returns {Object}
+ */
+export const signIn = friendsEmails => ({
+  type: SIGN_IN,
+  payload: {
+    friendsEmails,
+  },
 });
 
 export const ADD_PEER_CONNECTION = 'connections:ADD_PEER_CONNECTION';

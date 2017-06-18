@@ -9,7 +9,7 @@ import Token from '../utils/token';
 import { CONNECTIONS_ACTION_TYPES } from '../constants/connections';
 
 import {
-  OPEN, CLOSE, SIGN_IN, OFFER_CHAT, JOIN_CHAT, JOIN_CHATS,
+   OFFER_CHAT, JOIN_CHAT, JOIN_CHATS, SEND_MESSAGE, OPEN, CLOSE, SIGN_IN,
   joinChat, joinChats, addPeerConnection, addCandidate, setDataChannel,
 } from '../action-types/connections';
 
@@ -40,7 +40,7 @@ export function* fetchOfferChat(action) {
     };
 
     dataChannel.onmessage = function (event) {
-      console.log(event.data);
+      console.log(event.data, 'tre');
     };
 
     dataChannel.onclose = function () {
@@ -71,11 +71,6 @@ export function* fetchOfferChat(action) {
     yield put(setDataChannel(chatId, dataChannel));
   }
 }
-
-window.writeMessage = (chatId) => {
-  const { peer, dc } = window.peers[chatId];
-  dc.send('test');
-};
 
 /**
  * @param {Object} action
@@ -319,6 +314,19 @@ export function* fetchJoinChats() {
   yield null;
 }
 
+export function* fetchSendMessage(action) {
+  const { message } = action.payload;
+  const { Connections } = yield select();
+
+  const peer = Connections.getPeerByChatId('1');
+  if (peer) {
+    const dataChannel = peer.getDataChannel();
+    if (dataChannel) {
+      dataChannel.send(message);
+    }
+  }
+}
+
 export function* initialize() {
   navigator.getUserMedia = RTC.getUserMedia();
 
@@ -422,6 +430,7 @@ export function* connectionsSaga() {
   yield takeEvery(OFFER_CHAT, fetchOfferChat);
   yield takeEvery(JOIN_CHAT, fetchJoinChat);
   yield takeEvery(JOIN_CHATS, fetchJoinChats);
+  yield takeEvery(SEND_MESSAGE, fetchSendMessage);
   yield takeEvery(OPEN, open);
   yield takeEvery(CLOSE, close);
   yield takeEvery(SIGN_IN, signIn);
