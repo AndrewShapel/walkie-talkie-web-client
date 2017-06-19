@@ -9,8 +9,8 @@ import Token from '../utils/token';
 import { CONNECTIONS_ACTION_TYPES, CONNECTIONS_READY_STATES } from '../constants/connections';
 
 import {
-   OFFER_CHAT, JOIN_CHAT, JOIN_CHATS, SEND_MESSAGE, OPEN, CLOSE, SIGN_IN,
-  joinChat, joinChats, addPeerConnection, addCandidate, setDataChannel,
+  OFFER_CHAT, OFFER_CHATS, JOIN_CHAT, JOIN_CHATS, SEND_MESSAGE, OPEN, CLOSE, SIGN_IN,
+  offerChat, joinChat, joinChats, addPeerConnection, addCandidate, setDataChannel,
 } from '../action-types/connections';
 import { addMessage } from '../action-types/chats';
 
@@ -97,6 +97,23 @@ export function* fetchOfferChat(action) {
     yield put(setDataChannel(chatId, dataChannel));
     yield fork(watchDataChannelMessages, chatId, dataChannel);
   }
+}
+
+/**
+ * @returns {Object}
+ */
+export function* fetchOfferChats() {
+  const { Chats } = yield select();
+
+  const chats = Chats.getChats();
+  const chatsIds = chats.map(chat => chat.getId()).toArray();
+
+  /* eslint-disable no-restricted-syntax */
+  for (const chatId of chatsIds) {
+    const newAction = offerChat(chatId);
+    yield call(fetchOfferChat, newAction);
+  }
+  /* eslint-enable no-restricted-syntax */
 }
 
 /**
@@ -361,6 +378,7 @@ export function* fetchSendMessage(action) {
   const peer = Connections.getPeerByChatId('1');
   if (peer) {
     const dataChannel = peer.getDataChannel();
+    console.log(peer.toJS(), dataChannel);
     if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
       const data = JSON.stringify({
         message,
@@ -402,6 +420,8 @@ export function* initialize() {
       forks.push(fork(watchIceCandidateEvents, chatId, peer));
     }
     /* eslint-enable no-restricted-syntax */
+
+    yield call(fetchOfferChats);
 
     yield [
       ...forks,
@@ -476,6 +496,7 @@ export function* signIn(action) {
  */
 export function* connectionsSaga() {
   yield takeEvery(OFFER_CHAT, fetchOfferChat);
+  yield takeEvery(OFFER_CHATS, fetchOfferChats);
   yield takeEvery(JOIN_CHAT, fetchJoinChat);
   yield takeEvery(JOIN_CHATS, fetchJoinChats);
   yield takeEvery(SEND_MESSAGE, fetchSendMessage);

@@ -20,12 +20,14 @@ import chatClassNames from '../assets/css/containers/conversation/conversation.c
  * @param {Object} Conversations
  * @param {Object} Chats
  * @param {Object} Friends
+ * @param {Object} Connection
  * @returns {Object}
  */
-const mapStateToProps = ({ Conversations, Chats, Friends }) => ({
+const mapStateToProps = ({ Conversations, Chats, Friends, Connections }) => ({
   activeConversationId: Conversations.getActiveId(),
   chats: Chats.getChats(),
   friends: Friends.getFriends(),
+  peers: Connections.getPeers(),
 });
 
 /**
@@ -51,6 +53,7 @@ export default class Conversation extends React.Component {
     history: React.PropTypes.object,
     activeConversationId: React.PropTypes.string.isRequired,
     friends: React.PropTypes.object.isRequired,
+    peers: React.PropTypes.object.isRequired,
     setActiveConversationIdAction: React.PropTypes.func.isRequired,
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
@@ -88,10 +91,12 @@ export default class Conversation extends React.Component {
   }
 
   componentWillUpdate(nextProps) {
-    const { match, activeConversationId, friends, setActiveConversationIdAction, signInAction, offerChatAction } = this.props;
+    const { match, activeConversationId, friends, peers, setActiveConversationIdAction, signInAction, offerChatAction } = this.props;
 
     const nextMatch = nextProps.match;
     const nextFriends = nextProps.friends;
+    const nextActiveConversationId = nextProps.activeConversationId;
+    const nextPeers = nextProps.peers;
 
     if (match && nextMatch) {
       const conversationId = match.params.id;
@@ -102,14 +107,13 @@ export default class Conversation extends React.Component {
       }
     }
 
-    const nextActiveConversationId = nextProps.activeConversationId;
-    if (nextActiveConversationId !== activeConversationId) {
-      offerChatAction(nextActiveConversationId);
-    }
-
     if (nextFriends.size > friends.size && !friends.size) {
       const friendsEmails = nextFriends.map(friend => friend.getEmail()).toArray();
       signInAction(friendsEmails);
+    }
+
+    if (nextActiveConversationId !== activeConversationId && peers && nextPeers.size > 0) {
+      offerChatAction(nextActiveConversationId);
     }
   }
 

@@ -10,6 +10,14 @@ export const offerChat = chatId => ({
   },
 });
 
+export const OFFER_CHATS = 'connection:OFFER_CHATS';
+/**
+ * @returns {Object}
+ */
+export const offerChats = () => ({
+  type: OFFER_CHATS,
+});
+
 export const JOIN_CHAT = 'connections:JOIN_CHAT';
 /**
  * @param {String} chatId
