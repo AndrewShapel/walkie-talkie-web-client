@@ -4,7 +4,6 @@ import classnames from 'classnames';
 import { ICONS } from '../../../constants/icons';
 
 import CallAction from './call-action/call-action';
-import DropdownSearchUser from '../../../components/dropdown/dropdown-search-user/dropdown-search-user';
 
 import callActionsClassNames from './call-actions.css';
 
@@ -37,20 +36,15 @@ export default class CallActions extends React.PureComponent {
     const volumeAction = (isMute)
       ? <CallAction className={actionClassName} icon={ICONS.VOLUME_MUTE} />
       : <CallAction className={actionClassName} icon={ICONS.VOLUME_HIGH} />;
-    const phoneAction = (isActive)
+    const phoneAction = (!isActive)
       ? <CallAction className={actionClassName} icon={ICONS.PHONE} />
       : <CallAction className={actionClassName} icon={ICONS.PHONE_HANG_UP} />;
 
     return (
       <div className={callActionsClassName}>
-        {volumeAction}
+        { isActive ? volumeAction : null }
         <CallAction className={actionClassName} icon={ICONS.VIDEO_CAMERA} />
         {phoneAction}
-        <DropdownSearchUser itemsClassName={callActionsClassNames['call-actions__dropdown-items']} isStickToBottom>
-          <div className={callActionsClassNames['call-actions__dropdown-icon']}>
-            <CallAction className={actionClassName} icon={ICONS.PLUS} />
-          </div>
-        </DropdownSearchUser>
         {children}
       </div>
     );
