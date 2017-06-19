@@ -1,5 +1,5 @@
 import { eventChannel } from 'redux-saga';
-import { takeEvery, take, call, put, select, fork } from 'redux-saga/effects';
+import { takeEvery, take, call, put, select, spawn, fork } from 'redux-saga/effects';
 
 import logger from '../logger/logger';
 import webSocket from '../websocket/websocket';
@@ -94,7 +94,7 @@ export function* fetchOfferChat(action) {
     });
 
     yield put(setDataChannel(chatId, dataChannel));
-    yield fork(watchDataChannelMessages, chatId, dataChannel);
+    yield spawn(watchDataChannelMessages, chatId, dataChannel);
   }
 }
 
@@ -414,8 +414,8 @@ export function* initialize() {
     yield call(fetchOfferChats);
 
     yield [
+      fork(watchSocketEvents),
       ...forks,
-      watchSocketEvents(),
     ];
   }
 }
