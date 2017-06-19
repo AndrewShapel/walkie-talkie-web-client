@@ -1,7 +1,7 @@
 import Chats from '../models/chats/chats';
 import ChatsFactory from '../models/chats/chats-factory';
 
-import { SET_CHATS } from '../action-types/chats';
+import { ADD_MESSAGE, SET_CHATS } from '../action-types/chats';
 
 const initialState = new Chats();
 
@@ -11,6 +11,11 @@ const initialState = new Chats();
  */
 export default function chats(state = initialState, action) {
   switch (action.type) {
+    case ADD_MESSAGE:
+      return state.updateChat(
+        action.payload.chatId,
+        state.getChatById(action.payload.chatId).addMessage(action.payload.body, action.payload.timestamp),
+      );
     case SET_CHATS:
       return state.setChats(ChatsFactory.createChats(action.payload.chats));
     default:

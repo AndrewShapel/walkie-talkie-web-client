@@ -27,6 +27,23 @@ export default class Chats extends Structure {
 
   /**
    * @param {String} id
+   * @param {Object} chat
+   * @returns {Object}
+   */
+  updateChat(id, chat) {
+    const chats = this.getChats();
+
+    const chatKey = chats.findKey(currentChat => currentChat.getId() === id);
+    if (chatKey >= 0) {
+      const updatedChat = chats.set(chatKey, chat);
+      return this.setChats(updatedChat);
+    }
+
+    return this;
+  }
+
+  /**
+   * @param {String} id
    * @returns {Object}
    */
   getChatById(id) {

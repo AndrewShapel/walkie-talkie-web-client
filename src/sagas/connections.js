@@ -12,6 +12,45 @@ import {
    OFFER_CHAT, JOIN_CHAT, JOIN_CHATS, SEND_MESSAGE, OPEN, CLOSE, SIGN_IN,
   joinChat, joinChats, addPeerConnection, addCandidate, setDataChannel,
 } from '../action-types/connections';
+import { addMessage } from '../action-types/chats';
+
+/**
+ * @param {Object} dataChannel
+ * @returns {Object}
+ */
+function getMessage(dataChannel) {
+  return eventChannel((emit) => {
+    /* eslint-disable no-param-reassign */
+    dataChannel.onmessage = (event) => {
+      const message = event;
+      if (message) {
+        emit(message);
+      }
+    };
+    /* eslint-enable no-param-reassign */
+
+    return () => {
+      /* eslint-disable no-param-reassign */
+      dataChannel.onmessage = null;
+      /* eslint-enable no-param-reassign */
+    };
+  });
+}
+
+/**
+ * @param {String} chatId
+ * @param {Object} dataChannel
+ * @returns {Object}
+ */
+function* watchDataChannelMessages(chatId, dataChannel) {
+  console.log('tre');
+  const dataChannelMessage = yield call(getMessage, dataChannel);
+  while (dataChannelMessage) {
+    const data = yield take(dataChannelMessage);
+    console.log(data, chatId);
+    yield put(addMessage(data, new Date()));
+  }
+}
 
 /**
  * @param {Object} action
@@ -30,10 +69,6 @@ export function* fetchOfferChat(action) {
     const dataChannel = peerConnection.createDataChannel(chatId, {
       reliable: true,
     });
-
-    dataChannel.onmessage = (event) => {
-      console.log(event.data);
-    };
 
     peerConnection.createOffer((offer) => {
       peerConnection.setLocalDescription(offer, () => {
@@ -57,6 +92,7 @@ export function* fetchOfferChat(action) {
     });
 
     yield put(setDataChannel(chatId, dataChannel));
+    yield fork(watchDataChannelMessages(chatId, dataChannel));
   }
 }
 
@@ -174,6 +210,7 @@ function getDataChannel(peer) {
 /**
  * @param {String} chatId
  * @param {Object} peer
+ * @returns {Object}
  */
 function* watchDataChannelEvents(chatId, peer) {
   const dataChannel = yield call(getDataChannel, peer);
@@ -209,6 +246,7 @@ function getIceCandidate(peer) {
 /**
  * @param {String} chatId
  * @param {Object} peer
+ * @returns {Object}
  */
 function* watchIceCandidateEvents(chatId, peer) {
   const iceCandidate = yield call(getIceCandidate, peer);
@@ -238,6 +276,9 @@ function getSocketChannel(webSocketInstance) {
   });
 }
 
+/**
+ * @returns {Object}
+ */
 function* watchSocketEvents() {
   const webSocketInstance = webSocket.getInstance();
   if (webSocketInstance) {
@@ -317,7 +358,10 @@ export function* fetchSendMessage(action) {
   if (peer) {
     const dataChannel = peer.getDataChannel();
     if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
-      dataChannel.send(message);
+      dataChannel.send({
+        message,
+        chatId: '1',
+      });
     }
   }
 }

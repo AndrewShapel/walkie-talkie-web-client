@@ -43,7 +43,7 @@ export default class Connection extends Structure {
 
     const peerKey = peers.findKey(currentPeer => currentPeer.getChatId() === chatId);
     if (peerKey >= 0) {
-      const updatedPeers = this.getPeers().set(peerKey, peer);
+      const updatedPeers = peers.set(peerKey, peer);
       return this.setPeers(updatedPeers);
     }
 
