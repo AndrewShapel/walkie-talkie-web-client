@@ -68,7 +68,7 @@ export default class ChatMessages extends React.PureComponent {
   }
 
   render() {
-    const { className, activeChat } = this.props;
+    const { className, activeChat, accountEmail } = this.props;
 
     const messages = (activeChat)
       ? activeChat.getMessages()
@@ -78,7 +78,7 @@ export default class ChatMessages extends React.PureComponent {
 
     return (
       <ul className={chatMessagesClassName}>
-        { ChatMessages.renderMessages(messages) }
+        { ChatMessages.renderMessages(messages, accountEmail) }
       </ul>
     );
   }
