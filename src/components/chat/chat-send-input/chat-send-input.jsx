@@ -82,6 +82,10 @@ class ChatSendInput extends React.PureComponent {
     if (onSelect) {
       onSelect(value);
     }
+
+    this.setState({
+      value: '',
+    });
   }
 
   /**
@@ -90,7 +94,7 @@ class ChatSendInput extends React.PureComponent {
   baseHeight = 0;
 
   render() {
-    const { rows } = this.state;
+    const { value, rows } = this.state;
     const { className } = this.props;
 
     const sendInputClassName = classnames(chatSendInputClassNames['chat-send-input'], className);
@@ -99,6 +103,7 @@ class ChatSendInput extends React.PureComponent {
       <div className={sendInputClassName}>
         <textarea
           rows={rows}
+          value={value}
           className={chatSendInputClassNames['chat-send-input__text-area']}
           placeholder="Type message..."
           type="text"

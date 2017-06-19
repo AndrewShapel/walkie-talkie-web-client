@@ -41,7 +41,7 @@ export default class ChatContent extends React.Component {
   sendMessage(value) {
     const { sendMessageAction } = this.props;
 
-    console.log(sendMessageAction, value);
+    sendMessageAction(value);
   }
 
   render() {
