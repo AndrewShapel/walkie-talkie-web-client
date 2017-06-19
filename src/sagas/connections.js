@@ -6,7 +6,7 @@ import webSocket from '../websocket/websocket';
 import RTC from '../utils/rtc';
 import Token from '../utils/token';
 
-import { CONNECTIONS_ACTION_TYPES } from '../constants/connections';
+import { CONNECTIONS_ACTION_TYPES, CONNECTIONS_READY_STATES } from '../constants/connections';
 
 import {
    OFFER_CHAT, JOIN_CHAT, JOIN_CHATS, SEND_MESSAGE, OPEN, CLOSE, SIGN_IN,
@@ -154,16 +154,19 @@ function handleCandidate(information, peer) {
  */
 function getDataChannel(peer) {
   return eventChannel((emit) => {
-    const onEvent = (event) => {
+    /* eslint-disable no-param-reassign */
+    peer.ondatachannel = (event) => {
       const channel = event.channel;
       if (channel) {
         emit(channel);
       }
     };
+    /* eslint-enable no-param-reassign */
 
-    peer.addEventListener('dataChannel', onEvent);
     return () => {
-      peer.removeEventListener('dataChannel', onEvent);
+      /* eslint-disable no-param-reassign */
+      peer.ondatachannel = null;
+      /* eslint-enable no-param-reassign */
     };
   });
 }
@@ -186,16 +189,19 @@ function* watchDataChannelEvents(chatId, peer) {
  */
 function getIceCandidate(peer) {
   return eventChannel((emit) => {
-    const onEvent = (event) => {
+    /* eslint-disable no-param-reassign */
+    peer.onicedandidate = (event) => {
       const candidate = event.candidate;
       if (candidate) {
         emit(candidate);
       }
     };
+    /* eslint-enable no-param-reassign */
 
-    peer.addEventListener('candidate', onEvent);
     return () => {
-      peer.removeEndEventListener('candidate', onEvent);
+      /* eslint-disable no-param-reassign */
+      peer.onicedandidate = null;
+      /* eslint-enable no-param-reassign */
     };
   });
 }
@@ -310,7 +316,7 @@ export function* fetchSendMessage(action) {
   const peer = Connections.getPeerByChatId('1');
   if (peer) {
     const dataChannel = peer.getDataChannel();
-    if (dataChannel) {
+    if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
       dataChannel.send(message);
     }
   }

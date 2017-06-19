@@ -12,3 +12,7 @@ export const CONNECTIONS_ACTION_TYPES = {
   ANSWER: 'ANSWER',
   CANDIDATE: 'CANDIDATE',
 };
+
+export const CONNECTIONS_READY_STATES = {
+  OPEN: 'open',
+};
