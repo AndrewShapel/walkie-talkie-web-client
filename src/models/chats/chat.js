@@ -102,7 +102,8 @@ export default class Chat extends Structure {
    * @returns {Object}
    */
   addMessage(message) {
-    return this.push('messages', message);
+    const updatedMessages = this.getMessages().push(message);
+    return this.setMessages(updatedMessages);
   }
 
   /**

@@ -22,7 +22,7 @@ function getMessage(dataChannel) {
   return eventChannel((emit) => {
     /* eslint-disable no-param-reassign */
     dataChannel.onmessage = (event) => {
-      const message = event;
+      const message = event.data;
       if (message) {
         emit(message);
       }
@@ -43,13 +43,15 @@ function getMessage(dataChannel) {
  * @returns {Object}
  */
 function* watchDataChannelMessages(chatId, dataChannel) {
-  console.log('tre');
   const dataChannelMessage = yield call(getMessage, dataChannel);
   while (dataChannelMessage) {
     const data = yield take(dataChannelMessage);
-    const { message, senderEmail } = data;
+    if (data) {
+      const parsedData = JSON.parse(data);
+      const { message, senderEmail } = parsedData;
 
-    yield put(addMessage(message, new Date(), senderEmail));
+      yield put(addMessage(chatId, message, new Date(), senderEmail));
+    }
   }
 }
 
@@ -93,7 +95,7 @@ export function* fetchOfferChat(action) {
     });
 
     yield put(setDataChannel(chatId, dataChannel));
-    yield fork(watchDataChannelMessages(chatId, dataChannel));
+    yield fork(watchDataChannelMessages, chatId, dataChannel);
   }
 }
 
@@ -360,10 +362,12 @@ export function* fetchSendMessage(action) {
   if (peer) {
     const dataChannel = peer.getDataChannel();
     if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
-      dataChannel.send({
+      const data = JSON.stringify({
         message,
         senderEmail: accountEmail,
       });
+
+      dataChannel.send(data);
     }
   }
 }
