@@ -47,8 +47,9 @@ function* watchDataChannelMessages(chatId, dataChannel) {
   const dataChannelMessage = yield call(getMessage, dataChannel);
   while (dataChannelMessage) {
     const data = yield take(dataChannelMessage);
-    console.log(data, chatId);
-    yield put(addMessage(data, new Date()));
+    const { message, senderEmail } = data;
+
+    yield put(addMessage(message, new Date(), senderEmail));
   }
 }
 
@@ -352,15 +353,16 @@ export function* fetchJoinChats() {
 
 export function* fetchSendMessage(action) {
   const { message } = action.payload;
-  const { Connections } = yield select();
+  const { Users, Connections } = yield select();
 
+  const accountEmail = Users.getAccount().getEmail();
   const peer = Connections.getPeerByChatId('1');
   if (peer) {
     const dataChannel = peer.getDataChannel();
     if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
       dataChannel.send({
         message,
-        chatId: '1',
+        senderEmail: accountEmail,
       });
     }
   }

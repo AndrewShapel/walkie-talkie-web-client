@@ -9,14 +9,14 @@ export default class ChatsFactory {
   /**
    * @param {String} body
    * @param {String} timestamp
-   * @param {Object} user
+   * @param {Object} senderEmail
    * @returns {Object}
    */
-  static createChatMessage(body, timestamp, user) {
+  static createChatMessage(body, timestamp, senderEmail) {
     return new ChatMessage({
       body,
       timestamp,
-      user,
+      senderEmail,
     });
   }
 

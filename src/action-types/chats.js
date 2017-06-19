@@ -1,15 +1,17 @@
 export const ADD_MESSAGE = 'chats:ADD_MESSAGE';
 /**
+ * @param {String} chatId
  * @param {String} body
  * @param {Object} timestamp
- * @param {Object} user
+ * @param {Object} senderEmail
  */
-export const addMessage = (body, timestamp, user) => ({
+export const addMessage = (chatId, body, timestamp, senderEmail) => ({
   type: ADD_MESSAGE,
   payload: {
+    chatId,
     body,
     timestamp,
-    user,
+    senderEmail,
   },
 });
 

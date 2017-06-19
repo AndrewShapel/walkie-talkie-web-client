@@ -14,7 +14,9 @@ export default function chats(state = initialState, action) {
     case ADD_MESSAGE:
       return state.updateChat(
         action.payload.chatId,
-        state.getChatById(action.payload.chatId).addMessage(action.payload.body, action.payload.timestamp),
+        state.getChatById(action.payload.chatId).addMessage(
+          ChatsFactory.createChatMessage(action.payload.body, action.payload.timestamp, action.payload.senderEmail),
+        ),
       );
     case SET_CHATS:
       return state.setChats(ChatsFactory.createChats(action.payload.chats));
