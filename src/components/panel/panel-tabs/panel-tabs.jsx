@@ -63,7 +63,6 @@ export default class PanelTabs extends React.PureComponent {
 
     const isFriendsTabActive = activeTab === TABS.FRIENDS;
     const isRequestsTabActive = activeTab === TABS.REQUESTS;
-    const isRoomsTabActive = activeTab === TABS.ROOMS;
 
     const tabsClassName = classnames(panelTabsClassNames['panel-tabs'], className);
 
@@ -79,12 +78,6 @@ export default class PanelTabs extends React.PureComponent {
           title="Requests"
           id={TABS.REQUESTS}
           isActive={isRequestsTabActive}
-          onClick={this.onActiveTabSelect}
-        />
-        <PanelTabsItem
-          title="Rooms"
-          id={TABS.ROOMS}
-          isActive={isRoomsTabActive}
           onClick={this.onActiveTabSelect}
         />
       </ul>
