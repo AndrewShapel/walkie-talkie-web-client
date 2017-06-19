@@ -20,6 +20,10 @@ export default class CallPopup extends React.PureComponent {
 
     const callPopupClassName = classnames(callPopupClassNames['call-popup'], className);
 
+    if (true) {
+      return null;
+    }
+
     return (
       <div className={callPopupClassName}>
         <span className={callPopupClassNames['call-popup__title']}>
