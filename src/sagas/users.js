@@ -84,7 +84,6 @@ export function* fetchAccount() {
 
   try {
     const { email, firstName, lastName } = responseData.data.me;
-    console.log(firstName, lastName);
 
     yield put(setAccount(email, firstName, lastName));
     yield put(setAccountPermission(USER_PERMISSION.BASIC));

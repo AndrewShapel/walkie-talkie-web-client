@@ -64,7 +64,6 @@ export function* fetchOfferChat(action) {
   const { Connections } = yield select();
 
   const token = Token.getToken();
-  const webSocketInstance = webSocket.getInstance();
 
   const peer = Connections.getPeerByChatId(chatId);
   if (peer) {
@@ -83,7 +82,7 @@ export function* fetchOfferChat(action) {
             token,
           });
 
-          webSocketInstance.send(data);
+          webSocket.send(data);
         } catch (exception) {
           logger.error(exception);
         }
@@ -124,20 +123,17 @@ export function fetchCandidate(action) {
   const { chatId, candidate } = action;
 
   const token = Token.getToken();
-  const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
-    try {
-      const data = JSON.stringify({
-        type: CONNECTIONS_ACTION_TYPES.CANDIDATE,
-        chatId,
-        ice: candidate,
-        token,
-      });
+  try {
+    const data = JSON.stringify({
+      type: CONNECTIONS_ACTION_TYPES.CANDIDATE,
+      chatId,
+      ice: candidate,
+      token,
+    });
 
-      webSocketInstance.send(data);
-    } catch (exception) {
-      logger.error(exception);
-    }
+    webSocket.send(data);
+  } catch (exception) {
+    logger.error(exception);
   }
 }
 
@@ -148,12 +144,10 @@ export function fetchCandidate(action) {
 function handleOffer(information, peer) {
   const { chatId, offer } = information;
 
-  const webSocketInstance = webSocket.getInstance();
-  if (peer && webSocketInstance) {
+  if (peer) {
     const token = Token.getToken();
 
     const SessionDescription = RTC.getSessionDescription();
-
     peer.setRemoteDescription(new SessionDescription(offer), () => {
       peer.createAnswer((answer) => {
         peer.setLocalDescription(answer, () => {
@@ -165,7 +159,7 @@ function handleOffer(information, peer) {
               token,
             });
 
-            webSocketInstance.send(data);
+            webSocket.send(data);
           } catch (exception) {
             logger.error(exception);
           }
@@ -335,19 +329,16 @@ function* watchSocketEvents() {
 export function fetchJoinChat(action) {
   const { chatId, token } = action.payload;
 
-  const webSocketInstance = webSocket.getInstance();
-  if (webSocketInstance) {
-    try {
-      const data = JSON.stringify({
-        type: CONNECTIONS_ACTION_TYPES.JOIN_CHAT,
-        chatId,
-        token,
-      });
+  try {
+    const data = JSON.stringify({
+      type: CONNECTIONS_ACTION_TYPES.JOIN_CHAT,
+      chatId,
+      token,
+    });
 
-      webSocketInstance.send(data);
-    } catch (exception) {
-      logger.error(exception);
-    }
+    webSocket.send(data);
+  } catch (exception) {
+    logger.error(exception);
   }
 }
 
@@ -470,24 +461,21 @@ export function* close() {
 export function* signIn(action) {
   const { friendsEmails } = action.payload;
 
-  const webSockerInstance = webSocket.getInstance();
-  if (webSockerInstance) {
-    const token = Token.getToken();
+  const token = Token.getToken();
 
-    try {
-      const data = JSON.stringify({
-        type: CONNECTIONS_ACTION_TYPES.SIGNIN,
-        token,
-        friends: friendsEmails,
-      });
+  try {
+    const data = JSON.stringify({
+      type: CONNECTIONS_ACTION_TYPES.SIGNIN,
+      token,
+      friends: friendsEmails,
+    });
 
-      webSockerInstance.send(data);
-    } catch (exception) {
-      logger.error(exception);
-    }
-
-    yield call(initialize);
+    webSocket.send(data);
+  } catch (exception) {
+    logger.error(exception);
   }
+
+  yield call(initialize);
 }
 
 /**

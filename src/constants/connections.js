@@ -13,6 +13,21 @@ export const CONNECTIONS_ACTION_TYPES = {
   CANDIDATE: 'CANDIDATE',
 };
 
+/**
+ * @const
+ * @type {Object}
+ */
+export const CONNECTIONS_WEB_SOCKET_STATES_CODES = {
+  CONNECTING: 0,
+  OPEN: 1,
+  CLOSING: 2,
+  CLOSED: 3,
+};
+
+/**
+ * @const
+ * @type {Object}
+ */
 export const CONNECTIONS_READY_STATES = {
   OPEN: 'open',
 };

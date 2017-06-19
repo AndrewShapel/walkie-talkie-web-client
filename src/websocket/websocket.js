@@ -1,3 +1,5 @@
+import { CONNECTIONS_WEB_SOCKET_STATES_CODES } from '../constants/connections';
+
 class WS {
 
   /**
@@ -26,6 +28,23 @@ class WS {
 
       this.instance = null;
     }
+  }
+
+  /**
+   * @type {Object} data
+   */
+  send(data) {
+    if (this.isReady()) {
+      this.getInstance().send(data);
+    }
+  }
+
+  /**
+   * @returns {Boolean}
+   */
+  isReady() {
+    const instance = this.getInstance();
+    return instance && instance.readyState === CONNECTIONS_WEB_SOCKET_STATES_CODES.OPEN;
   }
 }
 
