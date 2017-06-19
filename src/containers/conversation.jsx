@@ -13,6 +13,7 @@ import { open, signIn, offerChat } from '../action-types/connections';
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
 import Panel from '../components/panel/panel';
+import CallPopup from '../components/call/call-popup/call-popup';
 
 import chatClassNames from '../assets/css/containers/conversation/conversation.css';
 
@@ -132,6 +133,7 @@ export default class Conversation extends React.Component {
           className={chatClassNames.conversation__chat}
           isEmpty={!activeConversationId}
         />
+        <CallPopup />
       </Permit>
     );
   }

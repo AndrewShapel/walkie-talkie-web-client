@@ -37,13 +37,12 @@ export default class PanelTabs extends React.PureComponent {
   static propTypes = {
     className: React.PropTypes.string,
     activeTab: React.PropTypes.string,
-    setActiveTabAction: React.PropTypes.func,
+    setActiveTabAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
     className: '',
     activeTab: '',
-    setActiveTabAction: null,
   };
 
   /**
