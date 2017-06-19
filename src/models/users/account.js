@@ -14,12 +14,12 @@ const Structure = Object.assign(Record({
   /**
    * @type {String}
    */
-  firstName: 'Andrew',
+  firstName: '',
 
   /**
    * @type {String}
    */
-  lastName: 'Shapel',
+  lastName: '',
 
   /**
    * @type {String}

@@ -378,7 +378,6 @@ export function* fetchSendMessage(action) {
   const peer = Connections.getPeerByChatId('1');
   if (peer) {
     const dataChannel = peer.getDataChannel();
-    console.log(peer.toJS(), dataChannel);
     if (dataChannel && dataChannel.readyState === CONNECTIONS_READY_STATES.OPEN) {
       const data = JSON.stringify({
         message,

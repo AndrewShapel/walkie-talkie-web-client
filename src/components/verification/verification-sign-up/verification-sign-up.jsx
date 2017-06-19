@@ -67,8 +67,8 @@ export default class VerificationSignUp extends React.PureComponent {
   onValidSubmit(data) {
     const { signUpAction } = this.props;
 
-    const { email, password } = data;
-    signUpAction(email, '', '', password);
+    const { email, firstName, lastName, password } = data;
+    signUpAction(email, firstName, lastName, password);
 
     VerificationUtils.resetForm(this.form);
   }
