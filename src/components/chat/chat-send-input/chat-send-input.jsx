@@ -14,12 +14,14 @@ class ChatSendInput extends React.PureComponent {
     className: React.PropTypes.string,
     rows: React.PropTypes.number,
     minRows: React.PropTypes.number,
+    onSelect: React.PropTypes.func,
   };
 
   static defaultProps = {
     className: '',
     rows: 1,
     minRows: 1,
+    onSelect: null,
   };
 
   state = {
@@ -43,21 +45,42 @@ class ChatSendInput extends React.PureComponent {
     }
   }
 
+  /**
+   * @param {Object} event
+   */
   @autobind
-  onChange() {
+  onChange(event) {
     if (this.textArea) {
-      const rows = this.state.rows;
-      const minRows = this.props.minRows;
+      const { value, rows } = this.state;
+      const { minRows } = this.props;
+
+      const updatedState = Object.assign({}, this.state);
 
       const scrollHeight = this.textArea.scrollHeight;
       const recalculatedRows = Math.ceil((scrollHeight - this.baseHeight) / 17);
       const updatedRows = minRows + recalculatedRows;
 
+      const newValue = event.target.value;
+
       if (updatedRows !== rows) {
-        this.setState({
-          rows: updatedRows,
-        });
+        updatedState.rows = rows;
       }
+
+      if (newValue !== value) {
+        updatedState.value = newValue;
+      }
+
+      this.setState(updatedState);
+    }
+  }
+
+  @autobind
+  onClick() {
+    const { value } = this.state;
+    const { onSelect } = this.props;
+
+    if (onSelect) {
+      onSelect(value);
     }
   }
 
@@ -82,7 +105,11 @@ class ChatSendInput extends React.PureComponent {
           onChange={this.onChange}
           ref={(node) => { this.textArea = node; }}
         />
-        <Svg className={chatSendInputClassNames['chat-send-input__icon']} icon={ICONS.QUILL} />
+        <Svg
+          className={chatSendInputClassNames['chat-send-input__icon']}
+          icon={ICONS.QUILL}
+          onClick={this.onClick}
+        />
       </div>
     );
   }
