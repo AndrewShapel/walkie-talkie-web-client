@@ -35,7 +35,7 @@ export default class PanelFriendsItem extends React.PureComponent {
   }
 
   render() {
-    const { className, isActive } = this.props;
+    const { className, user, isActive } = this.props;
 
     const friendsItemClassName = classnames(panelFriendsItemClassNames['panel-friends-item'], {
       [panelFriendsItemClassNames['panel-friends-item_active']]: isActive,
@@ -43,7 +43,7 @@ export default class PanelFriendsItem extends React.PureComponent {
 
     return (
       <li className={friendsItemClassName} onClick={this.onClick}>
-        <PanelContentUser />
+        <PanelContentUser user={user} />
         <Badge count={3} isInvert={!isActive} />
       </li>
     );

@@ -5,29 +5,32 @@ import { BUTTON_TYPES } from '../../constants/form';
 
 import buttonClassNames from './button.css';
 
-const Button = ({ className, title, type, isDisable }) => {
-  const buttonClassName = classnames(buttonClassNames.button, {
-    [buttonClassNames.button_disabled]: isDisable,
-  }, className);
+export default class Button extends React.PureComponent {
 
-  return (
-    <button className={buttonClassName} type={type} disabled={isDisable}>
-      <span>{title}</span>
-    </button>
-  );
-};
+  static propTypes = {
+    className: React.PropTypes.string,
+    title: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string,
+    isDisable: React.PropTypes.bool,
+  };
 
-Button.defaultProps = {
-  className: '',
-  type: BUTTON_TYPES.button,
-  isDisable: false,
-};
+  static defaultProps = {
+    className: '',
+    type: BUTTON_TYPES.button,
+    isDisable: false,
+  };
 
-Button.propTypes = {
-  className: React.PropTypes.string,
-  title: React.PropTypes.string.isRequired,
-  type: React.PropTypes.string,
-  isDisable: React.PropTypes.bool,
-};
+  render() {
+    const { className, title, type, isDisable } = this.props;
 
-export default Button;
+    const buttonClassName = classnames(buttonClassNames.button, {
+      [buttonClassNames.button_disabled]: isDisable,
+    }, className);
+
+    return (
+      <button className={buttonClassName} type={type} disabled={isDisable}>
+        <span>{title}</span>
+      </button>
+    );
+  }
+}

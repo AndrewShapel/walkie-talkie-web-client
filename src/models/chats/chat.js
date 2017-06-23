@@ -22,6 +22,11 @@ const Structure = Record({
   /**
    * @type {Object}
    */
+  messages: List(),
+
+  /**
+   * @type {Object}
+   */
   owner: new User(),
 
   /**
@@ -75,6 +80,30 @@ export default class Chat extends Structure {
    */
   setTitle(title) {
     return this.set('title', title);
+  }
+
+  /**
+   * @returns {Object}
+   */
+  getMessages() {
+    return this.get('messages');
+  }
+
+  /**
+   * @param {Object} messages
+   * @returns {Object}
+   */
+  setMessages(messages) {
+    return this.set('messages', messages);
+  }
+
+  /**
+   * @param {Object} message
+   * @returns {Object}
+   */
+  addMessage(message) {
+    const updatedMessages = this.getMessages().push(message);
+    return this.setMessages(updatedMessages);
   }
 
   /**

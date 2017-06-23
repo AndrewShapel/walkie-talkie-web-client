@@ -8,19 +8,27 @@ import { USER_PERMISSION } from '../constants/user';
 
 import { setActiveId, resetActiveId } from '../action-types/conversations';
 import { getChats } from '../action-types/chats';
+import { open, signIn, offerChat } from '../action-types/connections';
 
 import Permit from '../components/permit/permit';
 import Chat from '../components/chat/chat';
 import Panel from '../components/panel/panel';
+import CallPopup from '../components/call/call-popup/call-popup';
 
 import chatClassNames from '../assets/css/containers/conversation/conversation.css';
 
 /**
  * @param {Object} Conversations
+ * @param {Object} Chats
+ * @param {Object} Friends
+ * @param {Object} Connection
  * @returns {Object}
  */
-const mapStateToProps = ({ Conversations }) => ({
+const mapStateToProps = ({ Conversations, Chats, Friends, Connections }) => ({
   activeConversationId: Conversations.getActiveId(),
+  chats: Chats.getChats(),
+  friends: Friends.getFriends(),
+  peers: Connections.getPeers(),
 });
 
 /**
@@ -32,6 +40,9 @@ const mapDispatchToProps = dispatch => (
     setActiveConversationIdAction: setActiveId,
     resetActiveConversationIdAction: resetActiveId,
     getChatsAction: getChats,
+    openConnectionsAction: open,
+    signInAction: signIn,
+    offerChatAction: offerChat,
   }, dispatch)
 );
 
@@ -42,9 +53,14 @@ export default class Conversation extends React.Component {
     match: React.PropTypes.object,
     history: React.PropTypes.object,
     activeConversationId: React.PropTypes.string.isRequired,
+    friends: React.PropTypes.object.isRequired,
+    peers: React.PropTypes.object.isRequired,
     setActiveConversationIdAction: React.PropTypes.func.isRequired,
     resetActiveConversationIdAction: React.PropTypes.func.isRequired,
     getChatsAction: React.PropTypes.func.isRequired,
+    openConnectionsAction: React.PropTypes.func.isRequired,
+    signInAction: React.PropTypes.func.isRequired,
+    offerChatAction: React.PropTypes.func.isRequired,
   };
 
   static defaultProps = {
@@ -53,7 +69,14 @@ export default class Conversation extends React.Component {
   };
 
   componentWillMount() {
-    const { match, activeConversationId, setActiveConversationIdAction, resetActiveConversationIdAction, getChatsAction } = this.props;
+    const {
+      match,
+      activeConversationId,
+      setActiveConversationIdAction,
+      resetActiveConversationIdAction,
+      getChatsAction,
+      openConnectionsAction,
+    } = this.props;
 
     if (match) {
       const conversationId = match.params.id;
@@ -65,13 +88,16 @@ export default class Conversation extends React.Component {
     }
 
     getChatsAction();
+    openConnectionsAction();
   }
 
   componentWillUpdate(nextProps) {
-    const { match, activeConversationId, setActiveConversationIdAction } = this.props;
+    const { match, activeConversationId, friends, peers, setActiveConversationIdAction, signInAction, offerChatAction } = this.props;
 
     const nextMatch = nextProps.match;
+    const nextFriends = nextProps.friends;
     const nextActiveConversationId = nextProps.activeConversationId;
+    const nextPeers = nextProps.peers;
 
     if (match && nextMatch) {
       const conversationId = match.params.id;
@@ -82,8 +108,13 @@ export default class Conversation extends React.Component {
       }
     }
 
-    if (activeConversationId !== nextActiveConversationId) {
-      // getChatsAction();
+    if (nextFriends.size > friends.size && !friends.size) {
+      const friendsEmails = nextFriends.map(friend => friend.getEmail()).toArray();
+      signInAction(friendsEmails);
+    }
+
+    if (nextActiveConversationId !== activeConversationId && peers && nextPeers.size > 0) {
+      offerChatAction(nextActiveConversationId);
     }
   }
 
@@ -102,6 +133,7 @@ export default class Conversation extends React.Component {
           className={chatClassNames.conversation__chat}
           isEmpty={!activeConversationId}
         />
+        <CallPopup />
       </Permit>
     );
   }

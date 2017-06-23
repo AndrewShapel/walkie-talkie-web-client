@@ -49,12 +49,16 @@ export const getAccount = () => ({
 export const SET_ACCOUNT = 'users:SET_ACCOUNT';
 /**
  * @param {String} email
+ * @param {String} firstName
+ * @param {String} lastName
  * @returns {Object}
  */
-export const setAccount = email => ({
+export const setAccount = (email, firstName, lastName) => ({
   type: SET_ACCOUNT,
   payload: {
     email,
+    firstName,
+    lastName,
   },
 });
 

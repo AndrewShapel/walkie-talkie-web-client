@@ -5,5 +5,4 @@
 export const TABS = {
   FRIENDS: 'FRIENDS',
   REQUESTS: 'REQUESTS',
-  ROOMS: 'ROOMS',
 };

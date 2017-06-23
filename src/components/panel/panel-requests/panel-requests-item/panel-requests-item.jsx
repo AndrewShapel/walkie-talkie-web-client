@@ -2,8 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import autobind from 'autobind-decorator';
 
-import User from '../../../../models/users/user';
-
 import { ICONS } from '../../../../constants/icons';
 
 import Svg from '../../../svg/svg';
@@ -13,19 +11,19 @@ import panelRequestsClassNames from './panel-requests-item.css';
 
 export default class PanelRequestsItem extends React.PureComponent {
 
-  static propTypes = {
+  static propTypes = Object.assign({}, PanelContentUser.propTypes, {
     className: React.PropTypes.string,
-    user: React.PropTypes.instanceOf(User),
     onDecline: React.PropTypes.func,
     onAccept: React.PropTypes.func,
-  };
+    isDisabled: React.PropTypes.bool,
+  });
 
-  static defaultProps = {
+  static defaultProps = Object.assign({}, PanelContentUser.defaultProps, {
     className: '',
-    user: new User(),
     onDecline: null,
     onAccept: null,
-  };
+    isDisabled: false,
+  });
 
   @autobind
   onDecline() {
@@ -45,28 +43,41 @@ export default class PanelRequestsItem extends React.PureComponent {
     }
   }
 
-  render() {
-    const { className } = this.props;
-
+  /**
+   * @returns {Object}
+   */
+  renderIcons() {
     const iconClassName = panelRequestsClassNames['panel-requests-item__icon'];
     const iconBlockedClassName = classnames(iconClassName, panelRequestsClassNames['panel-requests-item__icon_block']);
     const iconAcceptClassName = classnames(iconClassName, panelRequestsClassNames['panel-requests-item__icon_accept']);
 
     return (
+      <div className={panelRequestsClassNames['panel-requests-item__icons']}>
+        <Svg
+          className={iconBlockedClassName}
+          icon={ICONS.BLOCKED}
+          onClick={this.onDecline}
+        />
+        <Svg
+          className={iconAcceptClassName}
+          icon={ICONS.USER_CHECK}
+          onClick={this.onAccept}
+        />
+      </div>
+    );
+  }
+
+  render() {
+    const { className, user, isDisabled } = this.props;
+
+    const icons = (!isDisabled)
+      ? this.renderIcons()
+      : null;
+
+    return (
       <li className={className}>
-        <PanelContentUser />
-        <div className={panelRequestsClassNames['panel-requests-item__icons']}>
-          <Svg
-            className={iconBlockedClassName}
-            icon={ICONS.BLOCKED}
-            onClick={this.onDecline}
-          />
-          <Svg
-            className={iconAcceptClassName}
-            icon={ICONS.USER_CHECK}
-            onClick={this.onAccept}
-          />
-        </div>
+        <PanelContentUser user={user} isShort />
+        {icons}
       </li>
     );
   }

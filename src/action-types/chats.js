@@ -1,3 +1,20 @@
+export const ADD_MESSAGE = 'chats:ADD_MESSAGE';
+/**
+ * @param {String} chatId
+ * @param {String} body
+ * @param {Object} timestamp
+ * @param {Object} senderEmail
+ */
+export const addMessage = (chatId, body, timestamp, senderEmail) => ({
+  type: ADD_MESSAGE,
+  payload: {
+    chatId,
+    body,
+    timestamp,
+    senderEmail,
+  },
+});
+
 export const GET_CHATS = 'chats:GET_CHATS';
 /**
  * @returns {Object}

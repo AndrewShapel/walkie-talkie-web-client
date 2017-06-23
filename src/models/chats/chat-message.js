@@ -1,7 +1,5 @@
 import { Record } from 'immutable';
 
-import User from '../../models/users/user';
-
 const Structure = Record({
 
   /**
@@ -15,9 +13,9 @@ const Structure = Record({
   timestamp: '',
 
   /**
-   * @type {Object}
+   * @type {String}
    */
-  user: new User(),
+  senderEmail: '',
 });
 
 export default class ChatMessages extends Structure {
@@ -53,17 +51,17 @@ export default class ChatMessages extends Structure {
   }
 
   /**
-   * @returns {Object}
+   * @returns {String}
    */
-  getUser() {
-    return this.get('user');
+  getSenderEmail() {
+    return this.get('senderEmail');
   }
 
   /**
-   * @param {Object} user
+   * @param {String} senderEmail
    * @returns {Object}
    */
-  setUser(user) {
-    return this.set('user', user);
+  setSenderEmail(senderEmail) {
+    return this.set('senderEmail', senderEmail);
   }
 }

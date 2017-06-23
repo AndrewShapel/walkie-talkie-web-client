@@ -1,5 +1,7 @@
 import { List } from 'immutable';
 
+import { USER_PERMISSION } from '../../constants/user';
+
 import User from './user';
 import Account from './account';
 
@@ -7,11 +9,16 @@ export default class UsersFactory {
 
   /**
    * @param {String} email
+   * @param {String} firstName
+   * @param {String} lastName,
    * @returns {Account}
    */
-  static createAccount(email) {
+  static createAccount(email, firstName, lastName) {
     return new Account({
       email,
+      firstName,
+      lastName,
+      permission: USER_PERMISSION.BASIC,
     });
   }
 

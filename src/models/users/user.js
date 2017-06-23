@@ -1,5 +1,7 @@
 import { Record } from 'immutable';
 
+import { USER_STATUS } from '../../constants/user';
+
 const Structure = Record({
 
   /**
@@ -25,7 +27,7 @@ const Structure = Record({
   /**
    * @type {String}
    */
-  status: '',
+  status: USER_STATUS.OFFLINE,
 });
 
 export default class User extends Structure {
@@ -73,6 +75,13 @@ export default class User extends Structure {
    */
   setLastName(lastName) {
     return this.set('lastName', lastName);
+  }
+
+  /**
+   * @returns {String}
+   */
+  getFullName() {
+    return `${this.getFirstName()} ${this.getLastName()}`;
   }
 
   /**
