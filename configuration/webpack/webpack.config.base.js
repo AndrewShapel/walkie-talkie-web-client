@@ -12,6 +12,7 @@ module.exports = {
   output: {
     filename: '[name].js',
     path: buildPath,
+    publicPath: '/',
   },
   module: {
     rules: [
@@ -24,9 +25,7 @@ module.exports = {
       {
         test: /\.js[x]?$/,
         exclude: /node_modules/,
-        use: [
-          'babel-loader',
-        ],
+        loader: 'babel-loader',
       },
       {
         test: /\.css$/,
@@ -40,16 +39,30 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              plugins: () => {
-                return [
-                  require('postcss-import')(),
-                  require('postcss-url')(),
-                  require('postcss-cssnext')(),
-                  require('postcss-reporter')(),
-                ];
-              },
+              plugins: () => [
+                require('postcss-import')(),
+                require('postcss-url')(),
+                require('postcss-cssnext')(),
+                require('postcss-reporter')(),
+              ],
             },
           }],
+      },
+      {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-inline-loader',
+          },
+        ],
+      },
+      {
+        test: /\.gql$/,
+        use: [
+          {
+            loader: 'raw-loader',
+          },
+        ],
       },
     ],
   },
@@ -75,6 +88,8 @@ module.exports = {
       },
       __DEV__: process.env.NODE_ENV === 'development',
       __PROD__: process.env.NODE_ENV === 'production',
+      __ENDPOINT__: JSON.stringify(process.env.ENDPOINT || '/api'),
+      __SIGNAL__: JSON.stringify(process.env.SIGNAL || '/signal'),
     }),
     new webpack.NamedModulesPlugin(),
   ],

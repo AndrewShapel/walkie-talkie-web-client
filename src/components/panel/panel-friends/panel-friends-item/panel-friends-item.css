@@ -1,0 +1,17 @@
+@import "../../../../assets/css/variables.css";
+
+.panel-friends-item {
+  &_active {
+    background-color: var(--color-dark-purple);
+  }
+
+  &__user {
+    &-name {
+      color: var(--color-white);
+    }
+
+    &-status {
+      background-color: var(--color-purple);
+    }
+  }
+}

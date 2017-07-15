@@ -1,0 +1,7 @@
+@import "../../assets/css/variables.css";
+@import "../../assets/css/animations.css";
+
+.spinner {
+  fill: var(--color-purple);
+  animation: rotate 2s linear infinite;
+}

@@ -1,0 +1,26 @@
+@import "../../../../assets/css/variables.css";
+
+.panel-requests-item {
+  &__icons {
+    align-items: center;
+    display: flex;
+  }
+
+  &__icon {
+    width: 20px;
+    height: 20px;
+
+    &:hover {
+      fill: var(--color-dark-purple);
+    }
+
+    &_block {
+      margin-right: 8px;
+      fill: var(--color-red);
+    }
+
+    &_accept {
+      fill: var(--color-green);
+    }
+  }
+}

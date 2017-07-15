@@ -1,6 +1,6 @@
 :root {
   --breakpoint-phone: 320px;
-  --breakpoint-phone-large:480px;
+  --breakpoint-phone-large: 480px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 992px;
   --breakpoint-desktop-large: 1200px;

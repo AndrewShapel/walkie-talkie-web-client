@@ -1,0 +1,7 @@
+.dropdown-settings {
+  margin: 15px 8px 0 0;
+
+  &__content {
+    padding: 20px;
+  }
+}

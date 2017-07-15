@@ -1,0 +1,11 @@
+query getFriendRequests {
+  me {
+    email
+    friendRequests {
+      from {
+        ...userFields
+      }
+      status
+    }
+  }
+}

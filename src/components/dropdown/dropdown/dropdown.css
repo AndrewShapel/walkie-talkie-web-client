@@ -1,0 +1,44 @@
+@import "../../../assets/css/variables.css";
+@import "../../../assets/css/mixins.css";
+
+.dropdown {
+  position: relative;
+
+  &_stick-to-bottom {
+    bottom: 100%;
+    background-color: #141414;
+  }
+
+  &__items {
+    top: 100%;
+    right: 50%;
+    border-radius: 2px;
+    background-color: var(--color-white);
+    box-shadow: 0 0 2px var(--color-gray);
+    position: absolute;
+    transform: translate(50%, 0);
+
+    &:after {
+      @apply --mixin-triangle;
+
+      border-bottom: 5px solid var(--color-white);
+    }
+
+    &_stick-to-bottom {
+      top: auto;
+      bottom: 100%;
+
+      &:before {
+        @apply --mixin-triangle;
+
+        top: 100%;
+        margin-top: 2px;
+        border-top: 5px solid var(--color-white);
+      }
+
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

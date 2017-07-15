@@ -1,0 +1,23 @@
+@import "../../../assets/css/variables.css";
+
+.dropdown-search-user {
+  display: flex;
+
+  &__items {
+    align-items: center;
+    display: flex;
+  }
+
+  &__item {
+    padding: 10px 14px;
+  }
+
+  &__search-input {
+    width: 100%;
+    color: var(--color-light-pink);
+
+    &-container {
+      margin: 20px 15px;
+    }
+  }
+}

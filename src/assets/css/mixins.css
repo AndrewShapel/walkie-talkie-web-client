@@ -1,0 +1,18 @@
+:root {
+  --mixin-text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  --mixin-triangle {
+    bottom: 100%;
+    left: 50%;
+    border-right: 5px solid transparent;
+    border-left: 5px solid transparent;
+    display: block;
+    position: absolute;
+    content: "";
+    transform: translate(-50%, -50%);
+  }
+}

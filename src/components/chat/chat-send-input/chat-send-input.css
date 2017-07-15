@@ -1,0 +1,25 @@
+@import "../../../assets/css/variables.css";
+
+.chat-send-input {
+  padding: 12px 13px 10px 12px;
+  border-radius: 18px;
+  display: flex;
+  background-color: var(--color-light-gray);
+
+  &__text-area {
+    width: 100%;
+    max-height: 160px;
+    font-size: 13px;
+    border: 0;
+    background-color: var(--color-light-gray);
+    resize: none;
+  }
+
+  &__icon {
+    margin-left: 5px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill: var(--color-light-pink);
+  }
+}

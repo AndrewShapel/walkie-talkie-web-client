@@ -1,0 +1,11 @@
+.chat-messages {
+  list-style-type: none;
+
+  &__message {
+    margin-top: 15px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+}

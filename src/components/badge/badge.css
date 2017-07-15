@@ -1,0 +1,14 @@
+@import "../../assets/css/variables.css";
+
+.badge {
+  max-height: 17px;
+  padding: 3px 8px;
+  font-size: 14px;
+  color: var(--color-white);
+  border-radius: 12px;
+  background-color: var(--color-purple);
+
+  &_invert {
+    background-color: var(--color-dark-purple);
+  }
+}
