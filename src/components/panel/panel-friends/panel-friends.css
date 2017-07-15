@@ -1,0 +1,6 @@
+.panel-friends {
+  &__friends {
+    max-height: 100%;
+    overflow-y: auto;
+  }
+}

@@ -1,0 +1,47 @@
+@import "../../../../assets/css/variables.css";
+
+.chat-message {
+  display: flex;
+
+  &_right-direction {
+    flex-direction: row-reverse;
+  }
+
+  &__container {
+    padding-left: 12px;
+    flex-direction: column;
+    display: flex;
+
+    &_right-direction {
+      padding: 0 12px 0 0;
+    }
+  }
+
+  &__time {
+    font-size: 13px;
+    color: var(--color-light-pink);
+    display: flex;
+
+    &_right-direction {
+      justify-content: flex-end;
+    }
+  }
+
+  &__content {
+    margin-top: 4px;
+    padding: 12px;
+    font-size: 13px;
+    color: var(--color-white);
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: var(--color-middle-pink);
+
+    &_right-direction {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 10px;
+      border-bottom-left-radius: 10px;
+    }
+  }
+}

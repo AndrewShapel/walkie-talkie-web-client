@@ -1,0 +1,20 @@
+@import "../../../../assets/css/variables.css";
+
+.call-action {
+  margin-right: 8px;
+  cursor: pointer;
+  border-radius: 20px;
+  background-color: var(--color-purple);
+
+  &:hover {
+    background-color: var(--color-dark-purple);
+    transition: background-color 0.1s linear;
+  }
+
+  &__icon {
+    width: 18px;
+    height: 18px;
+    margin: 11px;
+    fill: var(--color-white);
+  }
+}

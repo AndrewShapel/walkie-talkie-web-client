@@ -1,11 +1,26 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
-import sagaMiddleware from 'redux-saga';
+
+import { routerReducer, routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
+
 import * as reducers from '../reducers';
+import sagas from '../sagas';
 
 class Store {
-  constructor(initialState = {}) {
-    const globalReducer = combineReducers(reducers);
-    const middleware = [sagaMiddleware()];
+
+  /**
+   * @param {Object} history
+   * @param {Object} initialState
+   */
+  constructor(history, initialState = {}) {
+    const globalReducer = combineReducers({
+      ...reducers,
+      router: routerReducer,
+    });
+
+    const sagaMiddleware = createSagaMiddleware();
+    const reactRouterReduxMiddleware = routerMiddleware(history);
+    const middleware = [sagaMiddleware, reactRouterReduxMiddleware];
 
     /* eslint-disable no-underscore-dangle, no-undef */
     const reduxDevToolsExtensions = window ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ : window;
@@ -21,6 +36,7 @@ class Store {
      */
     this.store = store;
 
+    sagaMiddleware.run(sagas);
     this.runHotModuleReplacement(store);
   }
 
@@ -53,7 +69,7 @@ class Store {
 
   /**
    * @param {Function} listener
-   * @return {Function|Null}
+   * @returns {Function|Null}
    */
   subscribe(listener) {
     if (this.store) {

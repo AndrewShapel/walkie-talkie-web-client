@@ -1,0 +1,5 @@
+@import "../../../assets/css/variables.css";
+
+.panel-tabs {
+  list-style-type: none;
+}
